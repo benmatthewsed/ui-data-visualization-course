@@ -1,4 +1,4 @@
-UI Data Visualization with ggplot2 plan
+UI Data Visualization with `ggplot2` plan
 ================
 Ben Matthews
 2019-11-15
@@ -31,13 +31,13 @@ Ben Matthews
 
 ## Course texts
 
-\_This is
+*This is more about the how to do I think*
 
 Data Visualization: A practical introduction - Kieran Healy
 <https://socviz.co/>
 
-Fundamentals of Data Visualization- Claus O. Wilke
-<https://serialmentor.com/dataviz/>
+*And this about the what to do* Fundamentals of Data Visualization-
+Claus O. Wilke <https://serialmentor.com/dataviz/>
 
 R for Data Science (Chapter 3) - Hadley Wickham and Garret Grolemund
 <https://r4ds.had.co.nz/data-visualisation.html>

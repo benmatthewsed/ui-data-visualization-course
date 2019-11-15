@@ -1,5 +1,5 @@
 ---
-title: "UI Data Visualization with ggplot2 plan"
+title: "UI Data Visualization with `ggplot2` plan"
 author: "Ben Matthews"
 date: "`r Sys.Date()`"
 output: github_document
@@ -34,10 +34,12 @@ output: github_document
 
 ## Course texts
 
-_This is 
+_This is more about the how to do I think_
 
 Data Visualization: A practical introduction - Kieran Healy https://socviz.co/
 
+
+_And this about the what to do_
 Fundamentals of Data Visualization- Claus O. Wilke https://serialmentor.com/dataviz/
 
 R for Data Science (Chapter 3) - Hadley Wickham and Garret Grolemund https://r4ds.had.co.nz/data-visualisation.html
