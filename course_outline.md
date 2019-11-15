@@ -1,4 +1,5 @@
-UI Data Visualization with `ggplot2` plan
+Understanding Inequalities Data Visualization with `ggplot2` Course
+Outline
 ================
 Ben Matthews
 2019-11-15

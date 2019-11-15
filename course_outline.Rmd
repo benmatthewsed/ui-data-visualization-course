@@ -1,5 +1,5 @@
 ---
-title: "UI Data Visualization with `ggplot2` plan"
+title: "Understanding Inequalities Data Visualization with `ggplot2` Course Outline"
 author: "Ben Matthews"
 date: "`r Sys.Date()`"
 output: github_document
