@@ -67,20 +67,21 @@ programming language.
 
 ## Course texts
 
-*This is more about the how to do I think*
-
-Data Visualization: A practical introduction - Kieran Healy
-<https://socviz.co/>
-
-*And this about the what to do* Fundamentals of Data Visualization-
-Claus O. Wilke <https://serialmentor.com/dataviz/>
-
-R for Data Science (Chapter 3) - Hadley Wickham and Garret Grolemund
-<https://r4ds.had.co.nz/data-visualisation.html>
+  - Data Visualization: A practical introduction - Kieran Healy
+    <https://socviz.co/> *This is more about the how to do I think*
+  - Fundamentals of Data Visualization- Claus O. Wilke
+    <https://serialmentor.com/dataviz/> *And this about the what to do*
+  - R for Data Science (Chapter 3) - Hadley Wickham and Garret Grolemund
+    <https://r4ds.had.co.nz/data-visualisation.html>
 
 ### Other texts
 
-Geocomputation with R- Robin Lovelace, Jakub Nowosad, Jannes Muenchow
-<https://geocompr.robinlovelace.net/>
+  - Geocomputation with R - Robin Lovelace, Jakub Nowosad, Jannes
+    Muenchow <https://geocompr.robinlovelace.net/>
+  - Maps maps maps - Danielle Navarro <https://djnavarro.net/post/maps/>
 
-Maps maps maps - Danielle Navarro <https://djnavarro.net/post/maps/>
+### Just for fun
+
+  - See It with Figures - John Levi Martin (Review of Data
+    Visualization: A Practical Introduction)
+    <https://journals.sagepub.com/doi/full/10.1177/0094306119880195>
