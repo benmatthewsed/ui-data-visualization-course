@@ -2,7 +2,7 @@ Understanding Inequalities Data Visualization with `ggplot2` Course
 Outline
 ================
 Ben Matthews
-2019-11-15
+2020-02-03
 
 ## Outline
 
@@ -80,6 +80,11 @@ programming language.
   - Geocomputation with R - Robin Lovelace, Jakub Nowosad, Jannes
     Muenchow <https://geocompr.robinlovelace.net/>
   - Maps maps maps - Danielle Navarro <https://djnavarro.net/post/maps/>
+  - Spruce up your ggplot2 visualizations with formatted text - Claus
+    Wilke
+    <https://www.slideshare.net/ClausWilke/spruce-up-your-ggplot2-visualizations-with-formatted-text>
+  - The Glamour of Graphics - Will Chase
+    <https://www.williamrchase.com/slides/assets/player/KeynoteDHTMLPlayer.html#0>
 
 ### Just for fun
 
