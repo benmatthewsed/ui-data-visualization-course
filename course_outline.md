@@ -2,7 +2,7 @@ Understanding Inequalities Data Visualization with `ggplot2` Course
 Outline
 ================
 Ben Matthews
-2020-02-03
+2020-06-01
 
 ## Outline
 
@@ -45,52 +45,56 @@ programming language.
 ### Session One
 
 #### Part one (60 mins)
-1. Welcome/course plan/house rules/ set-up (10 mins)
-2. Why ggplot2? (10 mins)
-3. R basics - what's in my dataframe? (10 mins)
-4. Basics: ggplot(), geom_<x>, aes() (30 mins)
+
+1.  Welcome/course plan/house rules/ set-up (10 mins)
+2.  Why ggplot2? (10 mins)
+3.  R basics - what’s in my dataframe? (10 mins)
+4.  Basics: ggplot(), geom\_<x>, aes() (30 mins)
 
 #### Break (5 mins)
 
 #### Part two (55 mins)
-5. Concepts of the grammar of graphics (15 mins)
-6. Facets (20 mins)
-7. Smooths, transforms, density (20 mins)
+
+5.  Concepts of the grammar of graphics (15 mins)
+6.  Facets (20 mins)
+7.  Smooths, transforms, density (20 mins)
 
 #### Break (5 mins)
 
 #### Part three (55 mins)
-8. Good dataviz practice (15 mins)
-9. gg-gotchas (20 mins)
-    i. types of geom, types of data:
-         a. only one observation per group: categorical x-var, set group aes
-         b. colour scales and continuous, factor variables
-    ii. pains in the aes()
-         a. settings inside/outside aes() - example of colour
-         b. setting aes() in ggplot call rather than geom call
-    iii. mapping data to variables: multiple joined lines together
-    iv. (maybe) error when + starts new line
-    v. problems with transformations
-         a. stat count with y aesthetic
-         b. geom_density with small numbers
 
+8.  Good dataviz practice (15 mins)
+9.  gg-gotchas (20 mins)
+    1.  types of geom, types of data:
+        1.  only one observation per group: categorical x-var, set group
+            aes
+        2.  colour scales and continuous, factor variables
+    2.  pains in the aes()
+        1.  settings inside/outside aes() - example of colour
+        2.  setting aes() in ggplot call rather than geom call
+    3.  mapping data to variables: multiple joined lines together
+    4.  (maybe) error when + starts new line
+    5.  problems with transformations
+        1.  stat count with y aesthetic
+        2.  geom\_density with small numbers
 10. Recap (10 mins)
 11. Trail next session (10 mins)
-     i. Optional homework - Tidy Tuesday
+    1.  Optional homework - Tidy Tuesday
 
 ### Session Two
 
 #### Part one (45 mins)
+
 12. Welcome/course plan/house rules/ set-up (10 mins)
 13. Questions since last course (5 mins)
 14. Recap of last session (10 mins)
 15. Principles of mapping (15 mins)
-16. Intro to {sf} and what's in my spatial dataframe? (10 mins)
-
+16. Intro to {sf} and what’s in my spatial dataframe? (10 mins)
 
 #### Break (5 mins)
 
 #### Part two (70 mins)
+
 17. Maps and coordinate systems (30 mins)
 18. Setting coordinate limits (10 mins)
 19. Colours/scales/viridis (15 mins)
@@ -99,11 +103,12 @@ programming language.
 #### Break (5 mins)
 
 #### Part three (60 mins)
+
 21. Themes / publication ready plots (15 mins)
-    i. theme_minimal() etc.
-    ii. labels
-    iii. legends
-    iv. ggsave (with type = "cairo")
+    1.  theme\_minimal() etc.
+    2.  labels
+    3.  legends
+    4.  ggsave (with type = “cairo”)
 22. Bad plot contest (20 mins)
 23. Resources to go further (10 mins)
 
@@ -115,6 +120,9 @@ programming language.
     <https://serialmentor.com/dataviz/> *And this about the what to do*
   - R for Data Science (Chapter 3) - Hadley Wickham and Garret Grolemund
     <https://r4ds.had.co.nz/data-visualisation.html>
+  - Data visualisation with `ggplot2` YouTube playlist - Danielle
+    Navarro
+    <https://www.youtube.com/playlist?list=PLRPB0ZzEYegPa4uvvAVJnr6loSKbN4wLb>
 
 ### Other texts
 
