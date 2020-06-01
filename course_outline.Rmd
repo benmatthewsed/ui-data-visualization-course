@@ -30,30 +30,71 @@ Participants should have basic familiarity with the `R` statistical programming 
 
 ## Program
 
-### Session One: Principles of data visualization
+### Session One
 
-09:00-10:00
+#### Part one (60 mins)
+1. Welcome/course plan/house rules/ set-up (10 mins)
+2. Why ggplot2? (10 mins)
+3. R basics - what's in my dataframe? (10 mins)
+4. Basics: ggplot(), geom_<x>, aes() (30 mins)
 
-### Session Two: Introduction to `ggplot2`
+#### Break (5 mins)
 
-10:00-11:00 lecture
-11:00-12:30 practical
+#### Part two (55 mins)
+5. Concepts of the grammar of graphics (15 mins)
+6. Facets (20 mins)
+7. Smooths, transforms, density (20 mins)
 
-### Lunch
+#### Break (5 mins)
 
-12:30-13:30
+#### Part three (55 mins)
+8. Good dataviz practice (15 mins)
+9. gg-gotchas (20 mins)
+    i. types of geom, types of data:
+         a. only one observation per group: categorical x-var, set group aes
+         b. colour scales and continuous, factor variables
+    ii. pains in the aes()
+         a. settings inside/outside aes() - example of colour
+         b. setting aes() in ggplot call rather than geom call
+    iii. mapping data to variables: multiple joined lines together
+    iv. (maybe) error when + starts new line
+    v. problems with transformations
+         a. stat count with y aesthetic
+         b. geom_density with small numbers
 
-### Session Three: Introduction to mapping
+10. Recap (10 mins)
+11. Trail next session (10 mins)
+     i. Optional homework - Tidy Tuesday
 
-13:30-14:00
+### Session Two
 
-### Session Four: Maps practical
+#### Part one (45 mins)
+12. Welcome/course plan/house rules/ set-up (10 mins)
+13. Questions since last course (5 mins)
+14. Recap of last session (10 mins)
+15. Principles of mapping (15 mins)
+16. Intro to {sf} and what's in my spatial dataframe? (10 mins)
 
-14:00-16:30
 
-### Session Five: Review (and advanced ggplot)
+#### Break (5 mins)
 
-16:30-17:00
+#### Part two (70 mins)
+17. Maps and coordinate systems (30 mins)
+18. Setting coordinate limits (10 mins)
+19. Colours/scales/viridis (15 mins)
+20. Annotations / labels (15 mins)
+
+#### Break (5 mins)
+
+#### Part three (60 mins)
+21. Themes / publication ready plots (15 mins)
+    i. theme_minimal() etc.
+    ii. labels
+    iii. legends
+    iv. ggsave (with type = "cairo")
+22. Bad plot contest (20 mins)
+23. Resources to go further (10 mins)
+
 
 ## Course texts
 
