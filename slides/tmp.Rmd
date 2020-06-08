@@ -1,0 +1,44 @@
+---
+title: "Why Data Visualization Matters"
+author: "Ben Matthews"
+date: "17/01/2020"
+output: powerpoint_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Data Visualization
+
+- Surprises
+- Summaries
+- See further
+- Exploratory Data Analysis (EDA): variation and covariation
+- Understanding statistical models: project models onto data space, understand interaction terms
+
+## Surprises
+  
+
+```{r}
+library(tidyverse)
+anscombe_tidy <- 
+datasets::anscombe %>% 
+    mutate(observation = seq_len(n())) %>%
+    gather(key, value, -observation) %>%
+    separate(key, c("variable", "set"), 1, convert = TRUE) %>%
+    mutate(set = c("I", "II", "III", "IV")[set]) %>%
+    spread(variable, value)
+
+ggplot(anscombe_tidy, aes(x, y)) +
+    geom_point() +
+    facet_wrap(~ set) +
+    geom_smooth(method = "lm", se = FALSE)
+
+```
+
+
+
+***
+
+!["Datasaurus"](`r here::here("figures", "datasaurus.gif")`)

@@ -1,0 +1,18 @@
+---
+title: "Why `ggplot2`"
+author: "Ben Matthews"
+date: "02/06/2020"
+output: 
+  xaringan::moon_reader:
+    css: [default, hygge]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Why `ggplot2`
+
+- _Perception_: using `ggplot2` will help you understand how data visualization works, how to figure out what you want your plots to look like and describe this to the computer.
+- _Powerful and popular_. You can make pretty much any type of graph you want. Large community working on extending `ggplot` for specific use cases. Use in production by BBC, NY Times, FT, 538...
+- Make _publication_ (or Twitter) quality graphs. Used by range of people to communicate with different audiences - help *you* to communicate with different audiences.

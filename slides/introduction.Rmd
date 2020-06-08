@@ -1,0 +1,53 @@
+---
+title: "Introduction to data visualisation with `ggplot2`"
+author: "Ben Matthews"
+date: "05/06/2020"
+output: 
+  xaringan::moon_reader:
+    css: [default, hygge]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+# Welcome!
+
+- What we're going to cover
+
+- Course outline: https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/course_outline.md
+
+- Who we are
+
+- Code of conduct
+
+---
+class: center, middle
+# Slide with centered content in the middle
+
+Text goes here `r emo::ji('tada')`
+
+---
+
+# House rules
+
+- Ask questions whenever `r emo::ji('thumbsup')`
+- How to do this - chat/slack channel/whatever?
+- If you need to leave just leave!
+- Materials will live online somewhere
+
+
+
+---
+
+# Who you are
+
+- Why this course?
+- What do you want to achieve?
+
+
+
+---
+background-size: initial
+background-image: url(http://bit.ly/arm-greens)
