@@ -22,20 +22,16 @@ knitr::opts_chunk$set(echo = FALSE)
 
 - Code of conduct
 
----
-class: center, middle
-# Slide with centered content in the middle
-
-Text goes here `r emo::ji('tada')`
 
 ---
 
 # House rules
 
 - Ask questions whenever `r emo::ji('thumbsup')`
-- How to do this - chat/slack channel/whatever?
-- If you need to leave just leave!
-- Materials will live online somewhere
+- You can do this through the Blackboard chat facility {demo this now}
+- We've structured the sessions with regular breaks, but if you need to leave just leave!
+- Materials will live online somewhere so you can catch up later on
+- "You're not working from home, you're at home during a crisis trying work work" -- Abraham Lincoln
 
 
 
