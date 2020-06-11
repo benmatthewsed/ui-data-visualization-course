@@ -10,4 +10,8 @@ The course will cover the basic facilities of `ggplot2` with hands-on-practical 
 
 Participants should have basic familiarity with the `R` statistical programming language.
 
+## About the data
+
 The course uses data from the [Scottish Index of Mulitple Deprivation](https://www.gov.scot/collections/scottish-index-of-multiple-deprivation-2020/) data and geographical data from [Scottish Government](https://data.gov.uk/dataset/9187c32a-7110-4db7-b61d-902800aaae49/scottish-local-authority-areas) accessed under the [Open Government License](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/).
+
+Data have been aggregated to Local Authority level. This is for illustrative purposes only, and runs against Scottish Government's [guidelines](https://www2.gov.scot/Topics/Statistics/SIMD/FAQUsingSIMD) for use SIMD.
