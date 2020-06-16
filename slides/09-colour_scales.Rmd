@@ -1,0 +1,49 @@
+---
+title: "`ggplot2` colour scales"
+author: "Ben Matthews and Eilidh Jack"
+date: "12/06/2020"
+output: 
+  xaringan::moon_reader:
+  css: xaringan-themer.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_solarized_light()
+```
+# `ggplot2` default colour scale
+
+- continous
+- categorical
+
+
+![ggplot2-default-colour](https://ggplot2-book.org/diagrams/colour-wheel.png)
+
+- You have to make sure `ggplot` is treating your data in the right way (continuous if you want a continuous scale, discrete if you want a discrete scale)
+
+---
+
+# Good defaults
+
+- scale viridis
+- scaleOkabeIto ({colorblindr})
+
+
+# Other options
+- scale_colour_grey
+- scale_color_brewer()
+
+
+---
+
+# Advanced - making your own
+
+- If only one colour you want you can set with `colour = "#123456"` using the colour [hex-code](https://www.color-hex.com/)
+
+
+- For discrete values
+- `scale_colour_manual()`

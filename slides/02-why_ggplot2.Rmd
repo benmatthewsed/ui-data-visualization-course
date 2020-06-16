@@ -1,0 +1,88 @@
+---
+title: "Why `ggplot2`"
+author: "Ben Matthews"
+date: "02/06/2020"
+output: 
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_solarized_light()
+```
+
+class: center, middle, inverse
+
+# Wait, what even `*`is`*` `ggplot2`?
+
+---
+
+# What is `ggplot2`?
+
+- It's an `R` package that draws graphs, developed by [Hadley Wickham](http://hadley.nz/)
+
+- From the [tidyverse website](https://ggplot2.tidyverse.org/): "`ggplot2` is a system for __declaratively__ creating graphics, based on The Grammar of Graphics. You provide the data, tell `ggplot2` how to map variables to aesthetics, what [visual marks to use to represent data points], and it takes care of the details." 
+
+- ... and what's the Grammar of Graphics? Our `ggplot2` [cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf) says this is "the idea that you can __build every graph from the same components__: a data set, a coordinate system, and `geom`s—visual marks that represent data points." 
+
+---
+class: center, middle, inverse
+
+# Great, so why plot with `ggplot2`?
+
+---
+class: center, middle, inverse
+
+# 1. Aids perception `r emo::ji("bulb")`
+
+---
+
+## Perception
+
+- Learning `ggplot2` will help you __understand how data visualization works__, how to figure out what you want your plots to look like and describe this to the computer.
+- This is because it's __declarative__. You describe to the computer exactly what you want the plot to look like and it draws it for you (rather than, say, picking a type of plot from a menu). You can read a whole [blog post about](http://varianceexplained.org/r/why-I-use-ggplot2/) why this is a good thing!
+- So by using `ggplot2` you learn how to make __better__ graphs, not just how to make graphs.
+
+---
+class: center, middle, inverse
+
+# 2. It's powerful  `r emo::ji("muscle")`
+---
+
+## It's Powerful
+- Because it's declarative it's also __flexible__
+- You can make pretty pretty much __any type__ of (static) graph you want! (No fancy interactive web graphics though, sorry)
+- This is very powerful! You can make __publication__ (or Twitter) quality graphs
+
+---
+class: center, middle, inverse
+
+# 3. It's popular `r emo::ji("sunglasses")`
+
+---
+
+## It's popular
+
+- There is a large community of users who use `ggplot2` to communicate with very different audiences
+- `ggplot2` is used by data journalists at major outlets [BBC](https://bbc.github.io/rcookbook/) and [Financial Times](https://johnburnmurdoch.github.io/slides/r-ggplot/#/)
+- As well as technical users who have [extended](https://exts.ggplot2.tidyverse.org/) `ggplot2`'s core functions for specific use cases
+- You can use the same tool to visualize data effectively for academic audiences as well as the general public (also just for ourselves), and because users often __post their code online__ you learn from these many users!
+
+---
+class: center, middle, inverse
+
+# One more thing before we begin...
+---
+
+## `ggplot2` is powerful and fallible
+
+- `ggplot2` is a world unto itself (technically, it's a [domain specific language](http://adv-r.had.co.nz/dsl.html))
+- It's also a world with [quirks](https://www.youtube.com/watch?v=vYwXMnC03I4)
+- .. so when learning how to use `ggplot2`, mistakes are gonna happen - even for existing `R` users - and that's __fine!__ `r emo::ji("thumbsup")`
+- Every error is a learning opportunity - we're all building up better mental models of how `ggplot2` works, and finding things that don't work as expected (or at all!) help us do this too `r emo::ji("tada")`
+- We'll talk about common 'gotchas' later on

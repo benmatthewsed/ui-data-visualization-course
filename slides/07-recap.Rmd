@@ -1,0 +1,93 @@
+---
+title: "Recap"
+author: "Ben Matthews"
+date: "12/06/2020"
+output: 
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_solarized_light()
+```
+
+# Recap
+
+
+---
+
+# What is `ggplot2`?
+
+- It's an `R` package that draws graphs, developed by [Hadley Wickham](http://hadley.nz/)
+
+- From the [tidyverse website](https://ggplot2.tidyverse.org/): "`ggplot2` is a system for __declaratively__ creating graphics, based on The Grammar of Graphics. You provide the data, tell `ggplot2` how to map variables to aesthetics, what [visual marks to use to represent data points], and it takes care of the details." 
+
+- ... and what's the Grammar of Graphics? Our `ggplot2` [cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf) says this is "the idea that you can __build every graph from the same components__: a data set, a coordinate system, and `geom`s—visual marks that represent data points." 
+
+---
+
+class: center, middle, inverse
+
+- Aids perception
+- Is powerful
+- Is popular
+
+
+---
+
+class: center, middle, inverse
+
+
+# Dataset + 
+# _mapping_ variables in the dataset to `aes`thetic + 
+# Layers of `geom`s (symbols to represent data) = 
+# Plot
+
+
+---
+
+# Three types of `geom`
+
+- `geom`s that plot each datum for you
+- `geom`s that plot summaries of your dataset for you
+- `geom`s that plot things that aren't in your dataset (like reference lines and such)
+
+
+---
+
+- Design your data viz with your audience in mind
+- Use best practice: design graphs that are easy to understand
+
+---
+
+- Errors are going to happen and that's fine!
+
+
+---
+
+# In the next session
+
+- The fun stuff!
+- Maps
+- Beautifying your ggplots
+- Answering any questions you have between now and then
+- Please feel free to bring your own data!
+
+
+
+
+
+
+---
+
+# Optional homework
+
+- Try out this week's [#TidyTuesday](https://github.com/rfordatascience/tidytuesday) challenge
+
+
+

@@ -2,7 +2,7 @@ Understanding Inequalities Data Visualization with `ggplot2` Course
 Outline
 ================
 Ben Matthews
-2020-06-01
+2020-06-02
 
 ## Outline
 
@@ -111,6 +111,13 @@ programming language.
     4.  ggsave (with type = “cairo”)
 22. Bad plot contest (20 mins)
 23. Resources to go further (10 mins)
+
+## Getting up to speed
+
+  - R Bootcamp - Ted Laderas and Jessica Minnier (Chapters 1 and 2)
+    <https://r-bootcamp.netlify.app/>
+  - R for Data Science (Chapter 2) - Hadley Wickham and Garret Grolemund
+    <https://r4ds.had.co.nz/data-visualisation.html>
 
 ## Course texts
 

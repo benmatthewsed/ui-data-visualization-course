@@ -1,0 +1,101 @@
+---
+title: "Principles of Mapping"
+author: "Ben Matthews and Eilidh Jack"
+date: "12/06/2020"
+output: 
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_solarized_light()
+```
+
+
+
+
+1. Maps are great (we take this as axiomatic!)
+4. In `R`, maps are "different, and weird" -- [Danielle Navarro](https://djnavarro.net/post/maps/)
+3. Maps can be misleading
+5. Use with caution!
+
+---
+
+
+# What are we mapping ?
+
+- If you're on this course we assume that you are:
+    - Analysing data about people
+    - These people are on Earth, and may well be in the UK
+- So you'll [probably have __vector__ data](https://geocompr.robinlovelace.net/spatial-class.html#vector-data) - i.e. __points in space__ (and not raster data, which breaks up space into evenly sized grids, like in ecology or something)
+- And mostly you'll be plotting __areal__ data - which relates to some shape bounded in space (like a Local Authority or neighbourhood), and data about these areal entities will likely be __aggregates__ describing the population within that area - e.g. votes, or recorded crimes, or percent unemployed... etc.
+
+---
+
+# Okay, but what "space"?
+
+- Turns out that this is a really complicated question!
+- We turn representations of the 3d surface of the Earth into a 2d map using a [coordinate reference system (CRS)](https://geocompr.robinlovelace.net/spatial-class.html#crs-intro)
+- This won't come up here `r emo::ji("crossed fingers")` because we've set the CRS for you in our example dataset, but `ggplot2` needs to know the CRS of your data in order to draw the plot
+- If your map looks funny it may well be that you have the wrong CRS
+
+
+---
+
+# Maps in `R` are "different and weird"
+
+---
+
+# Maps in `R`: simple features
+
+- Working with spatial data in `R` is a whole sub-field in itself (see [here](https://geocompr.robinlovelace.net/ from a GIS/geoscience perspective) for a GIS introduction, and [here](https://socviz.co/maps.html#maps) for a social sciences introduction)
+- We use the [`{sf}` package](https://r-spatial.github.io/sf/articles/sf1.html)
+- The geographical information in your dataset gets a special `geometry` column with our geographical information in
+- This is works nicely with tidy data and `ggplot2`
+- `ggplot2` figures out how to draw the map based on the CRS, so this changes some of how we would usually ask `ggplot2` to draw the map
+
+
+---
+
+# Maps can be misleading: 
+
+
+- __Chloropleth__ maps - coloured in maps - are a good idea when you have high spatial resolution, but can be [misleading when you have low spatial resolution](https://serialmentor.com/dataviz/geospatial-data.html#choropleth-mapping)
+- This is because these maps can be [dominated by geographic units with large areas](https://serialmentor.com/dataviz/geospatial-data.html#choropleth-mapping) if the areas of your geographies are very different (this is very much the case for Scottish Local Authorities!)
+- ... and such areas often have low populations
+- This is not so bad when you're mapping [densities](https://serialmentor.com/dataviz/geospatial-data.html#choropleth-mapping) - where the denominator is the area of the spatial unit
+
+---
+
+# Maps can be misleading: parameter estimates
+
+"[P]lotting observed rates can have serious drawbacks when sample sizes vary by area, since very high (and low) observed rates are found disproportionately in poorly-sampled areas. Unfortunately, adjusting the observed rates to account for the effects of
+small-sample noise can introduce an opposite effect, in which the highest adjusted rates tend to be found disproportionately in well-sampled areas. In either case, the maps can be diffcult to interpret because the display of spatial variation in the underlying parameters of interest is confounded with spatial variation in sample sizes" [Gelman and Rice](http://www.stat.columbia.edu/~gelman/research/published/allmaps.pdf) `r emo::ji("scream")`
+
+
+---
+
+# Maps can be misleading: Who is at risk?
+
+- Mapping counts of things can be confounded by areas with the [highest population](https://socviz.co/maps.html#maps)
+- Mapping rates are affected by the sample size issues on the previous slide...
+- ... and also the [Modifiable Areal Unit Problem](https://en.wikipedia.org/wiki/Modifiable_areal_unit_problem)
+
+
+---
+
+# Maps can be misleading: What shapes to draw?
+
+- We're going to focus on the simple case: __polygons__ that represent Local Authority boundaries
+- But you might want to change the shapes to adjust for e.g. population size as in a __cartogram__
+- Or maybe you want to arrange facets (as in facet_wrap) in the shape of your spatial data as in a [__geofacet__](https://hafen.github.io/geofacet/) (see also Kieran Healy's thoughts on ['Is your data really spatial?'](https://socviz.co/maps.html#is-your-data-really-spatial))
+
+---
+
+# Maps can be misleading
+# Use with caution!

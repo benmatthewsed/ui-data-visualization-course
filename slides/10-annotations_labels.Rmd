@@ -1,0 +1,41 @@
+---
+title: "Annotations and labels"
+author: "Ben Matthews and Eilidh Jack"
+date: "12/06/2020"
+output: 
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_solarized_light()
+```
+
+---
+
+# On the plots
+
+1. Reference lines
+
+
+---
+
+
+2. geom_text
+4. Going further - [arrows](https://bbc.github.io/rcookbook/#add_annotations)
+3. titles
+
+
+
+---
+
+# `labs()`
+
+- `title`, `subtitle` and `captions`
+- Can also rename your axes here
+- As well as any other `aes`thetic mappings like colour, fill, shape, size...

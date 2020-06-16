@@ -1,0 +1,48 @@
+---
+title: "gg-gotchas"
+author: "Ben Matthews"
+date: "12/06/2020"
+output: 
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_solarized_light()
+```
+
+# Common problems with `ggplot2`
+
+1. Two joined lines (multiple groups) ["sawtooth"](https://ggplot2-book.org/collective-geoms.html)
+
+    - From _R for Data Science_:
+    
+    `r knitr::include_graphics("https://ggplot2-book.org/collective-geoms_files/figure-html/oxboys-line-bad-1.png")`
+
+
+---
+2. Groups == only one observation (categorical x-variable)
+
+    - Data types matter
+
+3. Stat count y aesthetic
+
+    - The geom wants to compute a summary but you've already provided summarised data
+
+4. `+` on newline
+
+    - For [technical reasons I don't understand](https://community.rstudio.com/t/why-put-and-at-the-end-of-lines/1831) this isn't valid R code. So you can't do it!
+
+5. Call inside/outside `aes()`
+    - See our discussion on concepts in the grammar of graphics 
+    
+6. Geom density with small n
+    - Plot the raw data and the summary together
+
+7. Variable types
+    - Colouring by a factor variable or a continuous one

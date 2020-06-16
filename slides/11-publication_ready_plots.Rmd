@@ -1,0 +1,61 @@
+---
+title: "Publication ready plots"
+author: "Ben Matthews and Eilidh Jack"
+date: "12/06/2020"
+output: 
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_solarized_light()
+```
+
+---
+
+# Themes
+
+- `theme()` is a bit `r emo::ji("scream")`
+
+
+- changing the theme
+
+- scales
+
+- If you want to change the theme with `theme_{whatever}` AND adjust
+properties settings with `theme()` the call to `theme_{whatever}` __must come first!__
+
+
+---
+# `theme()`
+- moving guides
+- `legend.position="bottom"`
+
+- rotating axis labels
+- `axis.text.x = element_text(angle = 45, hjust = 1)`
+
+---
+
+# Scales
+
+- See https://scales.r-lib.org/
+
+
+---
+
+# Saving the plot
+
+- Throughout the session we've just let plots print out in the plots pane
+- Not so convenient if you want to show someone else your work!
+
+- `ggsave()`
+- `filename = `
+- `plot = `
+- type = "cairo-png"
+- height = 
+- width = 

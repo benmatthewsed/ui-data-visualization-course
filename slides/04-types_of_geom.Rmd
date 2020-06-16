@@ -1,0 +1,84 @@
+---
+title: "Types of `geom`"
+author: "Ben Matthews"
+date: "12/06/2020"
+output: 
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_solarized_light()
+```
+
+class: center, middle, inverse
+
+# Three types of `geom` layer
+
+---
+
+# Three types of `geom`
+
+- I like to think of `geom`s as being one of three types:
+- `geom`s that plot each datum for you
+- `geom`s that plot summaries of your dataset for you
+- `geom`s that plot things that aren't in your dataset (like reference lines and such); often metadata
+- (The official `ggplot` book uses a [slightly different classification system](https://ggplot2-book.org/toolbox.html) for `geom`s)
+
+---
+
+# Plot each datum please
+
+- Make a mark on the plot for __each row__ in the dataset
+
+    - `geom_point`
+    - `geom_line`
+    - `geom_bar` (sort of)
+    - `geom_errorbar` (sort of)
+    - `geom_tile`
+    - `geom_sf()` (we'll come back to this in the next session)
+    - `geom_text()` (sometimes)
+
+
+---
+
+# Plot a summary of my data please
+
+- Plot something that summarises all/groups of the data in my datset
+
+- Univariate/distributions:
+    - `geom_histogram`
+    - `geom_density`
+    - `geom_violin`
+- Bivariate:
+    - `geom_smooth`
+    - `geom_contour`
+    
+    
+---
+
+# Plot something else on my graph
+
+- Reference lines
+    - `geom_vline`
+    - `geom_hline`
+    - `geom_abline`
+
+- Annotations
+    - `geom_text()` (sometimes)
+
+---
+
+# Live coding
+
+
+---
+class: center, middle, inverse
+
+# Ask yourself - do you want to plot your data? A summary of your data? 
+# ...Or both?

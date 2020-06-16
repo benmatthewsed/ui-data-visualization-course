@@ -1,0 +1,167 @@
+---
+title: "Concepts in the grammar of graphics"
+author: "Ben Matthews"
+date: "02/06/2020"
+output: 
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_solarized_light()
+```
+
+class: center, middle, inverse
+
+
+# __Dataset__ + 
+# __mapping__ variables in the dataset to `aes`thetics + 
+# __Layers__ of `geom`s (symbols to represent data) = 
+# __Plot__
+
+
+---
+class: center, middle, inverse
+
+
+# __Dataset__ + 
+# Mapping variables in the dataset to `aes`thetics + 
+# Layers of `geom`s (symbols to represent data) = 
+# Plot
+
+
+{demo call here}
+
+
+
+---
+
+# Data
+
+- Erm, the dataset you're plotting!
+- `ggplot2` expects your dataset to be [tidy](https://r4ds.had.co.nz/tidy-data.html):
+    1. Each variable must have its own column.
+    2. Each observation must have its own row.
+    3. Each value must have its own cell.
+- From _R for Data Science_:
+`r knitr::include_graphics(https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png)`
+- Don't worry about this during the course - the datasets we're using have been tidied already
+
+
+---
+
+class: center, middle, inverse
+
+
+# Dataset + 
+# __Mapping__ variables in the dataset to `aes`thetics + 
+# Layers of `geom`s (symbols to represent data) = 
+# Plot
+
+
+---
+
+
+# Mapping variables to `aes()`thetics
+
+- __Which variables__ in your dataset you want to represent in the plot and __how__
+- Most of the time you'll want at least `x` and `y` (these are __position__ `aes`thetics)
+- Includes __other visual encodings__ like: colour/fill, shape, linetype, alpha (transparency), size...
+- __Key point__ - if you want `ggplot` know about something __inside your dataset you have to reference it within__ `aes`!
+
+- Insert examples here of same dataset with different mappings
+
+{demo call here}
+
+---
+
+# Mapping helps thinking
+
+- This is part of what makes `ggplot` so helpful for thinking about data visualization - you get to choose how you want
+to map variables to aesthetics and how to represent them in layers in a __declarative__ way.
+- Decide __what to emphasise__ in your plot based on what you're interested in; the same data mapped to different `aes()`thetics can have different emphasis
+- (Obviously you can do this with other plotting programs too, but I think it's more __explicit__ in `ggplot`)
+
+
+---
+
+class: center, middle, inverse
+
+
+# Dataset + 
+# Mapping variables in the dataset to `aes`thetics + 
+# __Layers__ of `geom`s (symbols to represent data) = 
+# Plot
+
+
+---
+
+# `geom`etric symbols to represent data
+
+- __What__ symbols you want `ggplot` to draw to represent the data; lines, points, errorbars, ribbons, contours...
+- You add these to the plot in __layers__
+- You can have exactly the same mapping of variables to `aes`thetics, but different `geom`s
+
+{demo call here}
+
+---
+
+# Layers and `geom`s
+
+- `ggplot2` builds plots out of __layers__
+- This makes it suuuuuuper flexible - you can just __stack layers on top of each other__!
+- `geom`s only add __one layer at a time__
+- __Add__ layers together_ with `+` __operator__
+- __Order matters!__
+
+{demo call here}
+
+---
+
+# `geom`s and `aes`thetics
+
+- __Every__ `geom` __needs__ a dataset and a mapping of variables to `aes`thetics
+- Layers (silently!) __inherit__ data and `aes` mappings that you set __for the whole plot__...
+- ... but you can set data and aesthetics for whole plot and for each layer __separately__, so you can override this default behaviour
+- This is often very helpful but also a big source of pain - __THERE BE DRAGONS__ `r emo::ji("dragon")`
+- Again, if you want a layer to reference something in your dataset you need to tell it with `aes`
+
+{demo call here}
+
+---
+
+# Set `geom` parameters with `aes` or with a fixed value?
+
+- You use `geom`s to visually represent values of the __variables in your dataset__
+- But sometimes you also want to change how a `geom` looks to a __fixed value__ (i.e. one that __doesn't__ come from a variable) in your dataset - like making all the points in a scatterplot red
+- If it's within the call to `aes`, `ggplot2` will look for it in your dataset
+- If it's outside the call to `aes`, `ggplot2` will apply the value you supply directly
+- size = 2, colour = "red"
+- `aes(size = 2, colour = "red")`
+- For technical reasons we won't go into now __quotation marks matter__ here (if you want you can read all about why [here](https://adv-r.hadley.nz/metaprogramming.html))
+- This was a common source of errors for me when learning `ggplot2` (and still is!) and my own mental model of when and why to use quote marks is pretty crude even now. So it's natural that this feels weird or arbitrary right now `r emo::ji("thumbsup")`
+
+
+{demo call here}
+
+---
+
+class: center, middle, inverse
+
+# __Dataset__ + 
+# __Mapping__ variables in the dataset to `aes`thetics + 
+# __Layers__ of `geom`s (symbols to represent data) = 
+# __Plot__
+
+
+---
+
+# Things to look out for
+
+- If you want `ggplot` to know about something in your dataset, use `aes()`
+- Order matters in the `ggplot` call
