@@ -63,13 +63,28 @@ name: outline
 
 ---
 
-# House rules
+# Points of order
 
-- Ask questions whenever 👍
-- You can do this through the Blackboard chat facility {demo this now}
+- Ask questions whenever 👍 You can do this through the Blackboard chat facility __{demo this now}__
 - We've structured the sessions with regular breaks, but if you need to leave just leave!
-- Materials will live online somewhere so you can catch up later on
-- "You're not working from home, you're at home during a crisis trying to work"
+- Materials will live online ([slides](https://benmatthewsed.github.io/ui-data-visualization-course/), [other materials](https://github.com/benmatthewsed/ui-data-visualization-course)) so you can access them any time
+- __"You're not working from home, you're at home during a crisis trying to work"__
+- Please keep your camera __on__ and your mic __off__ during the presentations
+- We want this time to be as useful for you guys as possible, so please let us know anything we can improve on between now and next week's session
+- e.g. if you have a dataset of your own you want to work on and are happy enough
+
+
+---
+
+# Pair programming
+
+- For the practical exercises we've divided you guys up into pairs
+- Work on the exercises independently
+- If you have a question please ask your partner first
+  - You can share your screen with the group __{demo this now}__
+- Then please raise your hand and a moderator will join your group
+- Some things to note: in our testing it seems like there can be connectivity issues switching between breakout groups and the main session
+- We're not recording these sessions - but you can access the materials any time. For live-coding sessions we recommend [this series of videos]("https://www.youtube.com/watch?v=t6IIJEoqPyk&amp;list=PLRPB0ZzEYegPa4uvvAVJnr6loSKbN4wLb") covering how to use `ggplot2`
 
 
 
@@ -331,10 +346,10 @@ class: center, middle, inverse
 # Three types of `geom`
 
 - I like to think of `geom`s as being one of three types:
-- `geom`s that plot each datum for you
-- `geom`s that plot summaries of your dataset for you
-- `geom`s that plot things that aren't in your dataset (like reference lines and such); often metadata
-- (The official `ggplot` book uses a [slightly different classification system](https://ggplot2-book.org/toolbox.html) for `geom`s)
+- `geom`s that plot __each datum__ for you
+- `geom`s that plot __summaries__ of your dataset for you
+- `geom`s that plot __things that aren't in your dataset__ (like reference lines and such); often metadata
+- (NB The official `ggplot` book uses a [slightly different classification system](https://ggplot2-book.org/toolbox.html) for `geom`s, but they're pretty similar)
 
 ---
 
@@ -406,23 +421,30 @@ class: center, middle, inverse
 # Principles of data vizualization
 
 - How we read graphs
-- Chart design guidelines
+- Principles of chart design
 - An example
 
 ---
-
+class: center, middle, inverse
 # How we read graphs
 
-# Cleveland's elementary perceptual tasks
+--
+
+# Some visual comparisons are easier to make than others
+
+---
+
+# Hierarchy of perceptual tasks
 
 .left-column[
-- Position along a common scales
-- Position along identical, nonaligned scales
-- Length
-- Angle – Slope
-- Area
-- Volume
-- Colour hue – Colour saturation – Density	
+
+1. Position along a common scales
+2. Position along identical, nonaligned scales
+3. Length
+4. Angle or slope
+5. Area
+6. Volume
+6. Colour hue / saturation
 ]
 
 .right-column[
@@ -430,58 +452,36 @@ class: center, middle, inverse
 
 Source: Cleveland and McGill, 1984
 ]
----
-
-
-#  Vanderplas
-
-- The whole [paper](https://www.annualreviews.org/doi/full/10.1146/annurev-statistics-031219-041252) is interesting!
-
-- 3.1. Cognitive Principles
-- 3.1.1. Proximity - "objects or shapes that are close to one another appear to form groups... place items to compare close together, and less important comparisons further apart"
-- 3.1.2. Similarity - "we group things that have similar appearances and exclude objects with different appearances"; "coloring points or bars according to a categorical variable or by using points of different shapes to represent different categories."
-- 3.1.3. Common region. "elements contained within a common region belong together"
-- 3.1.4. Common fate.
-     - Strong negative association is not easily detected from overlaid line plots, but it is easily seen in a scatter plot (Tomasetti 2015).
 
 ---
 
-# Match perceptual and data topography (Wickham 2012)
-- If you’re using a graphical element to show relative size of quantities, make larger size = larger quantity!
-- For example, which represents larger value?
+#  Other cognitive principles
 
+- The whole [paper by Vanderplas, Cook and Hofmann](https://www.annualreviews.org/doi/full/10.1146/annurev-statistics-031219-041252) is interesting!
 
-     
+- __Proximity__: "objects or shapes that are close to one another appear to form groups... __place items to compare close together__, and less important comparisons further apart"
+- __Similarity__: "we group things that have similar appearances and exclude objects with different appearances"; i.e. if a bunch of points are the same colour or shape people will see them as belonging to the same group
+- __[Match perceptual and data topology](http://stat405.had.co.nz/lectures/20-effective-vis.pdf)__: If you’re using a graphical element to show relative size of quantities __make larger size = larger quantity__
+
 ---
-
-#  Vanderplas
-##  3.2. Chart Design
-
-
-- Dual coding: You can encode the same variables to multiple aesthetic parameters (easily in `ggplot2`) to aid comprehension
-- This can also aid accessibility by reducing reliance on e.g. colour to distinguish variables
-- Use colour scales designed to have good perceptual properties for different kinds of colour-blindness (`ggplot2` defaults aren't so good for this)
+class: center, middle, inverse
+# Principles of chart design
 
 ---
 
-# Cleveland's principles of graph construction
+#  More principles of chart design
+- __Dual coding__: You can encode the same variables to multiple aesthetic parameters (easily in `ggplot2`) to aid comprehension
+- This can also aid __accessibility__ by reducing reliance on e.g. colour to distinguish variables
+- Use colour scales designed to have __good perceptual properties__ for different kinds of colour-blindness (`ggplot2` defaults aren't so good for this) (we'll cover some of these later in the course)
 
-1. Clear vision
-    - Make the data stand out and avoid superfluity
-    - Use a reference line if there is an important value which must be seen across the whole graph
-2. Clear understanding
-    - Put major conclusions in graphical form
-    - Clearly explain error bars
-3. Scales
-    - Choose axes ranges to include or nearly include the range of data
-    - Don’t insist that zero is included in scales showing magnitude
-4. General strategy
-    - Graphing should be iterative and experimental
-    - Graph data two or more times if it is needed
 
 ---
 
-# Plot the raw data and the summary
+# Even more principles of chart design
+
+- Plot the raw data and the summary
+- Graph data two or more times if it is needed (Cleveland 1985)
+- Think about how each plot fits into the [story you're telling](https://serialmentor.com/dataviz/telling-a-story.html)
 
 ---
 
@@ -504,19 +504,17 @@ Age-crime curves for different crime types in Scottish Offenders Index 1989-2011
 ]
 
 ---
-Aspect of Grammar	Setting	Variable
-Dataset	Scottish Offenders Index	-
-Aesthetic	X	Age
-	Y	Conviction rate
-	Line type	Year
-	Colour	Crime type
-	Annotation	None
-Geom	Line	-
-Statistical transformation	Identity	-
-Position adjustment	None	-
-Scale	Identity	-
-Coordinate	Cartesian	-
-Facet		Crime type
+
+Aspect of Grammar	| Variable
+------------------|-------
+Dataset	| Scottish Offenders Index
+Aesthetic:	|
+  X	| Age
+	Y	| Conviction rate
+	Line type	| Year
+	Colour	| Crime type
+Geom	| Line
+Facet  |	Crime type
 
 
 
@@ -532,32 +530,35 @@ class: center, middle, inverse
 
 1. Two joined lines (multiple groups) ["sawtooth"](https://ggplot2-book.org/collective-geoms.html)
 
-    - From _R for Data Science_:
+- From _R for Data Science_:
     
     ![](https://ggplot2-book.org/collective-geoms_files/figure-html/oxboys-line-bad-1.png)&lt;!-- --&gt;
 
 
 ---
 2. Groups == only one observation (categorical x-variable)
+    - Colouring by a factor variable or a continuous one
+- Data types matter to `ggplot2`
+- If you want to plot a line you need to make sure the x and y axes are __continous__ variables and that you're not trying to colour
 
-    - Data types matter
+---
 
-3. Stat count y aesthetic
+3. Stat count with `y` aesthetic
 
-    - The geom wants to compute a summary but you've already provided summarised data
+- The geom wants to compute a summary but you've already provided summarised data
+
+---
 
 4. `+` on newline
 
-    - For [technical reasons I don't understand](https://community.rstudio.com/t/why-put-and-at-the-end-of-lines/1831) this isn't valid R code. So you can't do it!
+- For [technical reasons I don't understand](https://community.rstudio.com/t/why-put-and-at-the-end-of-lines/1831) this isn't valid R code. So you can't do it!
+
+---
 
 5. Call inside/outside `aes()`
     - See our discussion on concepts in the grammar of graphics 
     
-6. Geom density with small n
-    - Plot the raw data and the summary together
 
-7. Variable types
-    - Colouring by a factor variable or a continuous one
 
 ---
 
