@@ -1,0 +1,875 @@
+---
+title: "Introduction to data visualisation with `ggplot2`"
+author: "Ben Matthews and Eilidh Jack"
+date: "29/06/2020"
+output: 
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    seal: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_solarized_light()
+
+```
+
+
+name: title
+class: center, middle, inverse
+
+# Introduction to data visualisation with `ggplot2`
+
+Ben Matthews<sup>1</sup> and Eilidh Jack<sup>2</sup>
+
+29/06/2020  (Updated `r Sys.Date()`)
+
+<sup>1</sup>University of Edinburgh
+
+<sup>2</sup>University of Glasgow
+
+
+`r knitr::include_graphics("https://www.understanding-inequalities.ac.uk/sites/all/themes/theme935/logo.png")`
+
+
+---
+
+
+# Welcome!
+
+- What we're going to cover
+
+- Course outline: https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/course_outline.md
+
+- Who we are
+
+- Code of conduct
+
+---
+
+name: outline
+
+# Course outline
+
+- [What is `ggplot2`?](https://benmatthewsed.github.io/ui-data-visualization-course/#what-is-ggplot)
+- [Concepts in the grammar of graphics](https://benmatthewsed.github.io/ui-data-visualization-course/#concepts-grammar-graphics)
+- [Types of geom](https://benmatthewsed.github.io/ui-data-visualization-course/#geom-types)
+- [Principles of data visualization](https://benmatthewsed.github.io/ui-data-visualization-course/#principles-data-viz)
+- [gg-gotchas](https://benmatthewsed.github.io/ui-data-visualization-course/#gggotchas)
+- [Mapping with `ggplot2`](https://benmatthewsed.github.io/ui-data-visualization-course/#ggplot-maps)
+- [`ggplot2` colour scales](https://benmatthewsed.github.io/ui-data-visualization-course/#ggplot-colour-scales)
+- [Annotations](https://benmatthewsed.github.io/ui-data-visualization-course/#ggplot-annotations)
+- [publication-ready plots](https://benmatthewsed.github.io/ui-data-visualization-course/#publication-plots)
+
+---
+
+# Points of order
+
+- Ask questions whenever `r emo::ji('thumbsup')` You can do this through the Blackboard chat facility __{demo this now}__
+- We've structured the sessions with regular breaks, but if you need to leave just leave!
+- Materials will live online ([slides](https://benmatthewsed.github.io/ui-data-visualization-course/), [other materials](https://github.com/benmatthewsed/ui-data-visualization-course)) so you can access them any time
+- __"You're not working from home, you're at home during a crisis trying to work"__
+- Please keep your camera __on__ and your mic __off__ during the presentations
+- We want this time to be as useful for you guys as possible, so please let us know anything we can improve on between now and next week's session
+- e.g. if you have a dataset of your own you want to work on and are happy enough
+
+
+---
+
+# Pair programming
+
+- For the practical exercises we've divided you guys up into pairs
+- Work on the exercises independently
+- If you have a question please ask your partner first
+  - You can share your screen with the group __{demo this now}__
+- Then please raise your hand and a moderator will join your group
+- Some things to note: in our testing it seems like there can be connectivity issues switching between breakout groups and the main session
+- We're not recording these sessions - but you can access the materials any time. For live-coding sessions we recommend [this series of videos]("https://www.youtube.com/watch?v=t6IIJEoqPyk&list=PLRPB0ZzEYegPa4uvvAVJnr6loSKbN4wLb") covering how to use `ggplot2`
+
+
+
+---
+
+# Who you are
+
+- Why this course?
+- What do you want to achieve?
+
+
+---
+
+name: what-is-ggplot
+class: center, middle, inverse
+
+# Wait, what even `*`is`*` `ggplot2`?
+
+---
+
+
+# What is `ggplot2`?
+
+- It's an `R` package that draws graphs, developed by [Hadley Wickham](http://hadley.nz/)
+
+- From the [tidyverse website](https://ggplot2.tidyverse.org/): "`ggplot2` is a system for __declaratively__ creating graphics, based on The Grammar of Graphics. You provide the data, tell `ggplot2` how to map variables to aesthetics, what [visual marks to use to represent data points], and it takes care of the details." 
+
+- ... and what's the Grammar of Graphics? Our `ggplot2` [cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf) says this is "the idea that you can __build every graph from the same components__: a data set, a coordinate system, and `geom`s—visual marks that represent data points." 
+
+---
+class: center, middle, inverse
+
+# Great, so why plot with `ggplot2`?
+
+---
+class: center, middle, inverse
+
+# 1. Aids perception `r emo::ji("bulb")`
+
+---
+
+## Perception
+
+- Learning `ggplot2` will help you __understand how data visualization works__, how to figure out what you want your plots to look like and describe this to the computer.
+- This is because it's __declarative__. You describe to the computer exactly what you want the plot to look like and it draws it for you (rather than, say, picking a type of plot from a menu). You can read a whole [blog post about](http://varianceexplained.org/r/why-I-use-ggplot2/) why this is a good thing!
+- So by using `ggplot2` you learn how to make __better__ graphs, not just how to make graphs.
+
+---
+class: center, middle, inverse
+
+# 2. It's powerful  `r emo::ji("muscle")`
+---
+
+## It's Powerful
+- Because it's declarative it's also __flexible__
+- You can make pretty pretty much __any type__ of (static) graph you want! (No fancy interactive web graphics though, sorry)
+- This is very powerful! You can make __publication__ (or Twitter) quality graphs
+
+---
+class: center, middle, inverse
+
+# 3. It's popular `r emo::ji("sunglasses")`
+
+---
+
+## It's popular
+
+- There is a large community of users who use `ggplot2` to communicate with very different audiences
+- `ggplot2` is used by data journalists at major outlets [BBC](https://bbc.github.io/rcookbook/) and [Financial Times](https://johnburnmurdoch.github.io/slides/r-ggplot/#/)
+- As well as technical users who have [extended](https://exts.ggplot2.tidyverse.org/) `ggplot2`'s core functions for specific use cases
+- You can use the same tool to visualize data effectively for academic audiences as well as the general public (also just for ourselves), and because users often __post their code online__ you learn from these many users!
+
+---
+class: center, middle, inverse
+
+# One more thing before we begin...
+---
+
+## `ggplot2` is powerful and fallible
+
+- `ggplot2` is a world unto itself (technically, it's a [domain specific language](http://adv-r.had.co.nz/dsl.html))
+- It's also a world with [quirks](https://www.youtube.com/watch?v=vYwXMnC03I4)
+- .. so when learning how to use `ggplot2`, mistakes are gonna happen - even for existing `R` users - and that's __fine!__ `r emo::ji("thumbsup")`
+- Every error is a learning opportunity - we're all building up better mental models of how `ggplot2` works, and finding things that don't work as expected (or at all!) help us do this too `r emo::ji("tada")`
+- We'll talk about common 'gotchas' later on
+
+---
+name: concepts-grammar-graphics
+class: center, middle, inverse
+
+# Concepts in the grammar of graphics
+
+---
+
+
+class: center, middle, inverse
+
+
+# __Dataset__ + 
+# __mapping__ variables in the dataset to `aes`thetics + 
+# __Layers__ of `geom`s (symbols to represent data) = 
+# __Plot__
+
+
+---
+class: center, middle, inverse
+
+
+# __Dataset__ + 
+# Mapping variables in the dataset to `aes`thetics + 
+# Layers of `geom`s (symbols to represent data) = 
+# Plot
+
+
+{demo call here}
+
+
+
+---
+
+# Data
+
+- Erm, the dataset you're plotting!
+- `ggplot2` expects your dataset to be [tidy](https://r4ds.had.co.nz/tidy-data.html):
+    1. Each variable must have its own column.
+    2. Each observation must have its own row.
+    3. Each value must have its own cell.
+- From _R for Data Science_:
+`r knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png")`
+- Don't worry about this during the course - the datasets we're using have been tidied already
+
+
+---
+
+class: center, middle, inverse
+
+
+# Dataset + 
+# __Mapping__ variables in the dataset to `aes`thetics + 
+# Layers of `geom`s (symbols to represent data) = 
+# Plot
+
+
+---
+
+
+# Mapping variables to `aes()`thetics
+
+- __Which variables__ in your dataset you want to represent in the plot and __how__
+- Most of the time you'll want at least `x` and `y` (these are __position__ `aes`thetics)
+- Includes __other visual encodings__ like: colour/fill, shape, linetype, alpha (transparency), size...
+- __Key point__ - if you want `ggplot` know about something __inside your dataset you have to reference it within__ `aes`!
+
+- Insert examples here of same dataset with different mappings
+
+{demo call here}
+
+---
+
+# Mapping helps thinking
+
+- This is part of what makes `ggplot` so helpful for thinking about data visualization - you get to choose how you want
+to map variables to aesthetics and how to represent them in layers in a __declarative__ way.
+- Decide __what to emphasise__ in your plot based on what you're interested in; the same data mapped to different `aes()`thetics can have different emphasis
+- (Obviously you can do this with other plotting programs too, but I think it's more __explicit__ in `ggplot`)
+
+
+---
+
+class: center, middle, inverse
+
+
+# Dataset + 
+# Mapping variables in the dataset to `aes`thetics + 
+# __Layers__ of `geom`s (symbols to represent data) = 
+# Plot
+
+
+---
+
+# `geom`etric symbols to represent data
+
+- __What__ symbols you want `ggplot` to draw to represent the data; lines, points, errorbars, ribbons, contours...
+- You add these to the plot in __layers__
+- You can have exactly the same mapping of variables to `aes`thetics, but different `geom`s
+
+{demo call here}
+
+---
+
+# Layers and `geom`s
+
+- `ggplot2` builds plots out of __layers__
+- This makes it suuuuuuper flexible - you can just __stack layers on top of each other__!
+- `geom`s only add __one layer at a time__
+- __Add__ layers together_ with `+` __operator__
+- __Order matters!__
+
+{demo call here}
+
+---
+
+# `geom`s and `aes`thetics
+
+- __Every__ `geom` __needs__ a dataset and a mapping of variables to `aes`thetics
+- Layers (silently!) __inherit__ data and `aes` mappings that you set __for the whole plot__...
+- ... but you can set data and aesthetics for whole plot and for each layer __separately__, so you can override this default behaviour
+- This is often very helpful but also a big source of pain - __THERE BE DRAGONS__ `r emo::ji("dragon")`
+- Again, if you want a layer to reference something in your dataset you need to tell it with `aes`
+
+{demo call here}
+
+---
+
+# Set `geom` parameters with `aes` or with a fixed value?
+
+- You use `geom`s to visually represent values of the __variables in your dataset__
+- But sometimes you also want to change how a `geom` looks to a __fixed value__ (i.e. one that __doesn't__ come from a variable) in your dataset - like making all the points in a scatterplot red
+- If it's within the call to `aes`, `ggplot2` will look for it in your dataset
+- If it's outside the call to `aes`, `ggplot2` will apply the value you supply directly
+- size = 2, colour = "red"
+- `aes(size = 2, colour = "red")`
+- For technical reasons we won't go into now __quotation marks matter__ here (if you want you can read all about why [here](https://adv-r.hadley.nz/metaprogramming.html))
+- This was a common source of errors for me when learning `ggplot2` (and still is!) and my own mental model of when and why to use quote marks is pretty crude even now. So it's natural that this feels weird or arbitrary right now `r emo::ji("thumbsup")`
+
+
+{demo call here}
+
+---
+
+class: center, middle, inverse
+
+# __Dataset__ + 
+# __Mapping__ variables in the dataset to `aes`thetics + 
+# __Layers__ of `geom`s (symbols to represent data) = 
+# __Plot__
+
+
+---
+
+# Things to look out for
+
+- If you want `ggplot` to know about something in your dataset, use `aes()`
+- Order matters in the `ggplot` call
+
+---
+name: geom-types
+class: center, middle, inverse
+# Types of geom
+
+---
+
+class: center, middle, inverse
+
+# Three types of `geom` layer
+
+---
+
+# Three types of `geom`
+
+- I like to think of `geom`s as being one of three types:
+- `geom`s that plot __each datum__ for you
+- `geom`s that plot __summaries__ of your dataset for you
+- `geom`s that plot __things that aren't in your dataset__ (like reference lines and such); often metadata
+- (NB The official `ggplot` book uses a [slightly different classification system](https://ggplot2-book.org/toolbox.html) for `geom`s, but they're pretty similar)
+
+---
+
+# Plot each datum please
+
+- Make a mark on the plot for __each row__ in the dataset
+
+    - `geom_point`
+    - `geom_line`
+    - `geom_bar` (sort of)
+    - `geom_errorbar` (sort of)
+    - `geom_tile`
+    - `geom_sf()` (we'll come back to this in the next session)
+    - `geom_text()` (sometimes)
+
+
+---
+
+# Plot a summary of my data please
+
+- Plot something that summarises all/groups of the data in my datset
+
+- Univariate/distributions:
+    - `geom_histogram`
+    - `geom_density`
+    - `geom_violin`
+- Bivariate:
+    - `geom_smooth`
+    - `geom_contour`
+    
+    
+---
+
+name: reference-lines
+
+# Plot something else on my graph
+
+- Reference lines
+    - `geom_vline`
+    - `geom_hline`
+    - `geom_abline`
+
+- Annotations
+    - `geom_text()` (sometimes)
+
+---
+
+# Live coding
+
+
+---
+class: center, middle, inverse
+
+# Ask yourself:
+# Do you want to plot your data? 
+# A summary of your data? 
+# ...Or both?
+
+
+---
+
+name: principles-data-viz
+class: center, middle, inverse
+# Principles of data visualization
+
+---
+
+
+# Principles of data vizualization
+
+- How we read graphs
+- Principles of chart design
+- An example
+
+---
+class: center, middle, inverse
+# How we read graphs
+
+--
+
+# Some visual comparisons are easier to make than others
+
+---
+
+# Hierarchy of perceptual tasks
+
+.left-column[
+
+1. Position along a common scales
+2. Position along identical, nonaligned scales
+3. Length
+4. Angle or slope
+5. Area
+6. Volume
+6. Colour hue / saturation
+]
+
+.right-column[
+`r knitr::include_graphics("https://www.researchgate.net/profile/Chia_Shen/publication/221513994/figure/fig2/AS:305590816526337@1449869936222/Cleveland-and-McGills-elementary-perceptual-tasks-All-visual-representations-of.png")`
+
+Source: Cleveland and McGill, 1984
+]
+
+---
+
+#  Other cognitive principles
+
+- The whole [paper by Vanderplas, Cook and Hofmann](https://www.annualreviews.org/doi/full/10.1146/annurev-statistics-031219-041252) is interesting!
+
+- __Proximity__: "objects or shapes that are close to one another appear to form groups... __place items to compare close together__, and less important comparisons further apart"
+- __Similarity__: "we group things that have similar appearances and exclude objects with different appearances"; i.e. if a bunch of points are the same colour or shape people will see them as belonging to the same group
+- __[Match perceptual and data topology](http://stat405.had.co.nz/lectures/20-effective-vis.pdf)__: If you’re using a graphical element to show relative size of quantities __make larger size = larger quantity__
+
+---
+class: center, middle, inverse
+# Principles of chart design
+
+---
+
+#  More principles of chart design
+- __Dual coding__: You can encode the same variables to multiple aesthetic parameters (easily in `ggplot2`) to aid comprehension
+- This can also aid __accessibility__ by reducing reliance on e.g. colour to distinguish variables
+- Use colour scales designed to have __good perceptual properties__ for different kinds of colour-blindness (`ggplot2` defaults aren't so good for this) (we'll cover some of these later in the course)
+
+
+---
+
+# Even more principles of chart design
+
+- Plot the raw data and the summary
+- Graph data two or more times if it is needed (Cleveland 1985)
+- Think about how each plot fits into the [story you're telling](https://serialmentor.com/dataviz/telling-a-story.html)
+
+---
+
+# An example
+
+.left-column[
+- Use the grammar of graphics to describe this plot
+- Which attributes are emphasised most?
+- How could this be improved?
+- (Be as rude as you like about it it's fine!)
+
+]
+
+.right-column[
+
+`r knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/thesis_figure.png")`
+
+Age-crime curves for different crime types in Scottish Offenders Index 1989-2011, men (Source: [Ben's PhD thesis](https://era.ed.ac.uk/handle/1842/25810))
+
+]
+
+---
+
+Aspect of Grammar	| Variable
+------------------|-------
+Dataset	| Scottish Offenders Index
+Aesthetic:	|
+  X	| Age
+	Y	| Conviction rate
+	Line type	| Year
+	Colour	| Crime type
+Geom	| Line
+Facet  |	Crime type
+
+
+
+---
+name: gggotchas
+class: center, middle, inverse
+# `gg`-gotchas
+
+---
+
+
+# Common problems with `ggplot2`
+
+1. Two joined lines (multiple groups) ["sawtooth"](https://ggplot2-book.org/collective-geoms.html)
+
+- From _R for Data Science_:
+    
+    `r knitr::include_graphics("https://ggplot2-book.org/collective-geoms_files/figure-html/oxboys-line-bad-1.png")`
+
+
+---
+2. Groups == only one observation (categorical x-variable)
+    - Colouring by a factor variable or a continuous one
+- Data types matter to `ggplot2`
+- If you want to plot a line you need to make sure the x and y axes are __continous__ variables and that you're not trying to colour
+
+---
+
+3. Stat count with `y` aesthetic
+
+- The geom wants to compute a summary but you've already provided summarised data
+
+---
+
+4. `+` on newline
+
+- For [technical reasons I don't understand](https://community.rstudio.com/t/why-put-and-at-the-end-of-lines/1831) this isn't valid R code. So you can't do it!
+
+---
+
+5. Call inside/outside `aes()`
+    - See our discussion on concepts in the grammar of graphics 
+    
+
+
+---
+
+class: center, middle, inverse
+
+# Recap
+
+
+---
+
+# What is `ggplot2`?
+
+- It's an `R` package that draws graphs, developed by [Hadley Wickham](http://hadley.nz/)
+
+- From the [tidyverse website](https://ggplot2.tidyverse.org/): "`ggplot2` is a system for __declaratively__ creating graphics, based on The Grammar of Graphics. You provide the data, tell `ggplot2` how to map variables to aesthetics, what [visual marks to use to represent data points], and it takes care of the details." 
+
+- ... and what's the Grammar of Graphics? Our `ggplot2` [cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf) says this is "the idea that you can __build every graph from the same components__: a data set, a coordinate system, and `geom`s—visual marks that represent data points." 
+
+---
+
+class: center, middle, inverse
+
+# `ggplot2`:
+# - Aids perception `r emo::ji("bulb")`
+# - Is powerful `r emo::ji("muscle")`
+# - Is popular  `r emo::ji("sunglasses")`
+
+
+---
+
+class: center, middle, inverse
+
+
+# Dataset + 
+# _mapping_ variables in the dataset to `aes`thetic + 
+# Layers of `geom`s (symbols to represent data) = 
+# Plot
+
+
+---
+
+# Three types of `geom`
+
+- `geom`s that plot each datum for you
+- `geom`s that plot summaries of your dataset for you
+- `geom`s that plot things that aren't in your dataset (like reference lines and such)
+
+
+---
+
+- Design your data viz with your audience in mind
+- Use best practice: design graphs that are easy to understand
+
+---
+
+- Errors are going to happen and that's fine!
+
+
+---
+
+# In the next session
+
+- The fun stuff!
+- Maps
+- Beautifying your ggplots
+- Answering any questions you have between now and then
+- Please feel free to bring your own data!
+
+
+
+
+
+
+---
+
+# Optional homework
+
+- Try out this week's [#TidyTuesday](https://github.com/rfordatascience/tidytuesday) challenge
+
+
+
+---
+name: ggplot-maps
+class: center, middle, inverse
+
+# Maps in `ggplot2`
+
+---
+
+
+1. Maps are great (we take this as axiomatic!)
+4. In `R`, maps are "different, and weird" -- [Danielle Navarro](https://djnavarro.net/post/maps/)
+3. Maps can be misleading
+5. Use with caution!
+
+---
+
+
+# What are we mapping ?
+
+- If you're on this course we assume that you are:
+    - Analysing data about people
+    - These people are on Earth, and may well be in the UK
+- So you'll [probably have __vector__ data](https://geocompr.robinlovelace.net/spatial-class.html#vector-data) - i.e. __points in space__ (and not raster data, which breaks up space into evenly sized grids, like in ecology or something)
+- And mostly you'll be plotting __areal__ data - which relates to some shape bounded in space (like a Local Authority or neighbourhood), and data about these areal entities will likely be __aggregates__ describing the population within that area - e.g. votes, or recorded crimes, or percent unemployed... etc.
+
+---
+
+# Okay, but what "space"?
+
+- Turns out that this is a really complicated question!
+- We turn representations of the 3d surface of the Earth into a 2d map using a [coordinate reference system (CRS)](https://geocompr.robinlovelace.net/spatial-class.html#crs-intro)
+- This won't come up here `r emo::ji("crossed fingers")` because we've set the CRS for you in our example dataset, but `ggplot2` needs to know the CRS of your data in order to draw the plot
+- If your map looks funny it may well be that you have the wrong CRS
+
+
+---
+
+# Maps in `R` are "different and weird"
+
+---
+
+# Maps in `R`: simple features
+
+- Working with spatial data in `R` is a whole sub-field in itself (see [here](https://geocompr.robinlovelace.net/ from a GIS/geoscience perspective) for a GIS introduction, and [here](https://socviz.co/maps.html#maps) for a social sciences introduction)
+- We use the [`{sf}` package](https://r-spatial.github.io/sf/articles/sf1.html)
+- The geographical information in your dataset gets a special `geometry` column with our geographical information in
+- This is works nicely with tidy data and `ggplot2`
+- `ggplot2` figures out how to draw the map based on the CRS, so this changes some of how we would usually ask `ggplot2` to draw the map
+
+
+---
+
+# Maps can be misleading: 
+
+
+- __Chloropleth__ maps - coloured in maps - are a good idea when you have high spatial resolution, but can be [misleading when you have low spatial resolution](https://serialmentor.com/dataviz/geospatial-data.html#choropleth-mapping)
+- This is because these maps can be [dominated by geographic units with large areas](https://serialmentor.com/dataviz/geospatial-data.html#choropleth-mapping) if the areas of your geographies are very different (this is very much the case for Scottish Local Authorities!)
+- ... and such areas often have low populations
+- This is not so bad when you're mapping [densities](https://serialmentor.com/dataviz/geospatial-data.html#choropleth-mapping) - where the denominator is the area of the spatial unit
+
+---
+
+# Maps can be misleading: parameter estimates
+
+"[P]lotting observed rates can have __serious drawbacks when sample sizes vary by area__, since very high (and low) observed rates are found disproportionately in poorly-sampled areas. Unfortunately, adjusting the observed rates to account for the effects of small-sample noise can introduce an opposite effect, in which the highest adjusted rates tend to be found disproportionately in well-sampled areas. __In either case, the maps can be difficult to interpret__ because the display of spatial variation in the underlying parameters of interest is confounded with spatial variation in sample sizes" [Gelman and Rice](http://www.stat.columbia.edu/~gelman/research/published/allmaps.pdf) `r emo::ji("scream")`
+
+
+---
+
+# Maps can be misleading: Who is at risk?
+
+- Mapping counts of things can be confounded by areas with the [highest population](https://socviz.co/maps.html#maps)
+- Mapping rates are affected by the sample size issues on the previous slide...
+- ... and also the [Modifiable Areal Unit Problem](https://en.wikipedia.org/wiki/Modifiable_areal_unit_problem)
+
+
+---
+
+# Maps can be misleading: What shapes to draw?
+
+- We're going to focus on the simple case: __polygons__ that represent Local Authority boundaries
+- But you might want to change the shapes to adjust for e.g. population size as in a __cartogram__
+- Or maybe you want to arrange facets (as in facet_wrap) in the shape of your spatial data as in a [__geofacet__](https://hafen.github.io/geofacet/) (see also Kieran Healy's thoughts on ['Is your data really spatial?'](https://socviz.co/maps.html#is-your-data-really-spatial))
+
+---
+
+# Maps can be misleading
+# Use with caution!
+
+
+---
+name: ggplot-colour-scales
+class: center, middle, inverse
+
+# Colour scales
+
+---
+
+# `ggplot2` default colour scale
+
+- continous
+- categorical
+
+
+![ggplot2-default-colour](https://ggplot2-book.org/diagrams/colour-wheel.png)
+
+- You have to make sure `ggplot` is treating your data in the right way (continuous if you want a continuous scale, discrete if you want a discrete scale)
+
+---
+
+# Good defaults
+
+- scale viridis
+- scaleOkabeIto ({colorblindr})
+
+
+# Other options
+- scale_colour_grey
+- scale_color_brewer()
+
+
+---
+
+# Advanced - making your own
+
+- If only one colour you want you can set with `colour = "#123456"` using the colour [hex-code](https://www.color-hex.com/)
+
+
+- For discrete values
+- `scale_colour_manual()`
+
+---
+
+name: ggplot-annotations
+class: center, middle, inverse
+
+# Annotations and labels
+
+---
+
+
+---
+
+# On the plots
+
+1. Reference lines (we covered these in [types of geom](#reference-lines))
+
+
+---
+
+
+2. `geom_text`
+4. Going further - [arrows](https://bbc.github.io/rcookbook/#add_annotations)
+3. titles
+
+
+
+---
+
+# Adding titles with `labs()`
+
+- `title`, `subtitle` and `captions`
+- Can also rename your axes here
+- As well as any other `aes`thetic mappings like colour, fill, shape, size...
+
+---
+
+name: publication-plots
+class: center, middle, inverse
+
+# Publication-ready plots
+
+---
+
+# Changing the theme
+# Tweaking elements of the theme
+
+
+
+---
+
+# Themes
+
+- `theme()` is a bit `r emo::ji("scream")`
+
+
+- changing the theme
+
+- scales
+
+- If you want to change the theme with `theme_{whatever}` AND adjust
+properties settings with `theme()` the call to `theme_{whatever}` __must come first!__
+
+
+---
+# `theme()`
+
+- There are [lots of theme components](https://ggplot2.tidyverse.org/reference/theme.html) that you can adjust
+
+- The ones I use the most are:
+- Moving legends
+- For example, moving the legend from the right of the plot to the bottom
+- `legend.position = "bottom"`
+
+- Rotating axis labels if you have overlapping `x`-labels
+- `axis.text.x = element_text(angle = 45, hjust = 1)`
+
+---
+
+# Scales
+
+- See https://scales.r-lib.org/
+
+
+---
+
+# Saving the plot
+
+- Throughout the session we've just let plots print out in the plots pane
+- Not so convenient if you want to show someone else your work!
+- For [technical reasons I don't understand](https://www.jumpingrivers.com/blog/r-graphics-cairo-png-pdf-saving/) it's best to using the option `type = "cairo-png"` when saving your plot to make it look nice
+
+
+- `ggsave()`
+- `filename = `
+- `plot = `
+- `type = "cairo-png"`
+- `height =`
+- `width =`
