@@ -22,7 +22,7 @@ class: center, middle, inverse
 
 Ben Matthews&lt;sup&gt;1&lt;/sup&gt; and Eilidh Jack&lt;sup&gt;2&lt;/sup&gt;
 
-29/06/2020
+29/06/2020  (Updated 2020-06-18)
 
 &lt;sup&gt;1&lt;/sup&gt;University of Edinburgh
 
@@ -368,6 +368,8 @@ class: center, middle, inverse
     
 ---
 
+name: reference-lines
+
 # Plot something else on my graph
 
 - Reference lines
@@ -401,7 +403,7 @@ class: center, middle, inverse
 ---
 
 
-# Principles of data viz
+# Principles of data vizualization
 
 - How we read graphs
 - Chart design guidelines
@@ -413,6 +415,7 @@ class: center, middle, inverse
 
 # Cleveland's elementary perceptual tasks
 
+.left-column[
 - Position along a common scales
 - Position along identical, nonaligned scales
 - Length
@@ -420,9 +423,13 @@ class: center, middle, inverse
 - Area
 - Volume
 - Colour hue – Colour saturation – Density	
+]
 
-{add figure here}
+.right-column[
+![](https://www.researchgate.net/profile/Chia_Shen/publication/221513994/figure/fig2/AS:305590816526337@1449869936222/Cleveland-and-McGills-elementary-perceptual-tasks-All-visual-representations-of.png)&lt;!-- --&gt;
 
+Source: Cleveland and McGill, 1984
+]
 ---
 
 
@@ -496,6 +503,20 @@ Age-crime curves for different crime types in Scottish Offenders Index 1989-2011
 
 ]
 
+---
+Aspect of Grammar	Setting	Variable
+Dataset	Scottish Offenders Index	-
+Aesthetic	X	Age
+	Y	Conviction rate
+	Line type	Year
+	Colour	Crime type
+	Annotation	None
+Geom	Line	-
+Statistical transformation	Identity	-
+Position adjustment	None	-
+Scale	Identity	-
+Coordinate	Cartesian	-
+Facet		Crime type
 
 
 
@@ -680,8 +701,7 @@ class: center, middle, inverse
 
 # Maps can be misleading: parameter estimates
 
-"[P]lotting observed rates can have serious drawbacks when sample sizes vary by area, since very high (and low) observed rates are found disproportionately in poorly-sampled areas. Unfortunately, adjusting the observed rates to account for the effects of
-small-sample noise can introduce an opposite effect, in which the highest adjusted rates tend to be found disproportionately in well-sampled areas. In either case, the maps can be diffcult to interpret because the display of spatial variation in the underlying parameters of interest is confounded with spatial variation in sample sizes" [Gelman and Rice](http://www.stat.columbia.edu/~gelman/research/published/allmaps.pdf) 😱
+"[P]lotting observed rates can have __serious drawbacks when sample sizes vary by area__, since very high (and low) observed rates are found disproportionately in poorly-sampled areas. Unfortunately, adjusting the observed rates to account for the effects of small-sample noise can introduce an opposite effect, in which the highest adjusted rates tend to be found disproportionately in well-sampled areas. __In either case, the maps can be difficult to interpret__ because the display of spatial variation in the underlying parameters of interest is confounded with spatial variation in sample sizes" [Gelman and Rice](http://www.stat.columbia.edu/~gelman/research/published/allmaps.pdf) 😱
 
 
 ---
@@ -762,13 +782,13 @@ class: center, middle, inverse
 
 # On the plots
 
-1. Reference lines
+1. Reference lines (we covered these in [types of geom](#reference-lines))
 
 
 ---
 
 
-2. geom_text
+2. `geom_text`
 4. Going further - [arrows](https://bbc.github.io/rcookbook/#add_annotations)
 3. titles
 
@@ -776,7 +796,7 @@ class: center, middle, inverse
 
 ---
 
-# `labs()`
+# Adding titles with `labs()`
 
 - `title`, `subtitle` and `captions`
 - Can also rename your axes here
@@ -790,6 +810,10 @@ class: center, middle, inverse
 # Publication-ready plots
 
 ---
+
+# Changing the theme
+# Tweaking elements of the theme
+
 
 
 ---
@@ -809,10 +833,15 @@ properties settings with `theme()` the call to `theme_{whatever}` __must come fi
 
 ---
 # `theme()`
-- moving guides
-- `legend.position="bottom"`
 
-- rotating axis labels
+- There are [lots of theme components](https://ggplot2.tidyverse.org/reference/theme.html) that you can adjust
+
+- The ones I use the most are:
+- Moving legends
+- For example, moving the legend from the right of the plot to the bottom
+- `legend.position = "bottom"`
+
+- Rotating axis labels if you have overlapping `x`-labels
 - `axis.text.x = element_text(angle = 45, hjust = 1)`
 
 ---
@@ -828,6 +857,8 @@ properties settings with `theme()` the call to `theme_{whatever}` __must come fi
 
 - Throughout the session we've just let plots print out in the plots pane
 - Not so convenient if you want to show someone else your work!
+- For [technical reasons I don't understand](https://www.jumpingrivers.com/blog/r-graphics-cairo-png-pdf-saving/) it's best to using the option `type = "cairo-png"` when saving your plot to make it look nice
+
 
 - `ggsave()`
 - `filename = `
