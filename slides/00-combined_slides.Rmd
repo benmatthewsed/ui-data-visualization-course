@@ -535,9 +535,10 @@ class: center, middle, inverse
 1. Two joined lines (multiple groups) ["sawtooth"](https://ggplot2-book.org/collective-geoms.html)
 
 - From _R for Data Science_:
-    
-`r knitr::include_graphics("https://ggplot2-book.org/collective-geoms_files/figure-html/oxboys-line-bad-1.png")`
 
+```{r bad_plot, out.width = '70%'}
+ knitr::include_graphics("https://ggplot2-book.org/collective-geoms_files/figure-html/oxboys-line-bad-1.png")
+```
 
 ---
 2. Groups == only one observation (categorical x-variable)
