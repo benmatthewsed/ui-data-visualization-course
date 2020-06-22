@@ -452,7 +452,10 @@ class: center, middle, inverse
 ]
 
 .right-column[
-`r knitr::include_graphics("https://www.researchgate.net/profile/Chia_Shen/publication/221513994/figure/fig2/AS:305590816526337@1449869936222/Cleveland-and-McGills-elementary-perceptual-tasks-All-visual-representations-of.png")`
+
+```{r cleveland, out.height = '65%'}
+ knitr::include_graphics("https://www.researchgate.net/profile/Chia_Shen/publication/221513994/figure/fig2/AS:305590816526337@1449869936222/Cleveland-and-McGills-elementary-perceptual-tasks-All-visual-representations-of.png")
+```
 
 Source: Cleveland and McGill, 1984
 ]
