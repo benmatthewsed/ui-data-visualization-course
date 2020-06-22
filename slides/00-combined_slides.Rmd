@@ -442,8 +442,8 @@ class: center, middle, inverse
 
 .left-column[
 
-1. Position along a common scales
-2. Position along identical, nonaligned scales
+1. Position along a common scale
+2. Position along identical, non-aligned scales
 3. Length
 4. Angle or slope
 5. Area
@@ -453,7 +453,7 @@ class: center, middle, inverse
 
 .right-column[
 
-```{r cleveland, out.height = '65%'}
+```{r cleveland, out.width = '50%'}
  knitr::include_graphics("https://www.researchgate.net/profile/Chia_Shen/publication/221513994/figure/fig2/AS:305590816526337@1449869936222/Cleveland-and-McGills-elementary-perceptual-tasks-All-visual-representations-of.png")
 ```
 
