@@ -10,6 +10,8 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+library(ggplot2)
+library(sf)
 ```
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
@@ -41,13 +43,22 @@ Ben Matthews<sup>1</sup> and Eilidh Jack<sup>2</sup>
 
 # Welcome!
 
-- What we're going to cover
-
-- Course outline: https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/course_outline.md
+- [Course outline](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/course_outline.md)
 
 - Who we are
 
-- Code of conduct
+- [Code of conduct](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/code_of_conduct.md)
+
+---
+# Learning outcomes
+
+By the end of the course you will:
+
+- Understand (some) basic principles of __data visualization__
+- Be able to visualize data with `ggplot2`; scatterplots, bar charts, fitted lines
+- Understand (some) basic principles of __mapping__
+- Be able to draw maps of spatial data with `ggplot2`
+
 
 ---
 
@@ -63,33 +74,52 @@ name: outline
 - [Mapping with `ggplot2`](https://benmatthewsed.github.io/ui-data-visualization-course/#ggplot-maps)
 - [`ggplot2` colour scales](https://benmatthewsed.github.io/ui-data-visualization-course/#ggplot-colour-scales)
 - [Annotations](https://benmatthewsed.github.io/ui-data-visualization-course/#ggplot-annotations)
-- [publication-ready plots](https://benmatthewsed.github.io/ui-data-visualization-course/#publication-plots)
+- [Publication-ready plots](https://benmatthewsed.github.io/ui-data-visualization-course/#publication-plots)
 
 ---
 
 # Points of order
 
-- Ask questions whenever `r emo::ji('thumbsup')` You can do this through the Blackboard chat facility __{demo this now}__
-- We've structured the sessions with regular breaks, but if you need to leave just leave!
+- __Ask questions whenever__ `r emo::ji('thumbsup')` You can do this through the Blackboard chat facility __{demo this now}__
+- We've structured the sessions with regular breaks, but __if you need to leave just leave__!
 - Materials will live online ([slides](https://benmatthewsed.github.io/ui-data-visualization-course/), [other materials](https://github.com/benmatthewsed/ui-data-visualization-course)) so you can access them any time
 - __"You're not working from home, you're at home during a crisis trying to work"__
-- Please keep your camera __on__ and your mic __off__ during the presentations
-- We want this time to be as useful for you guys as possible, so please let us know anything we can improve on between now and next week's session
-- e.g. if you have a dataset of your own you want to work on and are happy enough
+- We'll have a mix of presentations and practical exercises - please keep your camera __on__ and your mic __off__ during the presentations
+- We want this time to be as useful for you guys as possible, so __please let us know anything we can improve on__ between now and next week's session
+
 
 
 ---
 
-# Pair programming
+# Small-group programming
 
-- For the practical exercises we've divided you guys up into pairs
+- For the practical exercises we've divided you guys up into __groups of three__
+- When we come to the practical sessions we'll split you out into Collaborate's __break-out rooms__
 - Work on the exercises independently
-- If you have a question please ask your partner first
-  - You can share your screen with the group __{demo this now}__
-- Then please raise your hand and a moderator will join your group
-- Some things to note: in our testing it seems like there can be connectivity issues switching between breakout groups and the main session
-- We're not recording these sessions - but you can access the materials any time. For live-coding sessions we recommend [this series of videos]("https://www.youtube.com/watch?v=t6IIJEoqPyk&list=PLRPB0ZzEYegPa4uvvAVJnr6loSKbN4wLb") covering how to use `ggplot2`
+- If you have a question __please ask your group chat first__
+- If your group can't resolve the issue then __please raise your hand__ and a moderator will join your group __{demo this now}__
+- We'll __circulate through groups__ to see if everyone is getting on okay even if you don't have your hand up
 
+---
+
+# What happens if I lose connectivity?
+
+- In our testing it seems like there can be __connectivity issues__ switching between breakout groups and the main session
+- __We'll check__ at the end of the breakout sessions to see if everyone has made it back in okay
+- Sometimes it helps to __close your browser__ and rejoin the session
+- If it all goes wrong and you can't rejoin __it's okay!__
+- You can __access the materials any time__ (see links on previous page)
+- We're not recording the 'lectures' or live-coding, but there's already an __excellent [series of videos on YouTube]("https://www.youtube.com/watch?v=t6IIJEoqPyk&list=PLRPB0ZzEYegPa4uvvAVJnr6loSKbN4wLb")__ covering how to use `ggplot2`
+
+
+---
+
+# `R` set-up
+
+- We __very much recommend__ that you use a local installation of `R` and `RStudio` on your own computer
+- If you haven't got a working R and Rstudio set-up you can send Eilidh a message now in the group chat and she can help get you set-up
+- If this still doesn't work you can access a __cloud version__ of `R` with the course dataset and materials [here](https://rstudio.cloud/project/27200)
+- You can access the exercises __[here] {add link to exercises}__
 
 
 ---
@@ -99,13 +129,28 @@ name: outline
 - Why this course?
 - What do you want to achieve?
 
+---
+
+class: center, middle, inverse
+
+# Before we begin...
+
+
+
+---
+# Why plot in the first place?
+
+`r knitr::include_graphics("https://d2f99xq7vri1nk.cloudfront.net/DataDino-600x455.gif")`
+
+The __datasaurus__ -- [Matejka and Fitzmaurice](https://www.autodeskresearch.com/publications/samestats)
+
 
 ---
 
 name: what-is-ggplot
 class: center, middle, inverse
 
-# Wait, what even `*`is`*` `ggplot2`?
+# What `*`is`*` `ggplot2`?
 
 ---
 
@@ -114,7 +159,7 @@ class: center, middle, inverse
 
 - It's an `R` package that draws graphs, developed by [Hadley Wickham](http://hadley.nz/)
 
-- From the [tidyverse website](https://ggplot2.tidyverse.org/): "`ggplot2` is a system for __declaratively__ creating graphics, based on The Grammar of Graphics. You provide the data, tell `ggplot2` how to map variables to aesthetics, what [visual marks to use to represent data points], and it takes care of the details." 
+- From the [tidyverse website](https://ggplot2.tidyverse.org/): "`ggplot2` is a system for declaratively creating graphics, based on The Grammar of Graphics. You provide the __data__, tell `ggplot2` how to __map variables to aesthetics__, what __[visual marks to use__ to represent data points], and it takes care of the details."
 
 - ... and what's the Grammar of Graphics? Our `ggplot2` [cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf) says this is "the idea that you can __build every graph from the same components__: a data set, a coordinate system, and `geom`s—visual marks that represent data points." 
 
@@ -145,7 +190,7 @@ class: center, middle, inverse
 ## It's Powerful
 - Because it's declarative it's also __flexible__
 - You can make pretty pretty much __any type__ of (static) graph you want! (No fancy interactive web graphics though, sorry)
-- This is very powerful! You can make __publication__ (or Twitter) quality graphs
+- This is very powerful! You can make __publication__ (or Twitter) quality graphs pretty easily
 
 ---
 class: center, middle, inverse
@@ -159,7 +204,7 @@ class: center, middle, inverse
 - There is a large community of users who use `ggplot2` to communicate with very different audiences
 - `ggplot2` is used by data journalists at major outlets [BBC](https://bbc.github.io/rcookbook/) and [Financial Times](https://johnburnmurdoch.github.io/slides/r-ggplot/#/)
 - As well as technical users who have [extended](https://exts.ggplot2.tidyverse.org/) `ggplot2`'s core functions for specific use cases
-- You can use the same tool to visualize data effectively for academic audiences as well as the general public (also just for ourselves), and because users often __post their code online__ you learn from these many users!
+- You can use the same tool to visualize data effectively for academic audiences as well as the general public (also just for ourselves), and because users often __post their code online__ you learn from these many users (for example, the online community around the [#TidyTuesday](https://github.com/rfordatascience/tidytuesday) weekly challenges)
 
 ---
 class: center, middle, inverse
@@ -172,8 +217,21 @@ class: center, middle, inverse
 - `ggplot2` is a world unto itself (technically, it's a [domain specific language](http://adv-r.had.co.nz/dsl.html))
 - It's also a world with [quirks](https://www.youtube.com/watch?v=vYwXMnC03I4)
 - .. so when learning how to use `ggplot2`, mistakes are gonna happen - even for existing `R` users - and that's __fine!__ `r emo::ji("thumbsup")`
-- Every error is a learning opportunity - we're all building up better mental models of how `ggplot2` works, and finding things that don't work as expected (or at all!) help us do this too `r emo::ji("tada")`
-- We'll talk about common 'gotchas' later on
+- __Every error is an opportunity to learn something__ - we're all building up better mental models of how `ggplot2` works, and finding things that don't work as expected (or at all!) help us do this too `r emo::ji("tada")`
+- We'll talk about __common 'gotchas'__ later on
+
+
+---
+class: center, middle, inverse
+
+# Let's dive in:
+# `Live coding`
+
+---
+class: center, middle, inverse
+
+# Five-minute break
+
 
 ---
 name: concepts-grammar-graphics
@@ -203,22 +261,18 @@ class: center, middle, inverse
 # Plot
 
 
-{demo call here}
-
-
-
 ---
 
 # Data
 
-- Erm, the dataset you're plotting!
+- Erm, the __dataset__ you're plotting!
 - `ggplot2` expects your dataset to be [tidy](https://r4ds.had.co.nz/tidy-data.html):
-    1. Each variable must have its own column.
-    2. Each observation must have its own row.
-    3. Each value must have its own cell.
-- From _R for Data Science_:
+    1. Each __variable__ must have its own __column__.
+    2. Each __observation__ must have its own __row__.
+    3. Each __value__ must have its own __cell__.
+- From __[R for Data Science](https://r4ds.had.co.nz/tidy-data.html#fig:tidy-structure)__:
 `r knitr::include_graphics("https://d33wubrfki0l68.cloudfront.net/6f1ddb544fc5c69a2478e444ab8112fb0eea23f8/91adc/images/tidy-1.png")`
-- Don't worry about this during the course - the datasets we're using have been tidied already
+- (Don't worry about this during the course - the datasets we're using have been tidied already)
 
 
 ---
@@ -240,6 +294,24 @@ class: center, middle, inverse
 - __Which variables__ in your dataset you want to represent in the plot and __how__
 - Most of the time you'll want at least `x` and `y` (these are __position__ `aes`thetics)
 - Includes __other visual encodings__ like: colour/fill, shape, linetype, alpha (transparency), size...
+
+---
+
+
+.pull-left[
+```{r plot-last, fig.show = 'hide'}
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+)
+
+```
+.pull-right[
+```{r ref.label = 'plot-last', echo = FALSE, fig.retina = 3}
+```
+]
+
+
 - __Key point__ - if you want `ggplot` know about something __inside your dataset you have to reference it within__ `aes`!
 
 - Insert examples here of same dataset with different mappings
@@ -247,6 +319,9 @@ class: center, middle, inverse
 {demo call here}
 
 ---
+
+---
+
 
 # Mapping helps thinking
 
@@ -453,7 +528,7 @@ class: center, middle, inverse
 
 .right-column[
 
-```{r cleveland, out.width = '50%'}
+```{r cleveland, out.width = '70%'}
  knitr::include_graphics("https://www.researchgate.net/profile/Chia_Shen/publication/221513994/figure/fig2/AS:305590816526337@1449869936222/Cleveland-and-McGills-elementary-perceptual-tasks-All-visual-representations-of.png")
 ```
 
