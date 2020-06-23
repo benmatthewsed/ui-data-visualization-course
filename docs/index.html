@@ -288,7 +288,7 @@ class: center, middle, inverse
 
 - __Which variables__ in your dataset you want to represent in the plot and __how__
 - Most of the time you'll want at least `x` and `y` (these are __position__ `aes`thetics)
-- Includes __other visual encodings__ like: colour/fill, shape, linetype, alpha (transparency), size...
+- Includes __other visual encodings__ like: colour/fill, shape, line type, alpha (transparency), size...
 
 ---
 
@@ -738,10 +738,10 @@ class: center, middle, inverse
 
 # ... facets?
 
-- From the [`ggplot2` book](https://ggplot2-book.org/getting-started.html#qplot-facetting): "Facetting creates __tables of graphics__ by splitting the data into subsets and displaying the __same graph for each subset__"
+- From the [`ggplot2` book](https://ggplot2-book.org/getting-started.html#qplot-facetting): "Faceting creates __tables of graphics__ by splitting the data into subsets and displaying the __same graph for each subset__"
 - Just add a `facet_wrap()` layer to a `ggplot` call
 - Tell `ggplot` __which variable(s)__ to facet by using `~`
-- `ggplot` then makes a long string of plots - one for each level of the facetting variable - which it __wraps__ into a table
+- `ggplot` then makes a long string of plots - one for each level of the faceting variable - which it __wraps__ into a table
 
 ---
 # An example of facetting
@@ -797,7 +797,7 @@ ggplot(
 
 # Going further with `facets`
 
-- The `ggplot` book has a [whole section](https://ggplot2-book.org/facet.html#facet-wrap) on facetting
+- The `ggplot` book has a [whole section](https://ggplot2-book.org/facet.html#facet-wrap) on faceting
 - You can allow facets to have __different scales__ using the `scales = ` argument. By default all the facets have the same scale, but you can allow each axis to vary by setting `scales = "free_y"`, `scales = "free_x"` or `scales = "free"`
 
 
@@ -829,7 +829,7 @@ class: center, middle, inverse
 
 - Some visual comparisons are easier to make than others
 
-.left-column[
+.pull.left[
 
 1. Position along a common scale
 2. Position along identical, non-aligned scales
@@ -838,13 +838,15 @@ class: center, middle, inverse
 5. Area
 6. Volume
 6. Colour hue / saturation
+
+(Source: Cleveland and McGill, 1984)
 ]
 
-.right-column[
+..pull-right[
 
-&lt;img src="https://www.researchgate.net/profile/Chia_Shen/publication/221513994/figure/fig2/AS:305590816526337@1449869936222/Cleveland-and-McGills-elementary-perceptual-tasks-All-visual-representations-of.png" width="50%" /&gt;
+&lt;img src="https://www.researchgate.net/profile/Chia_Shen/publication/221513994/figure/fig2/AS:305590816526337@1449869936222/Cleveland-and-McGills-elementary-perceptual-tasks-All-visual-representations-of.png" width="45%" /&gt;
 
-Source: Cleveland and McGill, 1984
+
 ]
 
 ---
@@ -883,15 +885,15 @@ class: center, middle, inverse
 
 .left-column[
 - Use the __grammar of graphics__ to describe this plot
-- In your groups, take __three minutes__ to
-- Which __attributes__ are emphasised most?
-- How could this figure be plotted differently or __improved__?
+- In your groups, take __three minutes__ to discuss:
+    - Which __attributes__ are emphasised most?
+    - How could this figure be plotted differently or __improved__?
 
 ]
 
 .right-column[
 
-![](https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/thesis_figure.png)&lt;!-- --&gt;
+&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/thesis_figure.png" width="50%" /&gt;
 
 Age-crime curves for different crime types in Scottish Offenders Index 1989-2011, men (Source: [Ben's PhD thesis](https://era.ed.ac.uk/handle/1842/25810))
 
@@ -903,14 +905,14 @@ Age-crime curves for different crime types in Scottish Offenders Index 1989-2011
 
 Aspect of Grammar	| Variable
 ------------------|-------
-Dataset	| Scottish Offenders Index
-Aesthetic:	|
+`Data`set	| Scottish Offenders Index
+`Aes`thetic:	|
   X	| Age
 	Y	| Conviction rate
 	Line type	| Year
 	Colour	| Crime type
-Geom	| Line
-Facet  |	Crime type
+`Geom`	| Line
+`Facet`  |	Crime type
 
 
 
@@ -1109,7 +1111,7 @@ class: center, middle, inverse
 
 # `ggplot2` default colour scale
 
-- continous
+- continuous
 - categorical
 
 
