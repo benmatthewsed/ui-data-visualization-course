@@ -291,11 +291,15 @@ class: center, middle, inverse
 
 ---
 
+# An example call
 
 .pull-left[
 
 
 ```r
+# mtcars is a dataset
+# that comes with
+
 ggplot(
   data = mtcars,
   mapping = aes(x = disp, y = drat)
@@ -307,24 +311,19 @@ ggplot(
 &lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-1-1.png" width="504" /&gt;
 ]
 
-
+- The call to `aes()` __lets `ggplot` ['see' into your dataset](https://ggplot2.tidyverse.org/reference/aes.html#quasiquotation)__
+- If you ask `ggplot` to find a variable in your dataset but don't use `aes()` `ggplot` will __look in the wrong place__
 - __Key point__ - if you want `ggplot` know about something __inside your dataset you have to reference it within__ `aes`!
 
-- Insert examples here of same dataset with different mappings
-
-{demo call here}
-
----
 
 ---
 
 
 # Mapping helps thinking
 
-- This is part of what makes `ggplot` so helpful for thinking about data visualization - you get to choose how you want
-to map variables to aesthetics and how to represent them in layers in a __declarative__ way.
-- Decide __what to emphasise__ in your plot based on what you're interested in; the same data mapped to different `aes()`thetics can have different emphasis
-- (Obviously you can do this with other plotting programs too, but I think it's more __explicit__ in `ggplot`)
+- This is part of what makes `ggplot` so helpful for __thinking__ about data visualization - you make the plot by choosing how to map variables to aesthetics and then telling `R` 
+- This helps me decide __what to emphasise__ in my plots based on what I'm interested in; the same data mapped to different `aes()`thetics can have different emphasis (we'll pick up on this later in our [Principles of data visualization](https://benmatthewsed.github.io/ui-data-visualization-course/#principles-data-viz) session)
+- (Obviously you can do this with other plotting programs too, but I think because `ggplot` is __declarative__ the process is more explicit)
 
 
 ---
@@ -344,9 +343,47 @@ class: center, middle, inverse
 
 - __What__ symbols you want `ggplot` to draw to represent the data; lines, points, errorbars, ribbons, contours...
 - You add these to the plot in __layers__
-- You can have exactly the same mapping of variables to `aes`thetics, but different `geom`s
+- You can have exactly the __same mapping__ of variables to `aes`thetics, but __different `geom`s__
 
-{demo call here}
+---
+
+.pull-left[
+
+
+```r
+# mtcars is a dataset
+# that comes with
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point()
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-2-1.png" width="504" /&gt;
+]
+
+---
+
+
+```r
+# mtcars is a dataset
+# that comes with
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_line()
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-3-1.png" width="504" /&gt;
+]
 
 ---
 
@@ -358,7 +395,49 @@ class: center, middle, inverse
 - __Add__ layers together_ with `+` __operator__
 - __Order matters!__
 
-{demo call here}
+
+---
+
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point() +
+  geom_line(
+    colour = "red"
+  )
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-4-1.png" width="504" /&gt;
+]
+
+---
+
+
+---
+
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_line(
+    colour = "red"
+  ) +
+  geom_point() 
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-5-1.png" width="504" /&gt;
+]
+
+
 
 ---
 
@@ -370,7 +449,27 @@ class: center, middle, inverse
 - This is often very helpful but also a big source of pain - __THERE BE DRAGONS__ 🐉
 - Again, if you want a layer to reference something in your dataset you need to tell it with `aes`
 
-{demo call here}
+
+---
+
+
+
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_line() +
+  geom_point(
+    aes(colour = cyl)
+    ) 
+```
+
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-6-1.png" width="504" /&gt;
+]
 
 ---
 
@@ -378,15 +477,53 @@ class: center, middle, inverse
 
 - You use `geom`s to visually represent values of the __variables in your dataset__
 - But sometimes you also want to change how a `geom` looks to a __fixed value__ (i.e. one that __doesn't__ come from a variable) in your dataset - like making all the points in a scatterplot red
-- If it's within the call to `aes`, `ggplot2` will look for it in your dataset
-- If it's outside the call to `aes`, `ggplot2` will apply the value you supply directly
-- size = 2, colour = "red"
-- `aes(size = 2, colour = "red")`
+- If it's __within the call to `aes`__, `ggplot2` will look for it __in your dataset__
+- If it's __outside the call to `aes`__, `ggplot2` will apply the __value you supply directly__
+
+
+---
+# Some notes on `aes()`
+
 - For technical reasons we won't go into now __quotation marks matter__ here (if you want you can read all about why [here](https://adv-r.hadley.nz/metaprogramming.html))
-- This was a common source of errors for me when learning `ggplot2` (and still is!) and my own mental model of when and why to use quote marks is pretty crude even now. So it's natural that this feels weird or arbitrary right now 👍
+- This was a __common source of errors__ for me when learning `ggplot2` (and still is!) and my own mental model of when and why to use quote marks is pretty crude even now. So it's natural that this feels weird or arbitrary right now 👍
+- Most of the time
+
+---
 
 
-{demo call here}
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_line(
+    aes(colour = red)
+  ) +
+  geom_point() 
+```
+
+```
+## Error in FUN(X[[i]], ...): object 'red' not found
+```
+]
+
+.pull-right[
+
+```
+## Error in FUN(X[[i]], ...): object 'red' not found
+```
+
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-7-1.png" width="504" /&gt;
+
+
+]
+
+---
+
+class: center, middle, inverse
+
+# In review
 
 ---
 
@@ -399,6 +536,8 @@ class: center, middle, inverse
 
 
 ---
+
+class: center, middle, inverse
 
 # Things to look out for
 
