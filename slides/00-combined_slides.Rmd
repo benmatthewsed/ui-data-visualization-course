@@ -1,10 +1,15 @@
 ---
 title: "Introduction to data visualisation with `ggplot2`"
 author: "Ben Matthews and Eilidh Jack"
-date: "29/06/2020"
+date: "2020-06-29"
 output: 
   xaringan::moon_reader:
     css: xaringan-themer.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
     seal: false
 ---
 
@@ -306,7 +311,7 @@ class: center, middle, inverse
 ```{r plot-last, fig.show = 'hide'}
 
 # mtcars is a dataset
-# that comes with
+# that comes with R
 
 ggplot(
   data = mtcars,
@@ -361,8 +366,6 @@ class: center, middle, inverse
 
 ```{r same_aes, fig.show = 'hide'}
 
-# mtcars is a dataset
-# that comes with
 
 ggplot(
   data = mtcars,
@@ -380,10 +383,8 @@ ggplot(
 
 ---
 
+.pull-left[
 ```{r same_aes_2, fig.show = 'hide'}
-
-# mtcars is a dataset
-# that comes with
 
 ggplot(
   data = mtcars,
@@ -406,12 +407,11 @@ ggplot(
 - `ggplot2` builds plots out of __layers__
 - This makes it suuuuuuper flexible - you can just __stack layers on top of each other__!
 - `geom`s only add __one layer at a time__
-- __Add__ layers together_ with `+` __operator__
+- __Add__ layers together with `+` __operator__
 - __Order matters!__
 
-
 ---
-
+.pull-left[
 ```{r layers, fig.show = 'hide'}
 
 ggplot(
@@ -431,11 +431,12 @@ ggplot(
 ```
 ]
 
+
+
+
 ---
 
-
----
-
+.pull-left[
 ```{r layers_2, fig.show = 'hide'}
 
 ggplot(
@@ -471,8 +472,10 @@ ggplot(
 ---
 
 
-
+.pull-left[
 ```{r layer_aes, fig.show = 'hide'}
+
+# cyl is another variable in mtcars
 
 ggplot(
   data = mtcars,
@@ -484,7 +487,7 @@ ggplot(
     ) 
 
 ```
-
+]
 
 .pull-right[
 ```{r ref.label = 'layer_aes', echo = FALSE, fig.retina = 3}
@@ -510,7 +513,7 @@ ggplot(
 
 ---
 
-
+.pull-left[
 ```{r layers_error, fig.show = 'hide'}
 
 ggplot(
@@ -552,21 +555,14 @@ class: center, middle, inverse
 
 class: center, middle, inverse
 
-# Things to look out for
-
-- If you want `ggplot` to know about something in your dataset, use `aes()`
-- Order matters in the `ggplot` call
+# If you want `ggplot` to know about something in your dataset, use `aes()`
+# Order matters in the `ggplot` call
 
 ---
 name: geom-types
 class: center, middle, inverse
-# Types of geom
 
----
-
-class: center, middle, inverse
-
-# Three types of `geom` layer
+# The three types of `geom` layer
 
 ---
 
@@ -576,64 +572,269 @@ class: center, middle, inverse
 - `geom`s that plot __each datum__ for you
 - `geom`s that plot __summaries__ of your dataset for you
 - `geom`s that plot __things that aren't in your dataset__ (like reference lines and such); often metadata
-- (NB The official `ggplot` book uses a [slightly different classification system](https://ggplot2-book.org/toolbox.html) for `geom`s, but they're pretty similar)
+- (NB The official `ggplot` book uses a [slightly different classification system](https://ggplot2-book.org/toolbox.html) for `geom`s, it's a pretty similar idea)
+- Different `geom`s require __different mappings of variables__
 
 ---
 
 # Plot each datum please
 
-- Make a mark on the plot for __each row__ in the dataset
+- Make a mark on the plot for __each row__ in the dataset (we saw this kind already)
+- 
 
     - `geom_point`
-    - `geom_line`
-    - `geom_bar` (sort of)
-    - `geom_errorbar` (sort of)
-    - `geom_tile`
+    - `geom_line
+    - `geom_area`
+    - `geom_bar(stat = "identity)`
     - `geom_sf()` (we'll come back to this in the next session)
     - `geom_text()` (sometimes)
+    - `geom_errorbar` (sort of)
 
+- These `geom`s usually require __mapping to `x` and `y` axes__
 
 ---
 
 # Plot a summary of my data please
 
-- Plot something that summarises all/groups of the data in my datset
-
+- Plot something that __summarises__ all/groups of the data in my dataset
 - Univariate/distributions:
     - `geom_histogram`
     - `geom_density`
     - `geom_violin`
+    - `geom_bar` (sort of)
 - Bivariate:
     - `geom_smooth`
     - `geom_contour`
-    
+    - `geom_boxplot` (with one continuous and one discrete variable)
+- You need __`x` and `y`__ mappings for __bivariate__ summaries, but __univariate__ summaries __only need `x`__
+
+---
+
+# A univariate example
+
+
+.pull-left[
+
+```{r univar_geom, fig.show = 'hide'}
+
+# note we only map x here - 
+# because we're only drawing one variable
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp)
+) +
+  geom_density()
+
+```
+]
+
+.pull-right[
+```{r ref.label = 'univar_geom', echo = FALSE, fig.retina = 3}
+```
+]
+
+
+---
+
+# Bivariate example
+
+.pull-left[
+
+```{r bivar_geom, fig.show = 'hide'}
+
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_smooth()
+
+```
+]
+
+.pull-right[
+```{r ref.label = 'bivar_geom', echo = FALSE, fig.retina = 3}
+```
+]
+
+
+---
+
+# And we can add layers to this
+
+.pull-left[
+
+```{r bivar_geom_dat, fig.show = 'hide'}
+
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point() +
+  geom_smooth()
+
+```
+]
+
+.pull-right[
+```{r ref.label = 'bivar_geom_dat', echo = FALSE, fig.retina = 3}
+```
+]
+
+---
+
+# Another bivariate example
+
+
+.pull-left[
+
+```{r bivar_geom_den, fig.show = 'hide'}
+
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point() +
+  geom_smooth() +
+  geom_density_2d()
+
+```
+]
+
+.pull-right[
+```{r ref.label = 'bivar_geom_den', echo = FALSE, fig.retina = 3}
+```
+]
+
     
 ---
 
 name: reference-lines
 
 # Plot something else on my graph
-
 - Reference lines
-    - `geom_vline`
-    - `geom_hline`
-    - `geom_abline`
-
+    - `geom_vline(xintercept = )`
+    - `geom_hline(yintercept = )`
+    - `geom_abline(slope = , intercept = )`
 - Annotations
-    - `geom_text()` (sometimes)
+    - `geom_text(aes(label = ))` (sometimes)
+- Reference lines need intercepts __specified outside of `aes()`__, but text labels need the specific `label` mapped to a variable in a dataset using `aes()`
+
+
 
 ---
 
 # Live coding
 
 
+
+.pull-left[
+
+```{r bivar_geom_den_2, fig.show = 'hide'}
+
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point() +
+  geom_smooth() +
+  geom_density_2d() +
+  geom_vline(xintercept = 200)
+
+```
+]
+
+.pull-right[
+```{r ref.label = 'bivar_geom_den_2', echo = FALSE, fig.retina = 3}
+```
+]
+
 ---
 class: center, middle, inverse
 
-# Ask yourself:
-# Do you want to plot your data? 
-# A summary of your data? 
-# ...Or both?
+# Recap:
+# There are three types of `geom`
+# Different types need different `aes`thetic mappings
+
+---
+
+name: facets
+class: center, middle, inverse
+# Facets
+
+---
+
+# ... facets?
+
+- From the [`ggplot2` book](https://ggplot2-book.org/getting-started.html#qplot-facetting): "Facetting creates __tables of graphics__ by splitting the data into subsets and displaying the __same graph for each subset__"
+- Just add a `facet_wrap()` layer to a `ggplot` call
+- Tell `ggplot` __which variable(s)__ to facet by using `~`
+- `ggplot` then makes a long string of plots - one for each level of the facetting variable - which it __wraps__ into a table
+
+---
+# An example of facetting
+
+.pull-left[
+```{r facet, fig.show = 'hide'}
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_line() +
+  geom_point(
+    aes(colour = cyl)
+    ) +
+  facet_wrap(~ cyl)
+
+```
+]
+
+.pull-right[
+```{r ref.label = 'facet', echo = FALSE, fig.retina = 3}
+```
+]
+
+
+
+---
+# An example of facetting
+
+.pull-left[
+
+You can facet by multiple variables
+
+```{r facet_2, fig.show = 'hide'}
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_line() +
+  geom_point(
+    aes(colour = cyl)
+    ) +
+  facet_wrap(~ am + cyl)
+
+```
+
+]
+
+.pull-right[
+```{r ref.label = 'facet_2', echo = FALSE, fig.retina = 3}
+```
+]
+
+---
+
+# Going further with `facets`
+
+- The `ggplot` book has a [whole section](https://ggplot2-book.org/facet.html#facet-wrap) on facetting
+- You can allow facets to have __different scales__ using the `scales = ` argument. By default all the facets have the same scale, but you can allow each axis to vary by setting `scales = "free_y"`, `scales = "free_x"` or `scales = "free"`
 
 
 ---
@@ -648,6 +849,8 @@ class: center, middle, inverse
 # Principles of data vizualization
 
 - How we read graphs
+    - Hierarchy of perceptual tasks
+    - Other cognitive principles
 - Principles of chart design
 - An example
 
@@ -655,13 +858,12 @@ class: center, middle, inverse
 class: center, middle, inverse
 # How we read graphs
 
---
-
-# Some visual comparisons are easier to make than others
 
 ---
 
 # Hierarchy of perceptual tasks
+
+- Some visual comparisons are easier to make than others
 
 .left-column[
 
@@ -676,7 +878,7 @@ class: center, middle, inverse
 
 .right-column[
 
-```{r cleveland, out.width = '70%'}
+```{r cleveland, out.width = '50%', echo = FALSE}
  knitr::include_graphics("https://www.researchgate.net/profile/Chia_Shen/publication/221513994/figure/fig2/AS:305590816526337@1449869936222/Cleveland-and-McGills-elementary-perceptual-tasks-All-visual-representations-of.png")
 ```
 
@@ -687,41 +889,41 @@ Source: Cleveland and McGill, 1984
 
 #  Other cognitive principles
 
-- The whole [paper by Vanderplas, Cook and Hofmann](https://www.annualreviews.org/doi/full/10.1146/annurev-statistics-031219-041252) is interesting!
-
-- __Proximity__: "objects or shapes that are close to one another appear to form groups... __place items to compare close together__, and less important comparisons further apart"
-- __Similarity__: "we group things that have similar appearances and exclude objects with different appearances"; i.e. if a bunch of points are the same colour or shape people will see them as belonging to the same group
+- __Proximity__: "objects or shapes that are close to one another appear to form groups... __place items to compare close together__, and less important comparisons further apart" (this is from a very interesting [review of research into how we understand graphs by Vanderplas, Cook and Hofmann](https://www.annualreviews.org/doi/full/10.1146/annurev-statistics-031219-041252))
+    - ... so think about how your __mapping of variables__ to aesthetics and facets __highlights some comparisons__ and not others
 - __[Match perceptual and data topology](http://stat405.had.co.nz/lectures/20-effective-vis.pdf)__: If you’re using a graphical element to show relative size of quantities __make larger size = larger quantity__
+    - Does a brighter colour imply higher or lower value?
 
 ---
 class: center, middle, inverse
-# Principles of chart design
+# More principles of chart design
 
 ---
 
 #  More principles of chart design
 - __Dual coding__: You can encode the same variables to multiple aesthetic parameters (easily in `ggplot2`) to aid comprehension
 - This can also aid __accessibility__ by reducing reliance on e.g. colour to distinguish variables
-- Use colour scales designed to have __good perceptual properties__ for different kinds of colour-blindness (`ggplot2` defaults aren't so good for this) (we'll cover some of these later in the course)
+- You can also colour scales designed to have __good perceptual properties__ for [different kinds of colour-blindness](https://serialmentor.com/dataviz/color-pitfalls.html#not-designing-for-color-vision-deficiency) (`ggplot2` defaults aren't so good for this) (we'll cover some of these later in the course)
 
 
 ---
 
 # Even more principles of chart design
 
-- Plot the raw data and the summary
-- Graph data two or more times if it is needed (Cleveland 1985)
+- Plot the __raw data__ and the __summary__
 - Think about how each plot fits into the [story you're telling](https://serialmentor.com/dataviz/telling-a-story.html)
+- It's totally fine to graph data __two or more times__ if it helps to tell the story (Cleveland 1985)
+
 
 ---
 
 # An example
 
 .left-column[
-- Use the grammar of graphics to describe this plot
-- Which attributes are emphasised most?
-- How could this be improved?
-- (Be as rude as you like about it it's fine!)
+- Use the __grammar of graphics__ to describe this plot
+- In your groups, take __three minutes__ to
+- Which __attributes__ are emphasised most?
+- How could this figure be plotted differently or __improved__?
 
 ]
 
@@ -734,6 +936,8 @@ Age-crime curves for different crime types in Scottish Offenders Index 1989-2011
 ]
 
 ---
+
+# How I'd describe this figure with the grammar of graphics
 
 Aspect of Grammar	| Variable
 ------------------|-------
@@ -762,7 +966,7 @@ class: center, middle, inverse
 
 - From _R for Data Science_:
 
-```{r bad_plot, out.width = '70%'}
+```{r bad_plot, out.width = '50%', echo = FALSE}
  knitr::include_graphics("https://ggplot2-book.org/collective-geoms_files/figure-html/oxboys-line-bad-1.png")
 ```
 
@@ -770,7 +974,7 @@ class: center, middle, inverse
 2. Groups == only one observation (categorical x-variable)
     - Colouring by a factor variable or a continuous one
 - Data types matter to `ggplot2`
-- If you want to plot a line you need to make sure the x and y axes are __continous__ variables and that you're not trying to colour
+- If you want to plot a line you need to make sure the x and y axes are __continuous__ variables and that you're not trying to colour
 
 ---
 
@@ -800,23 +1004,11 @@ class: center, middle, inverse
 
 ---
 
-# What is `ggplot2`?
+# What we've learned:
 
-- It's an `R` package that draws graphs, developed by [Hadley Wickham](http://hadley.nz/)
-
-- From the [tidyverse website](https://ggplot2.tidyverse.org/): "`ggplot2` is a system for __declaratively__ creating graphics, based on The Grammar of Graphics. You provide the data, tell `ggplot2` how to map variables to aesthetics, what [visual marks to use to represent data points], and it takes care of the details." 
-
-- ... and what's the Grammar of Graphics? Our `ggplot2` [cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf) says this is "the idea that you can __build every graph from the same components__: a data set, a coordinate system, and `geom`s—visual marks that represent data points." 
-
----
-
-class: center, middle, inverse
-
-# `ggplot2`:
-# - Aids perception `r emo::ji("bulb")`
-# - Is powerful `r emo::ji("muscle")`
-# - Is popular  `r emo::ji("sunglasses")`
-
+- How to draw graphs with `ggplot2`
+- Elements of the __grammar of graphics__
+- Principles of __data visualization__
 
 ---
 
@@ -824,50 +1016,36 @@ class: center, middle, inverse
 
 
 # Dataset + 
-# _mapping_ variables in the dataset to `aes`thetic + 
+# mapping variables in the dataset to `aes`thetic + 
 # Layers of `geom`s (symbols to represent data) = 
 # Plot
 
 
 ---
 
-# Three types of `geom`
 
-- `geom`s that plot each datum for you
-- `geom`s that plot summaries of your dataset for you
-- `geom`s that plot things that aren't in your dataset (like reference lines and such)
+class: center, middle, inverse
+
+# Three types of `geom`: plot each datum, plot a summary, plot metadata
 
 
----
-
-- Design your data viz with your audience in mind
-- Use best practice: design graphs that are easy to understand
 
 ---
 
-- Errors are going to happen and that's fine!
+class: center, middle, inverse
+
+# Errors happen and that's fine!
 
 
 ---
 
 # In the next session
 
-- The fun stuff!
-- Maps
-- Beautifying your ggplots
-- Answering any questions you have between now and then
-- Please feel free to bring your own data!
-
-
-
-
-
-
----
-
-# Optional homework
-
-- Try out this week's [#TidyTuesday](https://github.com/rfordatascience/tidytuesday) challenge
+- __Maps__
+- Beautifying your ggplots with __themes__ and __titles__
+- Answering any __questions__ you have between now and then
+- Please feel free to bring __your own data__!
+- Optional homework: try out this week's [#TidyTuesday](https://github.com/rfordatascience/tidytuesday) challenge
 
 
 
