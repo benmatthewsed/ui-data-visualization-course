@@ -22,7 +22,7 @@ class: center, middle, inverse
 
 Ben Matthews&lt;sup&gt;1&lt;/sup&gt; and Eilidh Jack&lt;sup&gt;2&lt;/sup&gt;
 
-29/06/2020  (Updated 2020-06-22)
+29/06/2020  (Updated 2020-06-23)
 
 &lt;sup&gt;1&lt;/sup&gt;University of Edinburgh
 
@@ -134,7 +134,7 @@ class: center, middle, inverse
 ---
 # Why plot in the first place?
 
-![](https://d2f99xq7vri1nk.cloudfront.net/DataDino-600x455.gif)&lt;!-- --&gt;
+![](https://d2f99xq7vri1nk.cloudfront.net/DinoSequentialSmaller.gif)&lt;!-- --&gt;
 
 The __datasaurus__ -- [Matejka and Fitzmaurice](https://www.autodeskresearch.com/publications/samestats)
 
@@ -293,6 +293,15 @@ class: center, middle, inverse
 
 
 .pull-left[
+
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+)
+```
+]
 
 .pull-right[
 &lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-1-1.png" width="504" /&gt;
@@ -515,6 +524,11 @@ class: center, middle, inverse
 
 .right-column[
 
+
+```r
+ knitr::include_graphics("https://www.researchgate.net/profile/Chia_Shen/publication/221513994/figure/fig2/AS:305590816526337@1449869936222/Cleveland-and-McGills-elementary-perceptual-tasks-All-visual-representations-of.png")
+```
+
 &lt;img src="https://www.researchgate.net/profile/Chia_Shen/publication/221513994/figure/fig2/AS:305590816526337@1449869936222/Cleveland-and-McGills-elementary-perceptual-tasks-All-visual-representations-of.png" width="70%" /&gt;
 
 Source: Cleveland and McGill, 1984
@@ -598,6 +612,11 @@ class: center, middle, inverse
 1. Two joined lines (multiple groups) ["sawtooth"](https://ggplot2-book.org/collective-geoms.html)
 
 - From _R for Data Science_:
+
+
+```r
+ knitr::include_graphics("https://ggplot2-book.org/collective-geoms_files/figure-html/oxboys-line-bad-1.png")
+```
 
 &lt;img src="https://ggplot2-book.org/collective-geoms_files/figure-html/oxboys-line-bad-1.png" width="70%" /&gt;
 

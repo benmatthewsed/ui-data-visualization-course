@@ -9,7 +9,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 library(ggplot2)
 library(sf)
 ```
@@ -140,7 +140,7 @@ class: center, middle, inverse
 ---
 # Why plot in the first place?
 
-`r knitr::include_graphics("https://d2f99xq7vri1nk.cloudfront.net/DataDino-600x455.gif")`
+`r knitr::include_graphics("https://d2f99xq7vri1nk.cloudfront.net/DinoSequentialSmaller.gif")`
 
 The __datasaurus__ -- [Matejka and Fitzmaurice](https://www.autodeskresearch.com/publications/samestats)
 
@@ -299,6 +299,7 @@ class: center, middle, inverse
 
 
 .pull-left[
+
 ```{r plot-last, fig.show = 'hide'}
 ggplot(
   data = mtcars,
@@ -306,6 +307,8 @@ ggplot(
 )
 
 ```
+]
+
 .pull-right[
 ```{r ref.label = 'plot-last', echo = FALSE, fig.retina = 3}
 ```
