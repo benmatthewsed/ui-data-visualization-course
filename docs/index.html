@@ -23,7 +23,7 @@ class: center, middle, inverse
 
 Ben Matthews&lt;sup&gt;1&lt;/sup&gt; and Eilidh Jack&lt;sup&gt;2&lt;/sup&gt;
 
-29/06/2020  (Updated 2020-06-23)
+29/06/2020  (Updated 2020-06-24)
 
 &lt;sup&gt;1&lt;/sup&gt;University of Edinburgh
 
@@ -926,34 +926,69 @@ class: center, middle, inverse
 
 # Common problems with `ggplot2`
 
-1. Two joined lines (multiple groups) ["sawtooth"](https://ggplot2-book.org/collective-geoms.html)
+- __Symptom__
+- __Diagnosis__
+- __Prescription__
+
+---
+
+# 1. "Sawtooth" lines
+
+- __Symptom__: ["Sawtooth"](https://ggplot2-book.org/collective-geoms.html) lines on your plot.
 
 - From _R for Data Science_:
 
 &lt;img src="https://ggplot2-book.org/collective-geoms_files/figure-html/oxboys-line-bad-1.png" width="50%" /&gt;
 
+- __Diagnosis__: "This vis problem often means there is some grouping characteristic missing from the graphic" https://www.njtierney.com/post/2020/06/14/jq-sawtooth/
+
+- __Prescription__: Check the data for any more grouping variables you might've missed (e.g. if your dataset is values for multiple years and you haven't included year in the plot)
+
+
 ---
-2. Groups == only one observation (categorical x-variable)
+# "`Each group consists of only one observation`"
+
+- __Symptom__: Error message `geom_path: Each group consists of only one observation. Do you need to adjust the group aesthetic?`
+
+- __Diagnosis__: This happens when you try to plot a __line__ using a factor as one of the position scales (usually `x` in my experience). `ggplot` then 'guesses' that you want the `x` variable to be the grouping variable
+
+- Thing to note - data types matter to `ggplot`!
+
+- __Prescription__: Adjust the group aesthetic! Explicitly tell `ggplot` what variable you want to group by in the call to `aes()` using the `group = ` parameter
+
+
+2. Groups == only one observation (categorical/factor x-variable)
     - Colouring by a factor variable or a continuous one
 - Data types matter to `ggplot2`
 - If you want to plot a line you need to make sure the x and y axes are __continuous__ variables and that you're not trying to colour
 
 ---
+# `stat_count() must not be used with a y aesthetic`
 
-3. Stat count with `y` aesthetic
+- __Symptom__: Error message `stat_count() must not be used with a y aesthetic`
 
-- The geom wants to compute a summary but you've already provided summarised data
+- __Diagnosis__: This happens with summary `geom`s (usually `geom_bar`) which want to calculate a summary for you but you've already summarised the data outside of ggplot2
+
+- __Prescription__: You can tell `geom_bar` that you've summarised the data already by specifying `geom_bar(stat = "identity")` (here `identity` just means "use the numbers that I gave you please and don't calculate anything with them")
+
+---
+# `Error: Cannot use `+.gg()` with a single argument. Did you accidentally put + on a new line?`
+
+- __Symptom__: Error message
+
+- __Diagnosis__: For [technical reasons I don't understand](https://community.rstudio.com/t/why-put-and-at-the-end-of-lines/1831) this isn't valid R code. So you can't do it!
+
+- __Prescription__: Move the `+` to the end of the previous line from the start of the new line
 
 ---
 
-4. `+` on newline
+# `Error in FUN(X[[i]], ...) : object 'blah' not found`
 
-- For [technical reasons I don't understand](https://community.rstudio.com/t/why-put-and-at-the-end-of-lines/1831) this isn't valid R code. So you can't do it!
-
----
-
-5. Call inside/outside `aes()`
-    - See our discussion on concepts in the grammar of graphics 
+- __Symptom__: Error message
+- __Diagnosis__: `ggplot` is looking for something in your dataset but there are no variables with that name
+- See our discussion on concepts in the grammar of graphics about what goes inside the call to `aes` and what goes outside
+- __Prescription__: Make sure there aren't any typos, and that what you've specified is in your dataset
+- If you're trying to e.g. set a colour you might have to move this outside the call to `aes()`
     
 
 
