@@ -16,7 +16,10 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, 
                       message = FALSE,
-                      error = TRUE)
+                      error = TRUE,
+                      fig.width = 7,
+                      fig.asp = 0.618,
+                      fig.retina = 2.5)
 library(ggplot2)
 library(sf)
 ```
@@ -116,7 +119,7 @@ name: outline
 - Sometimes it helps to __close your browser__ and rejoin the session
 - If it all goes wrong and you can't rejoin __it's okay!__
 - You can __access the materials any time__ (see links on previous page)
-- We're not recording the 'lectures' or live-coding, but there's already an __excellent [series of videos on YouTube]("https://www.youtube.com/watch?v=t6IIJEoqPyk&list=PLRPB0ZzEYegPa4uvvAVJnr6loSKbN4wLb")__ covering how to use `ggplot2`
+- I think 'lectures' and live-coding is being recorded, but there's already an __excellent [series of videos on YouTube]("https://www.youtube.com/watch?v=t6IIJEoqPyk&list=PLRPB0ZzEYegPa4uvvAVJnr6loSKbN4wLb")__ covering how to use `ggplot2`
 
 
 ---
@@ -237,6 +240,14 @@ class: center, middle, inverse
 ---
 class: center, middle, inverse
 
+# `Your turn!`
+# Lines __xxx__ in the __exercises (add link to these here)__
+# Lines __xxx__ in the __answers (add link to these here)__
+
+
+---
+class: center, middle, inverse
+
 # Five-minute break
 
 
@@ -272,7 +283,6 @@ class: center, middle, inverse
 
 # Data
 
-- Erm, the __dataset__ you're plotting!
 - `ggplot2` expects your dataset to be [tidy](https://r4ds.had.co.nz/tidy-data.html):
     1. Each __variable__ must have its own __column__.
     2. Each __observation__ must have its own __row__.
@@ -559,6 +569,15 @@ class: center, middle, inverse
 # Order matters in the `ggplot` call
 
 ---
+
+class: center, middle, inverse
+
+# Any questions?
+
+
+
+
+---
 name: geom-types
 class: center, middle, inverse
 
@@ -587,7 +606,7 @@ class: center, middle, inverse
     - `geom_area`
     - `geom_bar(stat = "identity)`
     - `geom_sf()` (we'll come back to this in the next session)
-    - `geom_text()` (sometimes)
+    - `geom_text()`
     - `geom_errorbar` (sort of)
 
 - These `geom`s usually require __mapping to `x` and `y` axes__
@@ -720,15 +739,14 @@ name: reference-lines
     - `geom_hline(yintercept = )`
     - `geom_abline(slope = , intercept = )`
 - Annotations
-    - `geom_text(aes(label = ))` (sometimes)
+    - `geom_text(aes(label = ))` (... sort of)
 - Reference lines need intercepts __specified outside of `aes()`__, but text labels need the specific `label` mapped to a variable in a dataset using `aes()`
 
 
 
 ---
 
-# Live coding
-
+# Adding a reference line
 
 
 .pull-left[
@@ -754,11 +772,52 @@ ggplot(
 ]
 
 ---
+
+# Adding text
+
+- It's kind of a lie to have ``geom_text` is a funny one because you __can__ use it to add values from your dataset using `aes()` (in this case, the values from the `y` axis):
+
+.pull-left[
+
+```{r geom_text, fig.show = 'hide'}
+
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point() +
+  geom_smooth() +
+  geom_density_2d() +
+  geom_vline(xintercept = 200) +
+  annotate(
+    geom = "text",
+    x = 300,
+    y = 4,
+    label ="YES"
+  )
+
+```
+]
+
+.pull-right[
+```{r ref.label = 'geom_text', echo = FALSE, fig.retina = 3}
+```
+]
+
+
+---
 class: center, middle, inverse
 
 # Recap:
 # There are three types of `geom`
 # Different types need different `aes`thetic mappings
+
+---
+class: center, middle, inverse
+# `Your turn!`
+# Lines __xxx__ in the __exercises (add link to these here)__
+# Lines __xxx__ in the __answers (add link to these here)__
 
 ---
 
@@ -772,10 +831,12 @@ class: center, middle, inverse
 
 - From the [`ggplot2` book](https://ggplot2-book.org/getting-started.html#qplot-facetting): "Faceting creates __tables of graphics__ by splitting the data into subsets and displaying the __same graph for each subset__"
 - Just add a `facet_wrap()` layer to a `ggplot` call
-- Tell `ggplot` __which variable(s)__ to facet by using `~`
+- Tell `ggplot` __which variable(s)__ to facet using a call to `vars()` (this acts like `aes()` but for `facet`s)
 - `ggplot` then makes a long string of plots - one for each level of the faceting variable - which it __wraps__ into a table
+- Why can't we just use `aes()` here too? Apparently `vars()` can [handle more complicated expressions than `aes()`](https://ggplot2.tidyverse.org/reference/vars.html), which lets you tweak your facets in some helpful ways. I (Ben) only learned this writing the course!
 
 ---
+
 # An example of facetting
 
 .pull-left[
@@ -789,7 +850,9 @@ ggplot(
   geom_point(
     aes(colour = cyl)
     ) +
-  facet_wrap(~ cyl)
+  facet_wrap(
+    facets = vars(cyl)
+    )
 
 ```
 ]
@@ -818,7 +881,9 @@ ggplot(
   geom_point(
     aes(colour = cyl)
     ) +
-  facet_wrap(~ am + cyl)
+  facet_wrap(
+    facets = vars(am, cyl)
+    )
 
 ```
 
@@ -830,12 +895,59 @@ ggplot(
 ]
 
 ---
+# Adjusting the scales
+
+
+You can change how the __axes__ are displayed by setting `scales = `. This focuses on the trends __within__ the plot and makes it harder to see trends __between__ plots.
+
+.pull-left[
+
+```{r facet_grid, fig.show = 'hide'}
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_line() +
+  geom_point(
+    aes(colour = cyl)
+    ) +
+  facet_wrap(
+    facets = vars(am, cyl),
+    scales = "free_y"
+    )
+
+```
+
+]
+
+.pull-right[
+```{r ref.label = 'facet_grid', echo = FALSE, fig.retina = 3}
+```
+]
+
+
+
+---
+
 
 # Going further with `facets`
 
 - The `ggplot` book has a [whole section](https://ggplot2-book.org/facet.html#facet-wrap) on faceting
 - You can allow facets to have __different scales__ using the `scales = ` argument. By default all the facets have the same scale, but you can allow each axis to vary by setting `scales = "free_y"`, `scales = "free_x"` or `scales = "free"`
 
+
+---
+class: center, middle, inverse
+# `Your turn!`
+# Lines __xxx__ in the __exercises (add link to these here)__
+# Lines __xxx__ in the __answers (add link to these here)__
+
+
+---
+class: center, middle, inverse
+
+# Five-minute break
 
 ---
 
@@ -863,7 +975,7 @@ class: center, middle, inverse
 
 # Hierarchy of perceptual tasks
 
-- Some visual comparisons are easier to make than others
+- __Some visual comparisons are easier__ to make than others
 
 .pull.left[
 
@@ -966,36 +1078,73 @@ class: center, middle, inverse
 
 # Common problems with `ggplot2`
 
-1. Two joined lines (multiple groups) ["sawtooth"](https://ggplot2-book.org/collective-geoms.html)
+- __Symptom__
+- __Diagnosis__
+- __Prescription__
 
-- From _R for Data Science_:
+---
+
+# 1. "Sawtooth" lines
+
+- __Symptom__: ["Sawtooth"](https://ggplot2-book.org/collective-geoms.html) lines on your plot.
+
+- From __R for Data Science__:
 
 ```{r bad_plot, out.width = '50%', echo = FALSE}
  knitr::include_graphics("https://ggplot2-book.org/collective-geoms_files/figure-html/oxboys-line-bad-1.png")
 ```
 
+- __Diagnosis__: "This vis problem often means there is some grouping characteristic missing from the graphic" https://www.njtierney.com/post/2020/06/14/jq-sawtooth/
+
+- __Prescription__: Check the data for any more grouping variables you might've missed (e.g. if your dataset is values for multiple years and you haven't included year in the plot)
+
+
 ---
-2. Groups == only one observation (categorical x-variable)
+# "`Each group consists of only one observation`"
+
+- __Symptom__: Error message `geom_path: Each group consists of only one observation. Do you need to adjust the group aesthetic?`
+
+- __Diagnosis__: This happens when you try to plot a __line__ using a factor as one of the position scales (usually `x` in my experience). `ggplot` then 'guesses' that you want the `x` variable to be the grouping variable
+
+- Thing to note - data types matter to `ggplot`!
+
+- __Prescription__: Adjust the group aesthetic! Explicitly tell `ggplot` what variable you want to group by in the call to `aes()` using the `group = ` parameter
+
+
+2. Groups == only one observation (categorical/factor x-variable)
     - Colouring by a factor variable or a continuous one
 - Data types matter to `ggplot2`
 - If you want to plot a line you need to make sure the x and y axes are __continuous__ variables and that you're not trying to colour
 
 ---
+# `stat_count() must not be used with a y aesthetic`
 
-3. Stat count with `y` aesthetic
+- __Symptom__: Error message `stat_count() must not be used with a y aesthetic`
 
-- The geom wants to compute a summary but you've already provided summarised data
+- __Diagnosis__: This happens with summary `geom`s (usually `geom_bar`) which want to calculate a summary for you but you've already summarised the data outside of ggplot2
+
+- __Prescription__: You can tell `geom_bar` that you've summarised the data already by specifying `geom_bar(stat = "identity")` (here `identity` just means "use the numbers that I gave you please and don't calculate anything with them")
+
+https://stackoverflow.com/questions/39679057/r-ggplot2-stat-count-must-not-be-used-with-a-y-aesthetic-error-in-bar-graph
+
+---
+# `Error: Cannot use `+.gg()` with a single argument. Did you accidentally put + on a new line?`
+
+- __Symptom__: Error message
+
+- __Diagnosis__: For [technical reasons I don't understand](https://community.rstudio.com/t/why-put-and-at-the-end-of-lines/1831) this isn't valid R code. So you can't do it!
+
+- __Prescription__: Move the `+` to the end of the previous line from the start of the new line
 
 ---
 
-4. `+` on newline
+# `Error in FUN(X[[i]], ...) : object 'blah' not found`
 
-- For [technical reasons I don't understand](https://community.rstudio.com/t/why-put-and-at-the-end-of-lines/1831) this isn't valid R code. So you can't do it!
-
----
-
-5. Call inside/outside `aes()`
-    - See our discussion on concepts in the grammar of graphics 
+- __Symptom__: Error message
+- __Diagnosis__: `ggplot` is looking for something in your dataset but there are no variables with that name
+- See our discussion on concepts in the grammar of graphics about what goes inside the call to `aes` and what goes outside
+- __Prescription__: Make sure there aren't any typos, and that what you've specified is in your dataset
+- If you're trying to e.g. set a colour you might have to move this outside the call to `aes()`
     
 
 

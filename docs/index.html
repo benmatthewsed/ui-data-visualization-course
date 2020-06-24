@@ -104,7 +104,7 @@ name: outline
 - Sometimes it helps to __close your browser__ and rejoin the session
 - If it all goes wrong and you can't rejoin __it's okay!__
 - You can __access the materials any time__ (see links on previous page)
-- We're not recording the 'lectures' or live-coding, but there's already an __excellent [series of videos on YouTube]("https://www.youtube.com/watch?v=t6IIJEoqPyk&amp;list=PLRPB0ZzEYegPa4uvvAVJnr6loSKbN4wLb")__ covering how to use `ggplot2`
+- I think 'lectures' and live-coding is being recorded, but there's already an __excellent [series of videos on YouTube]("https://www.youtube.com/watch?v=t6IIJEoqPyk&amp;list=PLRPB0ZzEYegPa4uvvAVJnr6loSKbN4wLb")__ covering how to use `ggplot2`
 
 
 ---
@@ -225,6 +225,14 @@ class: center, middle, inverse
 ---
 class: center, middle, inverse
 
+# `Your turn!`
+# Lines __xxx__ in the __exercises (add link to these here)__
+# Lines __xxx__ in the __answers (add link to these here)__
+
+
+---
+class: center, middle, inverse
+
 # Five-minute break
 
 
@@ -260,7 +268,6 @@ class: center, middle, inverse
 
 # Data
 
-- Erm, the __dataset__ you're plotting!
 - `ggplot2` expects your dataset to be [tidy](https://r4ds.had.co.nz/tidy-data.html):
     1. Each __variable__ must have its own __column__.
     2. Each __observation__ must have its own __row__.
@@ -541,6 +548,15 @@ class: center, middle, inverse
 # Order matters in the `ggplot` call
 
 ---
+
+class: center, middle, inverse
+
+# Any questions?
+
+
+
+
+---
 name: geom-types
 class: center, middle, inverse
 
@@ -569,7 +585,7 @@ class: center, middle, inverse
     - `geom_area`
     - `geom_bar(stat = "identity)`
     - `geom_sf()` (we'll come back to this in the next session)
-    - `geom_text()` (sometimes)
+    - `geom_text()`
     - `geom_errorbar` (sort of)
 
 - These `geom`s usually require __mapping to `x` and `y` axes__
@@ -691,15 +707,14 @@ name: reference-lines
     - `geom_hline(yintercept = )`
     - `geom_abline(slope = , intercept = )`
 - Annotations
-    - `geom_text(aes(label = ))` (sometimes)
+    - `geom_text(aes(label = ))` (... sort of)
 - Reference lines need intercepts __specified outside of `aes()`__, but text labels need the specific `label` mapped to a variable in a dataset using `aes()`
 
 
 
 ---
 
-# Live coding
-
+# Adding a reference line
 
 
 .pull-left[
@@ -722,11 +737,49 @@ ggplot(
 ]
 
 ---
+
+# Adding text
+
+- It's kind of a lie to have ``geom_text` is a funny one because you __can__ use it to add values from your dataset using `aes()` (in this case, the values from the `y` axis):
+
+.pull-left[
+
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point() +
+  geom_smooth() +
+  geom_density_2d() +
+  geom_vline(xintercept = 200) +
+  annotate(
+    geom = "text",
+    x = 300,
+    y = 4,
+    label ="YES"
+  )
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-13-1.png" width="504" /&gt;
+]
+
+
+---
 class: center, middle, inverse
 
 # Recap:
 # There are three types of `geom`
 # Different types need different `aes`thetic mappings
+
+---
+class: center, middle, inverse
+# `Your turn!`
+# Lines __xxx__ in the __exercises (add link to these here)__
+# Lines __xxx__ in the __answers (add link to these here)__
 
 ---
 
@@ -740,10 +793,12 @@ class: center, middle, inverse
 
 - From the [`ggplot2` book](https://ggplot2-book.org/getting-started.html#qplot-facetting): "Faceting creates __tables of graphics__ by splitting the data into subsets and displaying the __same graph for each subset__"
 - Just add a `facet_wrap()` layer to a `ggplot` call
-- Tell `ggplot` __which variable(s)__ to facet by using `~`
+- Tell `ggplot` __which variable(s)__ to facet using a call to `vars()` (this acts like `aes()` but for `facet`s)
 - `ggplot` then makes a long string of plots - one for each level of the faceting variable - which it __wraps__ into a table
+- Why can't we just use `aes()` here too? Apparently `vars()` can [handle more complicated expressions than `aes()`](https://ggplot2.tidyverse.org/reference/vars.html), which lets you tweak your facets in some helpful ways. I (Ben) only learned this writing the course!
 
 ---
+
 # An example of facetting
 
 .pull-left[
@@ -757,12 +812,14 @@ ggplot(
   geom_point(
     aes(colour = cyl)
     ) +
-  facet_wrap(~ cyl)
+  facet_wrap(
+    facets = vars(cyl)
+    )
 ```
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-13-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-14-1.png" width="504" /&gt;
 ]
 
 
@@ -784,22 +841,69 @@ ggplot(
   geom_point(
     aes(colour = cyl)
     ) +
-  facet_wrap(~ am + cyl)
+  facet_wrap(
+    facets = vars(am, cyl)
+    )
 ```
 
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-14-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-15-1.png" width="504" /&gt;
 ]
 
 ---
+# Adjusting the scales
+
+
+You can change how the __axes__ are displayed by setting `scales = `. This focuses on the trends __within__ the plot and makes it harder to see trends __between__ plots.
+
+.pull-left[
+
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_line() +
+  geom_point(
+    aes(colour = cyl)
+    ) +
+  facet_wrap(
+    facets = vars(am, cyl),
+    scales = "free_y"
+    )
+```
+
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-16-1.png" width="504" /&gt;
+]
+
+
+
+---
+
 
 # Going further with `facets`
 
 - The `ggplot` book has a [whole section](https://ggplot2-book.org/facet.html#facet-wrap) on faceting
 - You can allow facets to have __different scales__ using the `scales = ` argument. By default all the facets have the same scale, but you can allow each axis to vary by setting `scales = "free_y"`, `scales = "free_x"` or `scales = "free"`
 
+
+---
+class: center, middle, inverse
+# `Your turn!`
+# Lines __xxx__ in the __exercises (add link to these here)__
+# Lines __xxx__ in the __answers (add link to these here)__
+
+
+---
+class: center, middle, inverse
+
+# Five-minute break
 
 ---
 
@@ -827,7 +931,7 @@ class: center, middle, inverse
 
 # Hierarchy of perceptual tasks
 
-- Some visual comparisons are easier to make than others
+- __Some visual comparisons are easier__ to make than others
 
 .pull.left[
 
@@ -936,7 +1040,7 @@ class: center, middle, inverse
 
 - __Symptom__: ["Sawtooth"](https://ggplot2-book.org/collective-geoms.html) lines on your plot.
 
-- From _R for Data Science_:
+- From __R for Data Science__:
 
 &lt;img src="https://ggplot2-book.org/collective-geoms_files/figure-html/oxboys-line-bad-1.png" width="50%" /&gt;
 
@@ -970,6 +1074,8 @@ class: center, middle, inverse
 - __Diagnosis__: This happens with summary `geom`s (usually `geom_bar`) which want to calculate a summary for you but you've already summarised the data outside of ggplot2
 
 - __Prescription__: You can tell `geom_bar` that you've summarised the data already by specifying `geom_bar(stat = "identity")` (here `identity` just means "use the numbers that I gave you please and don't calculate anything with them")
+
+https://stackoverflow.com/questions/39679057/r-ggplot2-stat-count-must-not-be-used-with-a-y-aesthetic-error-in-bar-graph
 
 ---
 # `Error: Cannot use `+.gg()` with a single argument. Did you accidentally put + on a new line?`
