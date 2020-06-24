@@ -491,7 +491,7 @@ ggplot(
 
 - For technical reasons we won't go into now __quotation marks matter__ here (if you want you can read all about why [here](https://adv-r.hadley.nz/metaprogramming.html))
 - This was a __common source of errors__ for me when learning `ggplot2` (and still is!) and my own mental model of when and why to use quote marks is pretty crude even now. So it's natural that this feels weird or arbitrary right now 👍
-- Most of the time
+- Most of the time, if it's __inside__ the call to `aes` __don't__ use quotes
 
 ---
 
@@ -675,7 +675,7 @@ ggplot(
 
 ---
 
-# Another bivariate example
+# Why stop there?
 
 
 .pull-left[
@@ -914,7 +914,7 @@ class: center, middle, inverse
 ---
 
 
-# Principles of data vizualization
+# Principles of data visualization
 
 - How we read graphs
     - Hierarchy of perceptual tasks
@@ -931,9 +931,9 @@ class: center, middle, inverse
 
 # Hierarchy of perceptual tasks
 
-- __Some visual comparisons are easier__ to make than others
-
 .pull.left[
+
+- __Some visual comparisons are easier__ to make than others
 
 1. Position along a common scale
 2. Position along identical, non-aligned scales
@@ -959,18 +959,79 @@ class: center, middle, inverse
 
 - __Proximity__: "objects or shapes that are close to one another appear to form groups... __place items to compare close together__, and less important comparisons further apart" (this is from a very interesting [review of research into how we understand graphs by Vanderplas, Cook and Hofmann](https://www.annualreviews.org/doi/full/10.1146/annurev-statistics-031219-041252))
     - ... so think about how your __mapping of variables__ to aesthetics and facets __highlights some comparisons__ and not others
-- __[Match perceptual and data topology](http://stat405.had.co.nz/lectures/20-effective-vis.pdf)__: If you’re using a graphical element to show relative size of quantities __make larger size = larger quantity__
-    - Does a brighter colour imply higher or lower value?
-
+   
+&lt;img src="https://www.annualreviews.org/na101/home/literatum/publisher/ar/journals/content/statistics/2020/statistics.2020.7.issue-1/annurev-statistics-031219-041252/20200226/images/medium/st070061.f11.gif" width="70%" /&gt;
 ---
-class: center, middle, inverse
-# More principles of chart design
+    
+# Other cognitive principles
+- __[Match perceptual and data topology](http://stat405.had.co.nz/lectures/20-effective-vis.pdf)__: Some `aes`thetic mappings have implicit __orders__ (like position and size), others are __unordered__ (like shape)
+   - If you’re using a graphical element to show relative size of quantities __make larger size = larger quantity__
+    - Does a brighter colour imply higher or lower value?
+- (We're not going to spend much time on this, but see [these excellent slides](http://stat405.had.co.nz/lectures/20-effective-vis.pdf) for more discussion)
 
 ---
 
 #  More principles of chart design
 - __Dual coding__: You can encode the same variables to multiple aesthetic parameters (easily in `ggplot2`) to aid comprehension
 - This can also aid __accessibility__ by reducing reliance on e.g. colour to distinguish variables
+
+
+.pull-left[
+
+
+```r
+# code am to colour
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point(
+    mapping = aes(colour = am)
+  )
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-17-1.png" width="504" /&gt;
+]
+
+---
+
+---
+
+#  More principles of chart design
+- __Dual coding__: You can encode the same variables to multiple aesthetic parameters (easily in `ggplot2`) to aid comprehension
+- This can also aid __accessibility__ by reducing reliance on e.g. colour to distinguish variables
+
+
+.pull-left[
+
+
+```r
+# code am to shape as well
+# note - I had to cheat here and ask ggplot2 to treat
+# am as a factor variable!
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point(
+    mapping = aes(colour = am,
+                  shape = factor(am))
+  )
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-18-1.png" width="504" /&gt;
+]
+
+
+---
+
+#  More principles of chart design
 - You can also colour scales designed to have __good perceptual properties__ for [different kinds of colour-blindness](https://serialmentor.com/dataviz/color-pitfalls.html#not-designing-for-color-vision-deficiency) (`ggplot2` defaults aren't so good for this) (we'll cover some of these later in the course)
 
 
@@ -979,9 +1040,18 @@ class: center, middle, inverse
 # Even more principles of chart design
 
 - Plot the __raw data__ and the __summary__
+- Remember the [datasaurus!](https://www.autodeskresearch.com/publications/samestats)
+
+![](https://d2f99xq7vri1nk.cloudfront.net/DinoSequentialSmaller.gif)&lt;!-- --&gt;
+
+
+---
+
+# Telling stories with charts
+
 - Think about how each plot fits into the [story you're telling](https://serialmentor.com/dataviz/telling-a-story.html)
 - It's totally fine to graph data __two or more times__ if it helps to tell the story (Cleveland 1985)
-
+- I think `ggplot` helps with this because it allows you to iterate towards your final chart by building up layers
 
 ---
 
@@ -997,7 +1067,7 @@ class: center, middle, inverse
 
 .right-column[
 
-&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/thesis_figure.png" width="50%" /&gt;
+&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/thesis_figure.png" width="60%" /&gt;
 
 Age-crime curves for different crime types in Scottish Offenders Index 1989-2011, men (Source: [Ben's PhD thesis](https://era.ed.ac.uk/handle/1842/25810))
 
