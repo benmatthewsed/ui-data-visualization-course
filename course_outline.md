@@ -2,7 +2,7 @@ Understanding Inequalities Data Visualization with `ggplot2` Course
 Outline
 ================
 Ben Matthews
-2020-06-02
+2020-06-25
 
 ## Outline
 
@@ -56,8 +56,8 @@ programming language.
 #### Part two (55 mins)
 
 5.  Concepts of the grammar of graphics (15 mins)
-6.  Facets (20 mins)
-7.  Smooths, transforms, density (20 mins)
+6.  Three types of geom (20 mins)
+7.  Facets (20 mins)
 
 #### Break (5 mins)
 
@@ -65,18 +65,6 @@ programming language.
 
 8.  Good dataviz practice (15 mins)
 9.  gg-gotchas (20 mins)
-    1.  types of geom, types of data:
-        1.  only one observation per group: categorical x-var, set group
-            aes
-        2.  colour scales and continuous, factor variables
-    2.  pains in the aes()
-        1.  settings inside/outside aes() - example of colour
-        2.  setting aes() in ggplot call rather than geom call
-    3.  mapping data to variables: multiple joined lines together
-    4.  (maybe) error when + starts new line
-    5.  problems with transformations
-        1.  stat count with y aesthetic
-        2.  geom\_density with small numbers
 10. Recap (10 mins)
 11. Trail next session (10 mins)
     1.  Optional homework - Tidy Tuesday
@@ -89,7 +77,7 @@ programming language.
 13. Questions since last course (5 mins)
 14. Recap of last session (10 mins)
 15. Principles of mapping (15 mins)
-16. Intro to {sf} and what’s in my spatial dataframe? (10 mins)
+16. Intro to `{sf}` and what’s in my spatial dataframe? (10 mins)
 
 #### Break (5 mins)
 
@@ -130,6 +118,10 @@ programming language.
   - Data visualisation with `ggplot2` YouTube playlist - Danielle
     Navarro
     <https://www.youtube.com/playlist?list=PLRPB0ZzEYegPa4uvvAVJnr6loSKbN4wLb>
+  - `ggplot2` cheatsheet - RStudio
+    <https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf>
+  - `ggplot2`: Elegant Graphics for Data Analysis book - Hadley Wickham
+    - <https://ggplot2-book.org/>
 
 ### Other texts
 

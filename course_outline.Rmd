@@ -42,26 +42,15 @@ Participants should have basic familiarity with the `R` statistical programming 
 
 #### Part two (55 mins)
 5. Concepts of the grammar of graphics (15 mins)
+7. Three types of geom (20 mins)
 6. Facets (20 mins)
-7. Smooths, transforms, density (20 mins)
+
 
 #### Break (5 mins)
 
 #### Part three (55 mins)
 8. Good dataviz practice (15 mins)
 9. gg-gotchas (20 mins)
-    i. types of geom, types of data:
-         a. only one observation per group: categorical x-var, set group aes
-         b. colour scales and continuous, factor variables
-    ii. pains in the aes()
-         a. settings inside/outside aes() - example of colour
-         b. setting aes() in ggplot call rather than geom call
-    iii. mapping data to variables: multiple joined lines together
-    iv. (maybe) error when + starts new line
-    v. problems with transformations
-         a. stat count with y aesthetic
-         b. geom_density with small numbers
-
 10. Recap (10 mins)
 11. Trail next session (10 mins)
      i. Optional homework - Tidy Tuesday
@@ -73,7 +62,7 @@ Participants should have basic familiarity with the `R` statistical programming 
 13. Questions since last course (5 mins)
 14. Recap of last session (10 mins)
 15. Principles of mapping (15 mins)
-16. Intro to {sf} and what's in my spatial dataframe? (10 mins)
+16. Intro to `{sf}` and what's in my spatial dataframe? (10 mins)
 
 
 #### Break (5 mins)
