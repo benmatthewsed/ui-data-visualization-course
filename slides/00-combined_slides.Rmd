@@ -17,7 +17,6 @@ output:
 knitr::opts_chunk$set(warning = FALSE, 
                       message = FALSE,
                       error = TRUE,
-                      fig.width = 4,
                       fig.asp = 0.618)
 library(ggplot2)
 library(sf)
@@ -775,10 +774,12 @@ ggplot(
 
 # Adding text
 
-- It's kind of a lie to have `geom_text` here, because you use it to add values from your dataset using `aes()` (in this case, the values from the `y` axis):
-
 
 .pull-left[
+
+
+- It's kind of a lie to have `geom_text` here, because you use it to add values from your dataset using `aes()` (in this case, the values from the `y` axis):
+
 
 ```{r geom_text, fig.show = 'hide'}
 
@@ -808,10 +809,9 @@ ggplot(
 
 # Adding text
 
-- But mostly I use it with a separate __dataframe of labels__
-
-
 .pull-left[
+
+- But mostly I use it with a separate __dataframe of labels__
 
 ```{r geom_text_2, fig.show = 'hide'}
 
@@ -870,10 +870,10 @@ class: center, middle, inverse
 
 # ... facets?
 
-- From the [`ggplot2` book](https://ggplot2-book.org/getting-started.html#qplot-facetting): "Faceting creates __tables of graphics__ by splitting the data into subsets and displaying the __same graph for each subset__"
+- From the [`ggplot2` book](https://ggplot2-book.org/getting-started.html#qplot-facetting): "Facetting creates __tables of graphics__ by splitting the data into subsets and displaying the __same graph for each subset__"
 - Just add a `facet_wrap()` layer to a `ggplot` call
 - Tell `ggplot` __which variable(s)__ to facet using a call to `vars()` (this acts like `aes()` but for `facet`s)
-- `ggplot` then makes a long string of plots - one for each level of the faceting variable - which it __wraps__ into a table
+- `ggplot` then makes a long string of plots - one for each level of the facetting variable - which it __wraps__ into a table
 - Why can't we just use `aes()` here too? Apparently `vars()` can [handle more complicated expressions than `aes()`](https://ggplot2.tidyverse.org/reference/vars.html), which lets you tweak your facets in some helpful ways. I (Ben) only learned this writing the course!
 
 ---
@@ -974,7 +974,7 @@ ggplot(
 
 # Going further with `facets`
 
-- The `ggplot` book has a [whole section](https://ggplot2-book.org/facet.html#facet-wrap) on faceting
+- The `ggplot` book has a [whole section](https://ggplot2-book.org/facet.html#facet-wrap) on facetting
 - You can allow facets to have __different scales__ using the `scales = ` argument. By default all the facets have the same scale, but you can allow each axis to vary by setting `scales = "free_y"`, `scales = "free_x"` or `scales = "free"`
 
 
@@ -1049,8 +1049,7 @@ knitr::include_graphics("https://www.annualreviews.org/na101/home/literatum/publ
 # Principles of chart design
 - __[Match perceptual and data topology](http://stat405.had.co.nz/lectures/20-effective-vis.pdf)__: Some `aes`thetic mappings have implicit __orders__ (like position and size), others are __unordered__ (like shape)
    - If you’re using a graphical element to show relative size of quantities __make larger size = larger quantity__
-    - Does a brighter colour imply higher or lower value?
-- (We're not going to spend much time on this, but see [these excellent slides](http://stat405.had.co.nz/lectures/20-effective-vis.pdf) for more discussion)
+
 
 ---
 
@@ -1339,7 +1338,7 @@ class: center, middle, inverse
 
 
 # Dataset + 
-# mapping variables in the dataset to `aes`thetic + 
+# Mapping variables in the dataset to `aes`thetics + 
 # Layers of `geom`s (symbols to represent data) = 
 # Plot
 
