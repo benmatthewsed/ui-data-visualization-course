@@ -1,14 +1,47 @@
+# Introduction to Data Visualization with ggplot2
+
+# Ben Matthews (University of Edinburgh) and Eilidh Jack (University of Glasgow)
+
+# 2020-06-29
+
+
+# First load the package we'll need ---------------------------------------
+
+# We have to tell R this before we can use ggplot2
+
 library(tidyverse)
+
+
+# Load in our data --------------------------------------------------------
 
 # In R <- is called the 'assignment operator'
 # you can pronounce it 'gets'
 # the thing on the right hand side of the <- is assigned to the name
 # on the left hand side
 
+# here we're reading in one data file called 'simd'
+# and then a second one called 'simd_2020_shp
+
+# This assumes you have the files saved in a folder called
+# 'data' that is a sub-folder of R's current working
+# directory
+
 simd <- readRDS(file.path("data", "simd_series.rds"))
 simd_2020_shp <- readRDS(file.path("data", "simd_2020_shp.rds"))
 
-# 1. basic plot
+# alternatively you can read in the files directly with the commands below
+
+# simd <- readRDS(gzcon(url("https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/data/simd_series.rds?raw=true")))
+# simd_2020_shp <- readRDS(gzcon(url("https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/data/simd_2020_shp.rds?raw=true")))
+
+# You can read about SIMD here - https://www2.gov.scot/Topics/Statistics/SIMD
+
+
+# getting started ---------------------------------------------------------
+
+
+
+# 1. our first plot
 
 ggplot(
   data = simd,
@@ -17,7 +50,7 @@ ggplot(
   geom_point()
 
 
-# 2. basic plot with different variables
+# 2.  plot with different variables
 
 ggplot(
   data = simd,
@@ -25,7 +58,7 @@ ggplot(
 ) + 
   geom_point()
 
-# 3. basic plot with even more different variables
+# 3. plot with even more different variables
 
 ggplot(
   data = simd,
@@ -34,7 +67,7 @@ ggplot(
   geom_point()
 
 
-# 4. basic plot with two layers
+# 4. plot with two layers
 
 ggplot(
   data = simd,
@@ -44,7 +77,7 @@ ggplot(
   geom_line()
 
 
-# 5. basic plot with two layers and a layer-specific aesthetic
+# 5. plot with two layers and a layer-specific aesthetic
 
 ggplot(
   data = simd,
@@ -53,7 +86,7 @@ ggplot(
   geom_point() + 
   geom_line(aes(group = council_area))
 
-# 6. basic plot with two layers and a layer-specific aesthetic
+# 6. plot with two layers and a layer-specific aesthetic
 
 ggplot(
   data = simd,
@@ -81,7 +114,11 @@ ggplot(
   geom_point(aes(x = access, y = health)) + 
   geom_line(aes(group = council_area))
 
-# what's so stupid about this plot?
+# QUESTION: what's so stupid about this plot?
+
+# Take a minute to discuss in your group why
+# this is such a bad idea
+
 
 # 8. fixed values for geom parameters
 
@@ -92,7 +129,7 @@ ggplot(
   geom_point(colour = "blue")
 
 
-# 9. fixed values for geom parameters
+# 9. fixed values for geom parameters; size
 
 ggplot(
   data = simd,
@@ -147,92 +184,45 @@ ggplot(
   )
 
 
-
-
+# to see more available options
+# go to https://ggplot2.tidyverse.org/reference/
 # type ggplot2::geom_ and hit tab
 # scroll through the available geoms and try adding them to the plot
 
 
 
-# Facets ------------------------------------------------------------------
-
-ggplot(
-  data = simd,
-  mapping = aes(x = overall, y = crime)
-) +
-  geom_point() +
-  facet_wrap(
-    facets = vars(simd), 
-    ncol = 1
-    )
+# Types of geom -----------------------------------------------------------
 
 
-# add another variable; region
+
+# Plot every row ----------------------------------------------------------
+
+# we saw these already!
 
 ggplot(
   data = simd,
   mapping = aes(x = overall, y = crime)
 ) +
   geom_point(
-    mapping = aes(colour = council_area)
-  ) +
-  facet_wrap(
-    facets = vars(simd, region)
-    )
-
-# maybe better as
-
-# for facets we use `vars()` not `aes()`
-
-ggplot(
-  data = simd,
-  mapping = aes(x = overall, y = crime)
-) +
-  geom_point(
-    mapping = aes(colour = council_area)
-  ) +
-  facet_grid(
-    rows = vars(simd), 
-    cols = vars(region)
-    )
-
-
-# adjusting facet output
-
-# sometimes you want this but beware uneven scales
-
-ggplot(
-  data = simd,
-  mapping = aes(x = overall, y = crime)
-) +
-  geom_point(
-    mapping = aes(colour = council_area)
-  ) +
-  facet_wrap(
-    facets = vars(simd, region),
-    scales = "free_y"
+    alpha = 0.3
   )
 
 
-# advanced exercises
+# how about text instead of points?
 
-# look up the facet labeller() function
-# add variable labels to your facets
-# using an additional data frame of labels
-
-# even more advanced reading
-
-# `vars()` is a quoting function
-# If you want to understand more about *how* this works, 
-# read section IV 'metaprogramming' in Advanced R https://adv-r.hadley.nz/metaprogramming.html
-# This probably won't help you use ggplot2 better, but
-# it will help you understand how it works its magic, and
-# why you have to be very particular with `aes()`
+ggplot(
+  data = simd,
+  mapping = aes(x = overall, y = crime)
+) +
+  geom_text()
 
 
-# Smooths, transforms and densitiies --------------------------------------
+# Plot a summary of data --------------------------------------------------
 
-# one variable (univariate densities)
+
+
+
+# one variable 
 
 # note that we're only supplying an x variable here not a y variable!
 # ggplot2 calculates the y variables for us
@@ -266,6 +256,8 @@ ggplot(
     bins = 100
   )
 
+# how about a different geom?
+
 ggplot(
   data = simd,
   mapping = aes(x = overall)
@@ -290,7 +282,10 @@ ggplot(
   geom_density(aes(y=100 * ..count..))
 
 
-# two variables - geom_smooth
+
+# two variables - geom_smooth ---------------------------------------------
+
+# This is probably the most common two-variable transformation
 
 # "Smoothed conditional means" - i.e. regression line
 
@@ -342,6 +337,23 @@ ggplot(
     method = "gam"
   )
 
+# ADVANCED: look at the different smooth options
+# at https://ggplot2.tidyverse.org/reference/geom_smooth.html
+# try out a few different ones!
+
+
+
+# one continuous one discrete variable
+
+ggplot(
+  data = simd,
+  mapping = aes(x = region, y = overall)
+) +
+  geom_point() + 
+  geom_boxplot()
+
+
+
 
 # other settings
 
@@ -373,8 +385,9 @@ ggplot(
 
 # something weird going on there in the East?
 
-# If you want (but do you want...?) to remove the confidence
+# If you want to remove the confidence
 # intervals you can with the se parameter
+# (but do you want to do this...? Discuss in your group!)
 
 ggplot(
   data = simd,
@@ -387,13 +400,17 @@ ggplot(
   )
 
 
-# this regression model is calculated inside the ggplot2
+# NB this regression model is calculated inside the ggplot2
 # call so you can't (easily) access it
 # if you want a complicated smooth, better to fit the model
 # outside ggplot2 and then plot the 'smoothed conditional mean'
 # based on your own model
 
-# with a less sensible aes()
+# read this - https://socviz.co/modeling.html#modeling
+# for more on how
+
+# how about we map colour to a less sensible variable
+
 
 ggplot(
   data = simd,
@@ -407,6 +424,8 @@ ggplot(
 
 # uh oh
 
+# why is this less sensible than mapping to region?
+
 # advanced
 # geoms that try to calculate a summary of the data won't work well
 # if you give them single data point
@@ -419,6 +438,10 @@ ggplot(
   geom_smooth(
     mapping = aes(colour = interaction(council_area, simd))
   )
+
+
+
+# other two-variable summaries --------------------------------------------
 
 
 # geom_density_2d
@@ -441,53 +464,312 @@ ggplot(
     mapping = aes(colour = region)
   )
 
-# ... maybe not...
-# maybe if we add a facet?
+# ... maybe not! This is perhaps too much information...
 
+
+# Plot something else altogether -----------------------------------------------
+
+# we can add a reference line to the previous plot
 
 ggplot(
   data = simd,
   mapping = aes(x = overall, y = crime)
 ) +
   geom_point() +
-  geom_density_2d(
-    mapping = aes(colour = region)
-  ) +
-  facet_wrap(
-    facets = vars(region)
+  geom_vline(
+    xintercept = 3500
   )
 
+# and a horizontal line
+
+ggplot(
+  data = simd,
+  mapping = aes(x = overall, y = crime)
+) +
+  geom_point() +
+  geom_vline(
+    xintercept = 3500
+  ) +
+  geom_hline(
+    yintercept = 3500
+  )
+
+# how about a diagonal line
+# slope = 1 and intercept = 0 is a good idea
+
+ggplot(
+  data = simd,
+  mapping = aes(x = overall, y = crime)
+) +
+  geom_point() +
+  geom_vline(
+    xintercept = 3500
+  ) +
+  geom_hline(
+    yintercept = 3500
+  ) +
+  geom_abline(
+    slope = 1,
+    intercept = 0
+  )
+
+
+# To add a variaable from our dataframe as text we can
+# just pass this to the aes(label = ) setting in geom_text
+
+ggplot(
+  data = simd,
+  mapping = aes(x = overall, y = crime)
+) +
+  geom_point() +
+  geom_vline(
+    xintercept = 3500
+  ) +
+  geom_hline(
+    yintercept = 3500
+  ) +
+  geom_text(
+    aes(label = overall)
+  )
+
+# this is a lot of information though...
+
+ggplot(
+  data = simd,
+  mapping = aes(x = overall, y = crime)
+) +
+  geom_point() +
+  geom_vline(
+    xintercept = 3500
+  ) +
+  geom_hline(
+    yintercept = 3500
+  ) +
+  geom_text(
+    aes(label = council_area)
+  )
+
+
+# we can also add a new dataframe of labels
+# and supply this to the data argument of geom_text
+
+
+# this was a bit mind-bending the first time I did it
+# the labels need to have values to the x and y variables
+# in our dataset for ggplot2 to plot them - because
+# to ggplot2 these labels are treated just like the data
+# points that we're mapping to geom_point!
+
+simd_labels <- 
+tribble(
+  ~overall, ~crime, ~label,
+  2250, 2250, "High overall / High crime",
+  2250, 5000, "High overall / Low crime",
+  5000, 2250, "Low overall / High crime",
+  5000, 5000, "Low overall / Low crime"
+)
+
+# now plot this directly
+# using geom_label(mapping = aes(label =))
+
+ggplot(
+  data = simd,
+  mapping = aes(x = overall, y = crime)
+) +
+  geom_point() +
+  geom_vline(
+    xintercept = 3500
+  ) +
+  geom_hline(
+    yintercept = 3500
+  ) +
+  geom_text(
+    data = simd_labels,
+    mapping = aes(label = label)
+  )
+
+
+# Facets ------------------------------------------------------------------
+
+ggplot(
+  data = simd,
+  mapping = aes(x = overall, y = crime)
+) +
+  geom_point() +
+  facet_wrap(
+    facets = vars(simd), 
+    ncol = 1
+  )
+
+
+# add another variable; region
+
+ggplot(
+  data = simd,
+  mapping = aes(x = overall, y = crime)
+) +
+  geom_point(
+    mapping = aes(colour = council_area)
+  ) +
+  facet_wrap(
+    facets = vars(simd, region)
+  )
+
+# NB for facets we use `vars()` not `aes()`
+
+# if we're faceting by two variables
+# we can use facet_grid and specify the rows and columns directly
+# generally facet_wrap is preferred to facet_grid
+# https://ggplot2-book.org/getting-started.html#qplot-facetting
+
+
+
+ggplot(
+  data = simd,
+  mapping = aes(x = overall, y = crime)
+) +
+  geom_point(
+    mapping = aes(colour = council_area)
+  ) +
+  facet_grid(
+    rows = vars(simd), 
+    cols = vars(region)
+  )
+
+
+# adjusting facet output
+
+# sometimes you want this but beware uneven scales
+
+ggplot(
+  data = simd,
+  mapping = aes(x = overall, y = crime)
+) +
+  geom_point(
+    mapping = aes(colour = council_area)
+  ) +
+  facet_wrap(
+    facets = vars(simd, region),
+    scales = "free_y"
+  )
+
+# DISCUSS:
+# why do we have to supply the scales arguments in quotation marks?
+
+
+# advanced exercises
+
+# look up the facet labeller() function
+# add variable labels to your facets
+# using an additional data frame of labels
+# (see examples here https://ggplot2.tidyverse.org/reference/labeller.html)
+
+
+# even more advanced reading
+
+# `vars()` is a quoting function like `aes()`
+# If you want to understand more about *how* this works, 
+# read section IV 'metaprogramming' in Advanced R https://adv-r.hadley.nz/metaprogramming.html
+# This probably won't help you use ggplot2 better, but
+# it will help you understand how it works its magic, and
+# why you have to be very particular with `aes()`
 
 
 
 # gg-gotchas --------------------------------------------------------------
 
 # 1. Two joined lines (multiple groups)
-#
-simd %>% 
-  mutate(year = as.numeric(str_sub(simd, 6, 9))) %>% 
+
+
 ggplot(
+  data = simd,
   mapping = aes(x = year, y = overall)
 ) +
   geom_line()
 
 # why doesn't this work?
 
-# how can we fix it?
+# we need to add a grouping variable to make this work
+# what grouping variable should we add?
 
-
-# 2. Groups == only one observation (categorical x-variable + y-variables)
-
-simd %>% 
-  mutate(year = as.numeric(str_sub(simd, 6, 9))) %>% 
-  ggplot(
-    mapping = aes(x = simd, y = factor(overall))
+ggplot(
+    data = simd,
+    mapping = aes(x = year, y = overall, group = council_area)
   ) +
   geom_line()
 
 
+# 2. Groups == only one observation (categorical x-variable + y-variables)
+
+# we have to fiddle with the data to get this specific error
+
+
+simd_ed <- 
+filter(simd,
+       council_area == "City of Edinburgh")
+
+# now we get an error if we try to use SIMD sweep as the x variable
+
+ggplot(
+    data = simd_ed,
+    mapping = aes(x = simd,
+                  y = overall)
+  ) +
+  geom_line()
+
+# we can remove this by setting the group explicitly again
+
+ggplot(
+  data = simd_ed,
+  mapping = aes(x = simd,
+                y = overall,
+                group = council_area)
+) +
+  geom_line()
+
+
+# we get the same plot if we group by region instead of council
+# area
+
+ggplot(
+  data = simd_ed,
+  mapping = aes(x = simd,
+                y = overall,
+                group = region)
+) +
+  geom_line()
+
+# why is this?
+# ... because they're 100% correlated - Edinburgh is always
+# in the East region (in our dataset at least)
+
+
 # 3. Stat count y aesthetic
-# 
+
+simd_2020 <- 
+  filter(simd,
+         year == 2020)
+
+# if we want to plot the median overall SIMD for 2020
+# with a bar we get an error
+
+ggplot(
+  data = simd_2020,
+  mapping = aes(x = council_area,
+                y = overall)
+) +
+  geom_bar()
+
+# we can override this by passing stat = "identity"
+# to geom_bar
+
+ggplot(
+  data = simd_2020,
+  mapping = aes(x = council_area,
+                y = overall)
+) +
+  geom_bar(stat = "identity")
+
 
 
 # 4. + on newline
@@ -498,36 +780,70 @@ ggplot(
 ) 
 + geom_point()
 
-# 
+
 # 5. Call inside/outside `aes()`
-# 
-# 6. Geom density with small n
-# 
 
-edi <- filter(simd, council_area == "City of Edinburgh")
-
-ggplot(
-  data = edi,
-  mapping = aes(x = overall)
-) +
- geom_density()
-
-# 7. Variable types - colour scales and continuous, factor variables
-
-ggplot(
-  data = simd,
-  mapping = aes(x = overall, y = crime, colour = year)
-) +
-  geom_point()
+# run the following four sets of code and
+# discuss the differences in outputs with your group
 
 
 ggplot(
   data = simd,
-  mapping = aes(x = overall, y = crime, colour = factor(year))
+  mapping = aes(x = overall, y = crime)
 ) +
-  geom_point()
+ geom_point(
+   aes(colour = region)
+ )
 
+ggplot(
+  data = simd,
+  mapping = aes(x = overall, y = crime)
+) +
+  geom_point(
+    aes(colour = "region")
+  )
 
+ggplot(
+  data = simd,
+  mapping = aes(x = overall, y = crime)
+) +
+  geom_point(
+    colour = "region"
+  )
+
+ggplot(
+  data = simd,
+  mapping = aes(x = overall, y = crime)
+) +
+  geom_point(
+    colour = region
+  )
+
+# how about this example?
+
+# why do these two give different results?
+
+# and why does the first example 'work'?
+
+ggplot(
+  data = simd,
+  mapping = aes(x = overall, y = crime)
+) +
+  geom_point(
+    aes(size = 2)
+  )
+
+ggplot(
+  data = simd,
+  mapping = aes(x = overall, y = crime)
+) +
+  geom_point(
+    size = 2
+  )
+
+# Session Two -------------------------------------------------------------
+
+# 2020-07-06
 
 # what's in my spatial data frame -----------------------------------------
 

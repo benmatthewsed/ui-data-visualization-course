@@ -1,0 +1,11 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+/slides/*.html
+/slides/*.pptx
+/data/*.xls
+/data/*.xlsx
+/data/la_shapefile.*
+/data/*.csv
+/sources

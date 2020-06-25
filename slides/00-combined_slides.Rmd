@@ -16,7 +16,9 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, 
                       message = FALSE,
-                      error = TRUE)
+                      error = TRUE,
+                      fig.width = 4,
+                      fig.asp = 0.618)
 library(ggplot2)
 library(sf)
 ```
@@ -1056,7 +1058,7 @@ knitr::include_graphics("https://www.annualreviews.org/na101/home/literatum/publ
 - From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
 
 ```{r wickham-1, out.width = '60%', echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/figure-0.gif")
+knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-0.gif")
 ```
 
 ---
@@ -1065,7 +1067,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data
 - From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
 
 ```{r wickham-2, out.width = '60%', echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/figure-1.gif")
+knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-1.gif")
 ```
 
 ---
@@ -1074,7 +1076,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data
 - From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
 
 ```{r wickham-3, out.width = '60%', echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/figure-2.gif")
+knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-2.gif")
 ```
 
 ---
@@ -1083,7 +1085,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data
 - From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
 
 ```{r wickham-4, out.width = '60%', echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/figure-3.gif")
+knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-3.gif")
 ```
 ---
 
@@ -1091,7 +1093,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data
 - From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
 
 ```{r wickham-5, out.width = '60%', echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/figure-4.gif")
+knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-4.gif")
 ```
 
 ---
@@ -1100,7 +1102,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data
 - From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
 
 ```{r wickham-6, out.width = '60%', echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/figure-5.gif")
+knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-5.gif")
 ```
 
 ---
@@ -1109,7 +1111,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data
 - From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
 
 ```{r wickham-7, out.width = '60%', echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/figure-6.gif")
+knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-6.gif")
 ```
 
 ---
@@ -1118,7 +1120,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data
 - From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
 
 ```{r wickham-8, out.width = '60%', echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/figure-7.gif")
+knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-7.gif")
 ```
 
 
