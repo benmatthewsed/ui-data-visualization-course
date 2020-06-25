@@ -741,7 +741,8 @@ ggplot(
 
 # Adding text
 
-- It's kind of a lie to have ``geom_text` is a funny one because you __can__ use it to add values from your dataset using `aes()` (in this case, the values from the `y` axis):
+- It's kind of a lie to have `geom_text` here, because you use it to add values from your dataset using `aes()` (in this case, the values from the `y` axis):
+
 
 .pull-left[
 
@@ -755,11 +756,8 @@ ggplot(
   geom_smooth() +
   geom_density_2d() +
   geom_vline(xintercept = 200) +
-  annotate(
-    geom = "text",
-    x = 300,
-    y = 4,
-    label ="YES"
+  geom_text(
+    aes(label = drat)
   )
 ```
 ]
@@ -767,6 +765,47 @@ ggplot(
 .pull-right[
 &lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-13-1.png" width="504" /&gt;
 ]
+
+
+---
+
+# Adding text
+
+- But mostly I use it with a separate __dataframe of labels__
+
+
+.pull-left[
+
+
+```r
+label_df &lt;- 
+  data.frame(
+    x = 300,
+    y = 4,
+    text = "A great label"
+  )
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point() +
+  geom_smooth() +
+  geom_density_2d() +
+  geom_vline(xintercept = 200) +
+  geom_text(
+    data = label_df,
+    mapping = aes(x = x,
+                  y = 4,
+                  label = text)
+  )
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-14-1.png" width="504" /&gt;
+]
+
 
 
 ---
@@ -820,7 +859,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-14-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-15-1.png" width="504" /&gt;
 ]
 
 
@@ -850,7 +889,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-15-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-16-1.png" width="504" /&gt;
 ]
 
 ---
@@ -880,7 +919,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-16-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-17-1.png" width="504" /&gt;
 ]
 
 
@@ -966,6 +1005,61 @@ class: center, middle, inverse
 
 ---
 
+# Principles of chart design
+- From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
+
+&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/figure-0.gif" width="60%" /&gt;
+
+---
+
+# Principles of chart design
+- From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
+
+&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/figure-1.gif" width="60%" /&gt;
+
+---
+
+# Principles of chart design
+- From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
+
+&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/figure-2.gif" width="60%" /&gt;
+
+---
+
+# Principles of chart design
+- From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
+
+&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/figure-3.gif" width="60%" /&gt;
+---
+
+# Principles of chart design
+- From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
+
+&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/figure-4.gif" width="60%" /&gt;
+
+---
+
+# Principles of chart design
+- From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
+
+&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/figure-5.gif" width="60%" /&gt;
+
+---
+
+# Principles of chart design
+- From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
+
+&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/figure-6.gif" width="60%" /&gt;
+
+---
+
+# Principles of chart design
+- From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
+
+&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/figure-7.gif" width="60%" /&gt;
+
+
+---
 #  Principles of chart design (2)
 - __Dual coding__: You can encode the same variables to multiple aesthetic parameters (easily in `ggplot2`) to aid comprehension
 - This can also aid __accessibility__ by reducing reliance on e.g. colour to distinguish variables
@@ -988,7 +1082,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-17-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-18-1.png" width="504" /&gt;
 ]
 
 ---
@@ -1018,7 +1112,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-18-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-19-1.png" width="504" /&gt;
 ]
 
 
@@ -1088,27 +1182,25 @@ name: gggotchas
 class: center, middle, inverse
 # `gg`-gotchas
 
----
-
-
-# Common problems with `ggplot2`
-
-- __Symptom__
-- __Diagnosis__
-- __Prescription__
 
 ---
 
 # 1. "Sawtooth" lines
 
+.pull-left[
+
 - [From R For Data Science](https://ggplot2-book.org/collective-geoms.html):
 
 &lt;img src="https://ggplot2-book.org/collective-geoms_files/figure-html/oxboys-line-bad-1.png" width="50%" /&gt;
 
-- __Diagnosis__: ["This vis problem often means there is some grouping characteristic missing from the graphic"](https://www.njtierney.com/post/2020/06/14/jq-sawtooth/)
+]
 
+.pull-right[
+
+- __Diagnosis__: ["This vis problem often means there is some grouping characteristic missing from the graphic"](https://www.njtierney.com/post/2020/06/14/jq-sawtooth/)
 - __Prescription__: Check the data for any more grouping variables you might've missed (e.g. if your dataset is values for multiple years and you haven't included year in the plot)
 
+]
 
 ---
 ## "`Error: Each group consists of only one observation. Do you need to adjust the group aesthetic?`"
@@ -1129,7 +1221,7 @@ class: center, middle, inverse
 
 
 ---
-# `Error: Cannot use +.gg() with a single argument. Did you accidentally put + on a new line?`
+## `Error: Cannot use +.gg() with a single argument. Did you accidentally put + on a new line?`
 
 - __Diagnosis__: For [technical reasons I don't understand](https://community.rstudio.com/t/why-put-and-at-the-end-of-lines/1831) this isn't valid R code. So you can't do it!
 
@@ -1137,12 +1229,12 @@ class: center, middle, inverse
 
 ---
 
-# `Error in FUN(X[[i]], ...) : object 'blah' not found`
+## `Error in FUN(X[[i]], ...) : object 'blah' not found`
 
 - __Diagnosis__: `ggplot` is looking for something in your dataset but there are __no variables with that name__
-- See our discussion on concepts in the grammar of graphics about what goes inside the call to `aes` and what goes outside
+    - See our discussion on concepts in the grammar of graphics about what goes inside the call to `aes` and what goes outside
 - __Prescription__: Make sure there aren't any __typos__, and that what you've specified __exists in your dataset__
-- If you're trying to set a colour you might have to move this outside the call to `aes()`
+    - If you're trying to set a colour you might have to move this outside the call to `aes()`
     
 ---
 class: center, middle, inverse
