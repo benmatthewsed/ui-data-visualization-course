@@ -16,10 +16,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, 
                       message = FALSE,
-                      error = TRUE,
-                      fig.width = 7,
-                      fig.asp = 0.618,
-                      fig.retina = 2.5)
+                      error = TRUE)
 library(ggplot2)
 library(sf)
 ```
@@ -38,7 +35,7 @@ class: center, middle, inverse
 
 Ben Matthews<sup>1</sup> and Eilidh Jack<sup>2</sup>
 
-29/06/2020  (Updated `r Sys.Date()`)
+2020-06-29  (Last updated `r Sys.Date()`)
 
 <sup>1</sup>University of Edinburgh
 
@@ -241,8 +238,8 @@ class: center, middle, inverse
 class: center, middle, inverse
 
 # `Your turn!`
-# Lines __xxx__ in the __exercises (add link to these here)__
-# Lines __xxx__ in the __answers (add link to these here)__
+# Lines __1-237__ in the [exercises](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises.R)
+# Lines __1-179__ in the [answers](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises-with-answers.R)
 
 
 ---
@@ -418,7 +415,7 @@ ggplot(
 - This makes it suuuuuuper flexible - you can just __stack layers on top of each other__!
 - `geom`s only add __one layer at a time__
 - __Add__ layers together with `+` __operator__
-- __Order matters!__
+
 
 ---
 .pull-left[
@@ -429,9 +426,7 @@ ggplot(
   mapping = aes(x = disp, y = drat)
 ) +
   geom_point() +
-  geom_line(
-    colour = "red"
-  )
+  geom_line()
 
 ```
 ]
@@ -441,30 +436,6 @@ ggplot(
 ```
 ]
 
-
-
-
----
-
-.pull-left[
-```{r layers_2, fig.show = 'hide'}
-
-ggplot(
-  data = mtcars,
-  mapping = aes(x = disp, y = drat)
-) +
-  geom_line(
-    colour = "red"
-  ) +
-  geom_point() 
-
-```
-]
-
-.pull-right[
-```{r ref.label = 'layers_2', echo = FALSE, fig.retina = 3}
-```
-]
 
 
 
@@ -519,7 +490,7 @@ ggplot(
 
 - For technical reasons we won't go into now __quotation marks matter__ here (if you want you can read all about why [here](https://adv-r.hadley.nz/metaprogramming.html))
 - This was a __common source of errors__ for me when learning `ggplot2` (and still is!) and my own mental model of when and why to use quote marks is pretty crude even now. So it's natural that this feels weird or arbitrary right now `r emo::ji("thumbsup")`
-- Most of the time
+- Most of the time, if it's __inside__ the call to `aes` __don't__ use quotes
 
 ---
 
@@ -547,6 +518,34 @@ ggplot(
 
 ---
 
+.pull-left[
+```{r layers_error_2, fig.show = 'hide', error = FALSE}
+
+# not the quotation marks around "red"
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_line(
+    colour = "red"
+  ) +
+  geom_point() 
+
+```
+]
+
+.pull-right[
+```{r ref.label = 'layers_error_2', echo = FALSE, fig.retina = 3}
+```
+
+
+]
+
+
+
+---
+
 class: center, middle, inverse
 
 # In review
@@ -566,7 +565,6 @@ class: center, middle, inverse
 class: center, middle, inverse
 
 # If you want `ggplot` to know about something in your dataset, use `aes()`
-# Order matters in the `ggplot` call
 
 ---
 
@@ -704,7 +702,7 @@ ggplot(
 
 ---
 
-# Another bivariate example
+# Why stop there?
 
 
 .pull-left[
@@ -816,8 +814,8 @@ class: center, middle, inverse
 ---
 class: center, middle, inverse
 # `Your turn!`
-# Lines __xxx__ in the __exercises (add link to these here)__
-# Lines __xxx__ in the __answers (add link to these here)__
+# Lines __238-705__ in the [exercises](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises.R)
+# Lines __180-603__ in the [answers](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises-with-answers.R)
 
 ---
 
@@ -898,9 +896,9 @@ ggplot(
 # Adjusting the scales
 
 
-You can change how the __axes__ are displayed by setting `scales = `. This focuses on the trends __within__ the plot and makes it harder to see trends __between__ plots.
-
 .pull-left[
+
+You can change how the __axes__ are displayed by setting `scales = `. This focuses on the trends __within__ the plot and makes it harder to see trends __between__ plots.
 
 ```{r facet_grid, fig.show = 'hide'}
 
@@ -940,8 +938,8 @@ ggplot(
 ---
 class: center, middle, inverse
 # `Your turn!`
-# Lines __xxx__ in the __exercises (add link to these here)__
-# Lines __xxx__ in the __answers (add link to these here)__
+# Lines __706-796__ in the [exercises](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises.R)
+# Lines __604-687__ in the [answers](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises-with-answers.R)
 
 
 ---
@@ -958,26 +956,19 @@ class: center, middle, inverse
 ---
 
 
-# Principles of data vizualization
+# Principles of data visualization
 
 - How we read graphs
-    - Hierarchy of perceptual tasks
-    - Other cognitive principles
 - Principles of chart design
 - An example
 
 ---
-class: center, middle, inverse
+
 # How we read graphs
 
-
----
-
-# Hierarchy of perceptual tasks
+.pull.left[
 
 - __Some visual comparisons are easier__ to make than others
-
-.pull.left[
 
 1. Position along a common scale
 2. Position along identical, non-aligned scales
@@ -988,9 +979,10 @@ class: center, middle, inverse
 6. Colour hue / saturation
 
 (Source: Cleveland and McGill, 1984)
+
 ]
 
-..pull-right[
+.pull-right[
 
 ```{r cleveland, out.width = '45%', echo = FALSE}
  knitr::include_graphics("https://www.researchgate.net/profile/Chia_Shen/publication/221513994/figure/fig2/AS:305590816526337@1449869936222/Cleveland-and-McGills-elementary-perceptual-tasks-All-visual-representations-of.png")
@@ -1001,33 +993,107 @@ class: center, middle, inverse
 
 ---
 
-#  Other cognitive principles
+#  How we read graphs (2)
 
 - __Proximity__: "objects or shapes that are close to one another appear to form groups... __place items to compare close together__, and less important comparisons further apart" (this is from a very interesting [review of research into how we understand graphs by Vanderplas, Cook and Hofmann](https://www.annualreviews.org/doi/full/10.1146/annurev-statistics-031219-041252))
     - ... so think about how your __mapping of variables__ to aesthetics and facets __highlights some comparisons__ and not others
-- __[Match perceptual and data topology](http://stat405.had.co.nz/lectures/20-effective-vis.pdf)__: If you’re using a graphical element to show relative size of quantities __make larger size = larger quantity__
+   
+```{r vanderplas, out.width = '50%', echo = FALSE}
+knitr::include_graphics("https://www.annualreviews.org/na101/home/literatum/publisher/ar/journals/content/statistics/2020/statistics.2020.7.issue-1/annurev-statistics-031219-041252/20200226/images/medium/st070061.f11.gif")
+```
+---
+    
+# Principles of chart design
+- __[Match perceptual and data topology](http://stat405.had.co.nz/lectures/20-effective-vis.pdf)__: Some `aes`thetic mappings have implicit __orders__ (like position and size), others are __unordered__ (like shape)
+   - If you’re using a graphical element to show relative size of quantities __make larger size = larger quantity__
     - Does a brighter colour imply higher or lower value?
-
----
-class: center, middle, inverse
-# More principles of chart design
+- (We're not going to spend much time on this, but see [these excellent slides](http://stat405.had.co.nz/lectures/20-effective-vis.pdf) for more discussion)
 
 ---
 
-#  More principles of chart design
+#  Principles of chart design (2)
 - __Dual coding__: You can encode the same variables to multiple aesthetic parameters (easily in `ggplot2`) to aid comprehension
 - This can also aid __accessibility__ by reducing reliance on e.g. colour to distinguish variables
+
+
+.pull-left[
+
+```{r dual_code, fig.show = 'hide'}
+
+# code am to colour
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point(
+    mapping = aes(colour = am)
+  )
+
+```
+]
+
+.pull-right[
+```{r ref.label = 'dual_code', echo = FALSE, fig.retina = 3}
+```
+]
+
+---
+
+#  Principles of chart design (2)
+- __Dual coding__: You can encode the same variables to multiple aesthetic parameters (easily in `ggplot2`) to aid comprehension
+- This can also aid __accessibility__ by reducing reliance on e.g. colour to distinguish variables
+
+
+.pull-left[
+
+```{r dual_code_2, fig.show = 'hide'}
+
+# code am to shape as well
+# note - I had to cheat here and ask ggplot2 to treat
+# am as a factor variable!
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point(
+    mapping = aes(colour = am,
+                  shape = factor(am))
+  )
+
+```
+]
+
+.pull-right[
+```{r ref.label = 'dual_code_2', echo = FALSE, fig.retina = 3}
+```
+]
+
+
+---
+
+#  Principles of chart design (3)
 - You can also colour scales designed to have __good perceptual properties__ for [different kinds of colour-blindness](https://serialmentor.com/dataviz/color-pitfalls.html#not-designing-for-color-vision-deficiency) (`ggplot2` defaults aren't so good for this) (we'll cover some of these later in the course)
 
 
 ---
 
-# Even more principles of chart design
+# Principles of chart design (4)
 
 - Plot the __raw data__ and the __summary__
+- Remember the [datasaurus!](https://www.autodeskresearch.com/publications/samestats)
+
+`r knitr::include_graphics("https://d2f99xq7vri1nk.cloudfront.net/DinoSequentialSmaller.gif")`
+
+
+---
+
+# Telling stories with charts
+
 - Think about how each plot fits into the [story you're telling](https://serialmentor.com/dataviz/telling-a-story.html)
 - It's totally fine to graph data __two or more times__ if it helps to tell the story (Cleveland 1985)
-
+- I think `ggplot` helps with this because it allows you to __iterate__ towards your final chart by building up layers
 
 ---
 
@@ -1043,7 +1109,7 @@ class: center, middle, inverse
 
 .right-column[
 
-```{r my_graph, out.width = '50%', echo = FALSE}
+```{r my_graph, out.width = '60%', echo = FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/thesis_figure.png")
 ```
 
@@ -1086,51 +1152,37 @@ class: center, middle, inverse
 
 # 1. "Sawtooth" lines
 
-- __Symptom__: ["Sawtooth"](https://ggplot2-book.org/collective-geoms.html) lines on your plot.
-
-- From __R for Data Science__:
+- [From R For Data Science](https://ggplot2-book.org/collective-geoms.html):
 
 ```{r bad_plot, out.width = '50%', echo = FALSE}
  knitr::include_graphics("https://ggplot2-book.org/collective-geoms_files/figure-html/oxboys-line-bad-1.png")
 ```
 
-- __Diagnosis__: "This vis problem often means there is some grouping characteristic missing from the graphic" https://www.njtierney.com/post/2020/06/14/jq-sawtooth/
+- __Diagnosis__: ["This vis problem often means there is some grouping characteristic missing from the graphic"](https://www.njtierney.com/post/2020/06/14/jq-sawtooth/)
 
 - __Prescription__: Check the data for any more grouping variables you might've missed (e.g. if your dataset is values for multiple years and you haven't included year in the plot)
 
 
 ---
-# "`Each group consists of only one observation`"
+## "`Error: Each group consists of only one observation. Do you need to adjust the group aesthetic?`"
 
-- __Symptom__: Error message `geom_path: Each group consists of only one observation. Do you need to adjust the group aesthetic?`
-
-- __Diagnosis__: This happens when you try to plot a __line__ using a factor as one of the position scales (usually `x` in my experience). `ggplot` then 'guesses' that you want the `x` variable to be the grouping variable
-
-- Thing to note - data types matter to `ggplot`!
+- __Diagnosis__: This happens when you try to plot a __line__ using a factor as one of the position scales. `ggplot` then 'guesses' that you want the `x` variable to be the grouping variable
+- Data types, and particularly [factors](https://r4ds.had.co.nz/factors.html) matter to `ggplot`!
 
 - __Prescription__: Adjust the group aesthetic! Explicitly tell `ggplot` what variable you want to group by in the call to `aes()` using the `group = ` parameter
 
 
-2. Groups == only one observation (categorical/factor x-variable)
-    - Colouring by a factor variable or a continuous one
-- Data types matter to `ggplot2`
-- If you want to plot a line you need to make sure the x and y axes are __continuous__ variables and that you're not trying to colour
-
 ---
-# `stat_count() must not be used with a y aesthetic`
-
-- __Symptom__: Error message `stat_count() must not be used with a y aesthetic`
+## `Error: stat_count() can only have an x or y aesthetic`
 
 - __Diagnosis__: This happens with summary `geom`s (usually `geom_bar`) which want to calculate a summary for you but you've already summarised the data outside of ggplot2
 
-- __Prescription__: You can tell `geom_bar` that you've summarised the data already by specifying `geom_bar(stat = "identity")` (here `identity` just means "use the numbers that I gave you please and don't calculate anything with them")
+- __Prescription__: You can tell `geom_bar` that you've summarised the data already by [specifying `geom_bar(stat = "identity")`](https://stackoverflow.com/a/39679104/10791377) (here `identity` just means "use the numbers that I gave you please and don't calculate anything with them")
 
-https://stackoverflow.com/questions/39679057/r-ggplot2-stat-count-must-not-be-used-with-a-y-aesthetic-error-in-bar-graph
+
 
 ---
-# `Error: Cannot use `+.gg()` with a single argument. Did you accidentally put + on a new line?`
-
-- __Symptom__: Error message
+# `Error: Cannot use +.gg() with a single argument. Did you accidentally put + on a new line?`
 
 - __Diagnosis__: For [technical reasons I don't understand](https://community.rstudio.com/t/why-put-and-at-the-end-of-lines/1831) this isn't valid R code. So you can't do it!
 
@@ -1140,12 +1192,18 @@ https://stackoverflow.com/questions/39679057/r-ggplot2-stat-count-must-not-be-us
 
 # `Error in FUN(X[[i]], ...) : object 'blah' not found`
 
-- __Symptom__: Error message
-- __Diagnosis__: `ggplot` is looking for something in your dataset but there are no variables with that name
+- __Diagnosis__: `ggplot` is looking for something in your dataset but there are __no variables with that name__
 - See our discussion on concepts in the grammar of graphics about what goes inside the call to `aes` and what goes outside
-- __Prescription__: Make sure there aren't any typos, and that what you've specified is in your dataset
-- If you're trying to e.g. set a colour you might have to move this outside the call to `aes()`
+- __Prescription__: Make sure there aren't any __typos__, and that what you've specified __exists in your dataset__
+- If you're trying to set a colour you might have to move this outside the call to `aes()`
     
+---
+class: center, middle, inverse
+
+# `Your turn!`
+# Lines __797-980__ in the [exercises](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises.R)
+# Lines __689-852__ in the [answers](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises-with-answers.R)
+
 
 
 ---

@@ -23,7 +23,7 @@ class: center, middle, inverse
 
 Ben Matthews&lt;sup&gt;1&lt;/sup&gt; and Eilidh Jack&lt;sup&gt;2&lt;/sup&gt;
 
-2020-06-29  (Last updated 2020-06-24)
+2020-06-29  (Last updated 2020-06-25)
 
 &lt;sup&gt;1&lt;/sup&gt;University of Edinburgh
 
@@ -226,8 +226,8 @@ class: center, middle, inverse
 class: center, middle, inverse
 
 # `Your turn!`
-# Lines __xxx__ in the __exercises (add link to these here)__
-# Lines __xxx__ in the __answers (add link to these here)__
+# Lines __1-237__ in the [exercises](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises.R)
+# Lines __1-179__ in the [answers](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises-with-answers.R)
 
 
 ---
@@ -499,8 +499,6 @@ ggplot(
 
 
 ]
-
----
 
 ---
 
@@ -781,8 +779,8 @@ class: center, middle, inverse
 ---
 class: center, middle, inverse
 # `Your turn!`
-# Lines __xxx__ in the __exercises (add link to these here)__
-# Lines __xxx__ in the __answers (add link to these here)__
+# Lines __238-705__ in the [exercises](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises.R)
+# Lines __180-603__ in the [answers](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises-with-answers.R)
 
 ---
 
@@ -899,8 +897,8 @@ ggplot(
 ---
 class: center, middle, inverse
 # `Your turn!`
-# Lines __xxx__ in the __exercises (add link to these here)__
-# Lines __xxx__ in the __answers (add link to these here)__
+# Lines __706-796__ in the [exercises](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises.R)
+# Lines __604-687__ in the [answers](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises-with-answers.R)
 
 
 ---
@@ -920,19 +918,12 @@ class: center, middle, inverse
 # Principles of data visualization
 
 - How we read graphs
-    - Hierarchy of perceptual tasks
-    - Other cognitive principles
 - Principles of chart design
 - An example
 
 ---
-class: center, middle, inverse
+
 # How we read graphs
-
-
----
-
-# Hierarchy of perceptual tasks
 
 .pull.left[
 
@@ -959,7 +950,7 @@ class: center, middle, inverse
 
 ---
 
-#  Other cognitive principles
+#  How we read graphs (2)
 
 - __Proximity__: "objects or shapes that are close to one another appear to form groups... __place items to compare close together__, and less important comparisons further apart" (this is from a very interesting [review of research into how we understand graphs by Vanderplas, Cook and Hofmann](https://www.annualreviews.org/doi/full/10.1146/annurev-statistics-031219-041252))
     - ... so think about how your __mapping of variables__ to aesthetics and facets __highlights some comparisons__ and not others
@@ -967,7 +958,7 @@ class: center, middle, inverse
 &lt;img src="https://www.annualreviews.org/na101/home/literatum/publisher/ar/journals/content/statistics/2020/statistics.2020.7.issue-1/annurev-statistics-031219-041252/20200226/images/medium/st070061.f11.gif" width="50%" /&gt;
 ---
     
-# Other cognitive principles
+# Principles of chart design
 - __[Match perceptual and data topology](http://stat405.had.co.nz/lectures/20-effective-vis.pdf)__: Some `aes`thetic mappings have implicit __orders__ (like position and size), others are __unordered__ (like shape)
    - If you’re using a graphical element to show relative size of quantities __make larger size = larger quantity__
     - Does a brighter colour imply higher or lower value?
@@ -975,7 +966,7 @@ class: center, middle, inverse
 
 ---
 
-#  More principles of chart design
+#  Principles of chart design (2)
 - __Dual coding__: You can encode the same variables to multiple aesthetic parameters (easily in `ggplot2`) to aid comprehension
 - This can also aid __accessibility__ by reducing reliance on e.g. colour to distinguish variables
 
@@ -1002,7 +993,7 @@ ggplot(
 
 ---
 
-#  More principles of chart design
+#  Principles of chart design (2)
 - __Dual coding__: You can encode the same variables to multiple aesthetic parameters (easily in `ggplot2`) to aid comprehension
 - This can also aid __accessibility__ by reducing reliance on e.g. colour to distinguish variables
 
@@ -1033,13 +1024,13 @@ ggplot(
 
 ---
 
-#  More principles of chart design
+#  Principles of chart design (3)
 - You can also colour scales designed to have __good perceptual properties__ for [different kinds of colour-blindness](https://serialmentor.com/dataviz/color-pitfalls.html#not-designing-for-color-vision-deficiency) (`ggplot2` defaults aren't so good for this) (we'll cover some of these later in the course)
 
 
 ---
 
-# Even more principles of chart design
+# Principles of chart design (4)
 
 - Plot the __raw data__ and the __summary__
 - Remember the [datasaurus!](https://www.autodeskresearch.com/publications/samestats)
@@ -1053,7 +1044,7 @@ ggplot(
 
 - Think about how each plot fits into the [story you're telling](https://serialmentor.com/dataviz/telling-a-story.html)
 - It's totally fine to graph data __two or more times__ if it helps to tell the story (Cleveland 1985)
-- I think `ggplot` helps with this because it allows you to iterate towards your final chart by building up layers
+- I think `ggplot` helps with this because it allows you to __iterate__ towards your final chart by building up layers
 
 ---
 
@@ -1110,49 +1101,35 @@ class: center, middle, inverse
 
 # 1. "Sawtooth" lines
 
-- __Symptom__: ["Sawtooth"](https://ggplot2-book.org/collective-geoms.html) lines on your plot.
-
-- From __R for Data Science__:
+- [From R For Data Science](https://ggplot2-book.org/collective-geoms.html):
 
 &lt;img src="https://ggplot2-book.org/collective-geoms_files/figure-html/oxboys-line-bad-1.png" width="50%" /&gt;
 
-- __Diagnosis__: "This vis problem often means there is some grouping characteristic missing from the graphic" https://www.njtierney.com/post/2020/06/14/jq-sawtooth/
+- __Diagnosis__: ["This vis problem often means there is some grouping characteristic missing from the graphic"](https://www.njtierney.com/post/2020/06/14/jq-sawtooth/)
 
 - __Prescription__: Check the data for any more grouping variables you might've missed (e.g. if your dataset is values for multiple years and you haven't included year in the plot)
 
 
 ---
-# "`Each group consists of only one observation`"
+## "`Error: Each group consists of only one observation. Do you need to adjust the group aesthetic?`"
 
-- __Symptom__: Error message `geom_path: Each group consists of only one observation. Do you need to adjust the group aesthetic?`
-
-- __Diagnosis__: This happens when you try to plot a __line__ using a factor as one of the position scales (usually `x` in my experience). `ggplot` then 'guesses' that you want the `x` variable to be the grouping variable
-
-- Thing to note - data types matter to `ggplot`!
+- __Diagnosis__: This happens when you try to plot a __line__ using a factor as one of the position scales. `ggplot` then 'guesses' that you want the `x` variable to be the grouping variable
+- Data types, and particularly [factors](https://r4ds.had.co.nz/factors.html) matter to `ggplot`!
 
 - __Prescription__: Adjust the group aesthetic! Explicitly tell `ggplot` what variable you want to group by in the call to `aes()` using the `group = ` parameter
 
 
-2. Groups == only one observation (categorical/factor x-variable)
-    - Colouring by a factor variable or a continuous one
-- Data types matter to `ggplot2`
-- If you want to plot a line you need to make sure the x and y axes are __continuous__ variables and that you're not trying to colour
-
 ---
-# `stat_count() must not be used with a y aesthetic`
-
-- __Symptom__: Error message `stat_count() must not be used with a y aesthetic`
+## `Error: stat_count() can only have an x or y aesthetic`
 
 - __Diagnosis__: This happens with summary `geom`s (usually `geom_bar`) which want to calculate a summary for you but you've already summarised the data outside of ggplot2
 
-- __Prescription__: You can tell `geom_bar` that you've summarised the data already by specifying `geom_bar(stat = "identity")` (here `identity` just means "use the numbers that I gave you please and don't calculate anything with them")
+- __Prescription__: You can tell `geom_bar` that you've summarised the data already by [specifying `geom_bar(stat = "identity")`](https://stackoverflow.com/a/39679104/10791377) (here `identity` just means "use the numbers that I gave you please and don't calculate anything with them")
 
-https://stackoverflow.com/questions/39679057/r-ggplot2-stat-count-must-not-be-used-with-a-y-aesthetic-error-in-bar-graph
+
 
 ---
-# `Error: Cannot use `+.gg()` with a single argument. Did you accidentally put + on a new line?`
-
-- __Symptom__: Error message
+# `Error: Cannot use +.gg() with a single argument. Did you accidentally put + on a new line?`
 
 - __Diagnosis__: For [technical reasons I don't understand](https://community.rstudio.com/t/why-put-and-at-the-end-of-lines/1831) this isn't valid R code. So you can't do it!
 
@@ -1162,12 +1139,18 @@ https://stackoverflow.com/questions/39679057/r-ggplot2-stat-count-must-not-be-us
 
 # `Error in FUN(X[[i]], ...) : object 'blah' not found`
 
-- __Symptom__: Error message
-- __Diagnosis__: `ggplot` is looking for something in your dataset but there are no variables with that name
+- __Diagnosis__: `ggplot` is looking for something in your dataset but there are __no variables with that name__
 - See our discussion on concepts in the grammar of graphics about what goes inside the call to `aes` and what goes outside
-- __Prescription__: Make sure there aren't any typos, and that what you've specified is in your dataset
-- If you're trying to e.g. set a colour you might have to move this outside the call to `aes()`
+- __Prescription__: Make sure there aren't any __typos__, and that what you've specified __exists in your dataset__
+- If you're trying to set a colour you might have to move this outside the call to `aes()`
     
+---
+class: center, middle, inverse
+
+# `Your turn!`
+# Lines __797-980__ in the [exercises](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises.R)
+# Lines __689-852__ in the [answers](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises-with-answers.R)
+
 
 
 ---
