@@ -18,7 +18,7 @@ knitr::opts_chunk$set(warning = FALSE,
                       message = FALSE,
                       error = TRUE,
                       fig.asp = 0.618,
-                      dev = "png", dev.args = list(type = "cairo-png"))
+                      dev.args = list(png = list(type = "cairo")))
 library(ggplot2)
 library(sf)
 ```
@@ -128,7 +128,7 @@ name: outline
 - We __very much recommend__ that you use a local installation of `R` and `RStudio` on your own computer
 - If you haven't got a working R and Rstudio set-up you can send Eilidh a message now in the group chat and she can help get you set-up
 - If this still doesn't work you can access a __cloud version__ of `R` with the course dataset and materials [here](https://rstudio.cloud/project/27200)
-- You can access the exercises __[here] {add link to exercises}__
+- You can access the exercises [here](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises.R) and the answers [here](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises-with-answers.R)
 
 
 ---
@@ -149,7 +149,9 @@ class: center, middle, inverse
 ---
 # Why plot in the first place?
 
-`r knitr::include_graphics("https://d2f99xq7vri1nk.cloudfront.net/DinoSequentialSmaller.gif")`
+```{r datasaurus, echo = FALSE, fig.align = "center"}
+knitr::include_graphics("https://d2f99xq7vri1nk.cloudfront.net/DinoSequentialSmaller.gif")
+```
 
 The __datasaurus__ -- [Matejka and Fitzmaurice](https://www.autodeskresearch.com/publications/samestats)
 
@@ -331,7 +333,7 @@ ggplot(
 ]
 
 .pull-right[
-```{r ref.label = 'plot-last', echo = FALSE, fig.retina = 3}
+```{r ref.label = 'plot-last', echo = FALSE, fig.retina = 1.25}
 ```
 ]
 
@@ -386,7 +388,7 @@ ggplot(
 ]
 
 .pull-right[
-```{r ref.label = 'same_aes', echo = FALSE, fig.retina = 3}
+```{r ref.label = 'same_aes', echo = FALSE, fig.retina = 1.25}
 ```
 ]
 
@@ -405,7 +407,7 @@ ggplot(
 ]
 
 .pull-right[
-```{r ref.label = 'same_aes_2', echo = FALSE, fig.retina = 3}
+```{r ref.label = 'same_aes_2', echo = FALSE, fig.retina = 1.25}
 ```
 ]
 
@@ -434,13 +436,13 @@ ggplot(
 ]
 
 .pull-right[
-```{r ref.label = 'layers', echo = FALSE, fig.retina = 3}
+```{r ref.label = 'layers', echo = FALSE, fig.retina = 1.25}
 ```
 ]
 
 
 
-
+  
 ---
 
 # `geom`s and `aes`thetics
@@ -473,7 +475,7 @@ ggplot(
 ]
 
 .pull-right[
-```{r ref.label = 'layer_aes', echo = FALSE, fig.retina = 3}
+```{r ref.label = 'layer_aes', echo = FALSE, fig.retina = 1.25}
 ```
 ]
 
@@ -512,7 +514,7 @@ ggplot(
 ]
 
 .pull-right[
-```{r ref.label = 'layers_error', echo = FALSE, fig.retina = 3}
+```{r ref.label = 'layers_error', echo = FALSE, fig.retina = 1.25}
 ```
 
 
@@ -538,7 +540,7 @@ ggplot(
 ]
 
 .pull-right[
-```{r ref.label = 'layers_error_2', echo = FALSE, fig.retina = 3}
+```{r ref.label = 'layers_error_2', echo = FALSE, fig.retina = 1.25}
 ```
 
 
@@ -649,7 +651,7 @@ ggplot(
 ]
 
 .pull-right[
-```{r ref.label = 'univar_geom', echo = FALSE, fig.retina = 3}
+```{r ref.label = 'univar_geom', echo = FALSE, fig.retina = 1.25}
 ```
 ]
 
@@ -673,7 +675,7 @@ ggplot(
 ]
 
 .pull-right[
-```{r ref.label = 'bivar_geom', echo = FALSE, fig.retina = 3}
+```{r ref.label = 'bivar_geom', echo = FALSE, fig.retina = 1.25}
 ```
 ]
 
@@ -698,7 +700,7 @@ ggplot(
 ]
 
 .pull-right[
-```{r ref.label = 'bivar_geom_dat', echo = FALSE, fig.retina = 3}
+```{r ref.label = 'bivar_geom_dat', echo = FALSE, fig.retina = 1.25}
 ```
 ]
 
@@ -724,7 +726,7 @@ ggplot(
 ]
 
 .pull-right[
-```{r ref.label = 'bivar_geom_den', echo = FALSE, fig.retina = 3}
+```{r ref.label = 'bivar_geom_den', echo = FALSE, fig.retina = 1.25}
 ```
 ]
 
@@ -767,7 +769,7 @@ ggplot(
 ]
 
 .pull-right[
-```{r ref.label = 'bivar_geom_den_2', echo = FALSE, fig.retina = 3}
+```{r ref.label = 'bivar_geom_den_2', echo = FALSE, fig.retina = 1.25}
 ```
 ]
 
@@ -801,7 +803,7 @@ ggplot(
 ]
 
 .pull-right[
-```{r ref.label = 'geom_text', echo = FALSE, fig.retina = 3}
+```{r ref.label = 'geom_text', echo = FALSE, fig.retina = 1.25}
 ```
 ]
 
@@ -829,7 +831,6 @@ ggplot(
 ) +
   geom_point() +
   geom_smooth() +
-  geom_vline(xintercept = 200) +
   geom_text(
     data = label_df,
     mapping = aes(x = x,
@@ -841,7 +842,7 @@ ggplot(
 ]
 
 .pull-right[
-```{r ref.label = 'geom_text_2', echo = FALSE, fig.retina = 3}
+```{r ref.label = 'geom_text_2', echo = FALSE, fig.retina = 1.25}
 ```
 ]
 
@@ -899,7 +900,7 @@ ggplot(
 ]
 
 .pull-right[
-```{r ref.label = 'facet', echo = FALSE, fig.retina = 3}
+```{r ref.label = 'facet', echo = FALSE, fig.retina = 1.25}
 ```
 ]
 
@@ -931,7 +932,7 @@ ggplot(
 ]
 
 .pull-right[
-```{r ref.label = 'facet_2', echo = FALSE, fig.retina = 3}
+```{r ref.label = 'facet_2', echo = FALSE, fig.retina = 1.25}
 ```
 ]
 
@@ -963,7 +964,7 @@ ggplot(
 ]
 
 .pull-right[
-```{r ref.label = 'facet_grid', echo = FALSE, fig.retina = 3}
+```{r ref.label = 'facet_grid', echo = FALSE, fig.retina = 1.25}
 ```
 ]
 
@@ -1009,10 +1010,11 @@ class: center, middle, inverse
 
 # How we read graphs
 
-.pull.left[
+.pull-left[
 
 - __Some visual comparisons are easier__ to make than others
 
+__Easiest__
 1. Position along a common scale
 2. Position along identical, non-aligned scales
 3. Length
@@ -1021,13 +1023,15 @@ class: center, middle, inverse
 6. Volume
 6. Colour hue / saturation
 
+__Hardest__
+
 (Source: Cleveland and McGill, 1984)
 
 ]
 
 .pull-right[
 
-```{r cleveland, out.width = '45%', echo = FALSE}
+```{r cleveland, out.width = '80%', echo = FALSE, fig.align = "center"}
  knitr::include_graphics("https://www.researchgate.net/profile/Chia_Shen/publication/221513994/figure/fig2/AS:305590816526337@1449869936222/Cleveland-and-McGills-elementary-perceptual-tasks-All-visual-representations-of.png")
 ```
 
@@ -1041,7 +1045,7 @@ class: center, middle, inverse
 - __Proximity__: "objects or shapes that are close to one another appear to form groups... __place items to compare close together__, and less important comparisons further apart" (this is from a very interesting [review of research into how we understand graphs by Vanderplas, Cook and Hofmann](https://www.annualreviews.org/doi/full/10.1146/annurev-statistics-031219-041252))
     - ... so think about how your __mapping of variables__ to aesthetics and facets __highlights some comparisons__ and not others
    
-```{r vanderplas, out.width = '50%', echo = FALSE}
+```{r vanderplas, out.width = '50%', echo = FALSE, fig.align="center"}
 knitr::include_graphics("https://www.annualreviews.org/na101/home/literatum/publisher/ar/journals/content/statistics/2020/statistics.2020.7.issue-1/annurev-statistics-031219-041252/20200226/images/medium/st070061.f11.gif")
 ```
 ---
@@ -1056,7 +1060,7 @@ knitr::include_graphics("https://www.annualreviews.org/na101/home/literatum/publ
 # Principles of chart design
 - From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
 
-```{r wickham-1, out.width = '60%', echo = FALSE}
+```{r wickham-1, out.width = '60%', echo = FALSE, fig.align="center"}
 knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-0.gif")
 ```
 
@@ -1065,7 +1069,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data
 # Principles of chart design
 - From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
 
-```{r wickham-2, out.width = '60%', echo = FALSE}
+```{r wickham-2, out.width = '60%', echo = FALSE, fig.align="center"}
 knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-1.gif")
 ```
 
@@ -1074,7 +1078,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data
 # Principles of chart design
 - From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
 
-```{r wickham-3, out.width = '60%', echo = FALSE}
+```{r wickham-3, out.width = '60%', echo = FALSE, fig.align="center"}
 knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-2.gif")
 ```
 
@@ -1083,7 +1087,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data
 # Principles of chart design
 - From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
 
-```{r wickham-4, out.width = '60%', echo = FALSE}
+```{r wickham-4, out.width = '60%', echo = FALSE, fig.align="center"}
 knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-3.gif")
 ```
 ---
@@ -1091,7 +1095,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data
 # Principles of chart design
 - From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
 
-```{r wickham-5, out.width = '60%', echo = FALSE}
+```{r wickham-5, out.width = '60%', echo = FALSE, fig.align="center"}
 knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-4.gif")
 ```
 
@@ -1100,7 +1104,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data
 # Principles of chart design
 - From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
 
-```{r wickham-6, out.width = '60%', echo = FALSE}
+```{r wickham-6, out.width = '60%', echo = FALSE, fig.align="center"}
 knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-5.gif")
 ```
 
@@ -1109,7 +1113,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data
 # Principles of chart design
 - From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
 
-```{r wickham-7, out.width = '60%', echo = FALSE}
+```{r wickham-7, out.width = '60%', echo = FALSE, fig.align="center"}
 knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-6.gif")
 ```
 
@@ -1118,7 +1122,7 @@ knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data
 # Principles of chart design
 - From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
 
-```{r wickham-8, out.width = '60%', echo = FALSE}
+```{r wickham-8, out.width = '60%', echo = FALSE, fig.align="center"}
 knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-7.gif")
 ```
 
@@ -1147,7 +1151,7 @@ ggplot(
 ]
 
 .pull-right[
-```{r ref.label = 'dual_code', echo = FALSE, fig.retina = 3}
+```{r ref.label = 'dual_code', echo = FALSE, fig.retina = 1.25}
 ```
 ]
 
@@ -1163,8 +1167,9 @@ ggplot(
 ```{r dual_code_2, fig.show = 'hide'}
 
 # code am to shape as well
-# note - I had to cheat here and ask ggplot2 to treat
-# am as a factor variable!
+# note - I had to cheat here and 
+# ask ggplot2 to treat
+# am as a factor variable
 
 ggplot(
   data = mtcars,
@@ -1179,7 +1184,7 @@ ggplot(
 ]
 
 .pull-right[
-```{r ref.label = 'dual_code_2', echo = FALSE, fig.retina = 3}
+```{r ref.label = 'dual_code_2', echo = FALSE, fig.retina = 1.25}
 ```
 ]
 
@@ -1197,7 +1202,9 @@ ggplot(
 - Plot the __raw data__ and the __summary__
 - Remember the [datasaurus!](https://www.autodeskresearch.com/publications/samestats)
 
-`r knitr::include_graphics("https://d2f99xq7vri1nk.cloudfront.net/DinoSequentialSmaller.gif")`
+```{r ref.label = 'datasaurus', echo = FALSE, fig.align = "center"}
+```
+
 
 
 ---
@@ -1222,7 +1229,7 @@ ggplot(
 
 .right-column[
 
-```{r my_graph, out.width = '60%', echo = FALSE}
+```{r my_graph, out.width = '78%', echo = FALSE, fig.align = "center"}
 knitr::include_graphics("https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/thesis_figure.png")
 ```
 
@@ -1261,7 +1268,7 @@ class: center, middle, inverse
 
 - [From R For Data Science](https://ggplot2-book.org/collective-geoms.html):
 
-```{r bad_plot, out.width = '50%', echo = FALSE}
+```{r bad_plot, out.width = '85%', echo = FALSE}
  knitr::include_graphics("https://ggplot2-book.org/collective-geoms_files/figure-html/oxboys-line-bad-1.png")
 ```
 
@@ -1275,7 +1282,7 @@ class: center, middle, inverse
 ]
 
 ---
-## "`Error: Each group consists of only one observation. Do you need to adjust the group aesthetic?`"
+## `Error: Each group consists of only one observation. Do you need to adjust the group aesthetic?`
 
 - __Diagnosis__: This happens when you try to plot a __line__ using a factor as one of the position scales. `ggplot` then 'guesses' that you want the `x` variable to be the grouping variable
 - Data types, and particularly [factors](https://r4ds.had.co.nz/factors.html) matter to `ggplot`!
@@ -1367,7 +1374,7 @@ class: center, middle, inverse
 - Beautifying your ggplots with __themes__ and __titles__
 - Answering any __questions__ you have between now and then
 - Please feel free to bring __your own data__!
-- Optional homework: try out this week's [#TidyTuesday](https://github.com/rfordatascience/tidytuesday) challenge
+- Optional __homework__: try out this week's [#TidyTuesday](https://github.com/rfordatascience/tidytuesday) challenge
 
 
 
@@ -1474,8 +1481,10 @@ class: center, middle, inverse
 - continuous
 - categorical
 
+```{r default_colour, out.width = '80%', echo = FALSE}
+ knitr::include_graphics("https://ggplot2-book.org/diagrams/colour-wheel.png")
+```
 
-![ggplot2-default-colour](https://ggplot2-book.org/diagrams/colour-wheel.png)
 
 - You have to make sure `ggplot` is treating your data in the right way (continuous if you want a continuous scale, discrete if you want a discrete scale)
 

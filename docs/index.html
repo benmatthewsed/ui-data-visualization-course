@@ -23,7 +23,7 @@ class: center, middle, inverse
 
 Ben Matthews&lt;sup&gt;1&lt;/sup&gt; and Eilidh Jack&lt;sup&gt;2&lt;/sup&gt;
 
-2020-06-29  (Last updated 2020-06-25)
+2020-06-29  (Last updated 2020-06-26)
 
 &lt;sup&gt;1&lt;/sup&gt;University of Edinburgh
 
@@ -114,7 +114,7 @@ name: outline
 - We __very much recommend__ that you use a local installation of `R` and `RStudio` on your own computer
 - If you haven't got a working R and Rstudio set-up you can send Eilidh a message now in the group chat and she can help get you set-up
 - If this still doesn't work you can access a __cloud version__ of `R` with the course dataset and materials [here](https://rstudio.cloud/project/27200)
-- You can access the exercises __[here] {add link to exercises}__
+- You can access the exercises [here](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises.R) and the answers [here](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises-with-answers.R)
 
 
 ---
@@ -135,7 +135,7 @@ class: center, middle, inverse
 ---
 # Why plot in the first place?
 
-![](https://d2f99xq7vri1nk.cloudfront.net/DinoSequentialSmaller.gif)&lt;!-- --&gt;
+&lt;img src="https://d2f99xq7vri1nk.cloudfront.net/DinoSequentialSmaller.gif" style="display: block; margin: auto;" /&gt;
 
 The __datasaurus__ -- [Matejka and Fitzmaurice](https://www.autodeskresearch.com/publications/samestats)
 
@@ -417,7 +417,7 @@ ggplot(
 
 
 
-
+  
 ---
 
 # `geom`s and `aes`thetics
@@ -792,8 +792,6 @@ ggplot(
 ) +
   geom_point() +
   geom_smooth() +
-  geom_density_2d() +
-  geom_vline(xintercept = 200) +
   geom_text(
     data = label_df,
     mapping = aes(x = x,
@@ -965,10 +963,11 @@ class: center, middle, inverse
 
 # How we read graphs
 
-.pull.left[
+.pull-left[
 
 - __Some visual comparisons are easier__ to make than others
 
+__Easiest__
 1. Position along a common scale
 2. Position along identical, non-aligned scales
 3. Length
@@ -977,13 +976,15 @@ class: center, middle, inverse
 6. Volume
 6. Colour hue / saturation
 
+__Hardest__
+
 (Source: Cleveland and McGill, 1984)
 
 ]
 
 .pull-right[
 
-&lt;img src="https://www.researchgate.net/profile/Chia_Shen/publication/221513994/figure/fig2/AS:305590816526337@1449869936222/Cleveland-and-McGills-elementary-perceptual-tasks-All-visual-representations-of.png" width="45%" /&gt;
+&lt;img src="https://www.researchgate.net/profile/Chia_Shen/publication/221513994/figure/fig2/AS:305590816526337@1449869936222/Cleveland-and-McGills-elementary-perceptual-tasks-All-visual-representations-of.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -995,7 +996,7 @@ class: center, middle, inverse
 - __Proximity__: "objects or shapes that are close to one another appear to form groups... __place items to compare close together__, and less important comparisons further apart" (this is from a very interesting [review of research into how we understand graphs by Vanderplas, Cook and Hofmann](https://www.annualreviews.org/doi/full/10.1146/annurev-statistics-031219-041252))
     - ... so think about how your __mapping of variables__ to aesthetics and facets __highlights some comparisons__ and not others
    
-&lt;img src="https://www.annualreviews.org/na101/home/literatum/publisher/ar/journals/content/statistics/2020/statistics.2020.7.issue-1/annurev-statistics-031219-041252/20200226/images/medium/st070061.f11.gif" width="50%" /&gt;
+&lt;img src="https://www.annualreviews.org/na101/home/literatum/publisher/ar/journals/content/statistics/2020/statistics.2020.7.issue-1/annurev-statistics-031219-041252/20200226/images/medium/st070061.f11.gif" width="50%" style="display: block; margin: auto;" /&gt;
 ---
     
 # Principles of chart design
@@ -1008,55 +1009,55 @@ class: center, middle, inverse
 # Principles of chart design
 - From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
 
-&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-0.gif" width="60%" /&gt;
+&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-0.gif" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # Principles of chart design
 - From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
 
-&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-1.gif" width="60%" /&gt;
+&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-1.gif" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # Principles of chart design
 - From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
 
-&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-2.gif" width="60%" /&gt;
+&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-2.gif" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # Principles of chart design
 - From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
 
-&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-3.gif" width="60%" /&gt;
+&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-3.gif" width="60%" style="display: block; margin: auto;" /&gt;
 ---
 
 # Principles of chart design
 - From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
 
-&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-4.gif" width="60%" /&gt;
-
----
-
-# Principles of chart design
-- From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
-
-&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-5.gif" width="60%" /&gt;
+&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-4.gif" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # Principles of chart design
 - From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
 
-&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-6.gif" width="60%" /&gt;
+&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-5.gif" width="60%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # Principles of chart design
 - From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
 
-&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-7.gif" width="60%" /&gt;
+&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-6.gif" width="60%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Principles of chart design
+- From Hadley Wickham's [excellent slides on data-viz](http://stat405.had.co.nz/lectures/20-effective-vis.pdf):
+
+&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/page-7.gif" width="60%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1097,8 +1098,9 @@ ggplot(
 
 ```r
 # code am to shape as well
-# note - I had to cheat here and ask ggplot2 to treat
-# am as a factor variable!
+# note - I had to cheat here and 
+# ask ggplot2 to treat
+# am as a factor variable
 
 ggplot(
   data = mtcars,
@@ -1129,7 +1131,8 @@ ggplot(
 - Plot the __raw data__ and the __summary__
 - Remember the [datasaurus!](https://www.autodeskresearch.com/publications/samestats)
 
-![](https://d2f99xq7vri1nk.cloudfront.net/DinoSequentialSmaller.gif)&lt;!-- --&gt;
+&lt;img src="https://d2f99xq7vri1nk.cloudfront.net/DinoSequentialSmaller.gif" style="display: block; margin: auto;" /&gt;
+
 
 
 ---
@@ -1154,7 +1157,7 @@ ggplot(
 
 .right-column[
 
-&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/thesis_figure.png" width="60%" /&gt;
+&lt;img src="https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/thesis_figure.png" width="78%" style="display: block; margin: auto;" /&gt;
 
 Age-crime curves for different crime types in Scottish Offenders Index 1989-2011, men (Source: [Ben's PhD thesis](https://era.ed.ac.uk/handle/1842/25810))
 
@@ -1191,7 +1194,7 @@ class: center, middle, inverse
 
 - [From R For Data Science](https://ggplot2-book.org/collective-geoms.html):
 
-&lt;img src="https://ggplot2-book.org/collective-geoms_files/figure-html/oxboys-line-bad-1.png" width="50%" /&gt;
+&lt;img src="https://ggplot2-book.org/collective-geoms_files/figure-html/oxboys-line-bad-1.png" width="85%" /&gt;
 
 ]
 
@@ -1203,7 +1206,7 @@ class: center, middle, inverse
 ]
 
 ---
-## "`Error: Each group consists of only one observation. Do you need to adjust the group aesthetic?`"
+## `Error: Each group consists of only one observation. Do you need to adjust the group aesthetic?`
 
 - __Diagnosis__: This happens when you try to plot a __line__ using a factor as one of the position scales. `ggplot` then 'guesses' that you want the `x` variable to be the grouping variable
 - Data types, and particularly [factors](https://r4ds.had.co.nz/factors.html) matter to `ggplot`!
@@ -1295,7 +1298,7 @@ class: center, middle, inverse
 - Beautifying your ggplots with __themes__ and __titles__
 - Answering any __questions__ you have between now and then
 - Please feel free to bring __your own data__!
-- Optional homework: try out this week's [#TidyTuesday](https://github.com/rfordatascience/tidytuesday) challenge
+- Optional __homework__: try out this week's [#TidyTuesday](https://github.com/rfordatascience/tidytuesday) challenge
 
 
 
@@ -1402,8 +1405,8 @@ class: center, middle, inverse
 - continuous
 - categorical
 
+&lt;img src="https://ggplot2-book.org/diagrams/colour-wheel.png" width="80%" /&gt;
 
-![ggplot2-default-colour](https://ggplot2-book.org/diagrams/colour-wheel.png)
 
 - You have to make sure `ggplot` is treating your data in the right way (continuous if you want a continuous scale, discrete if you want a discrete scale)
 
