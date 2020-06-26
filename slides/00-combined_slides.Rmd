@@ -17,7 +17,8 @@ output:
 knitr::opts_chunk$set(warning = FALSE, 
                       message = FALSE,
                       error = TRUE,
-                      fig.asp = 0.618)
+                      fig.asp = 0.618,
+                      dev = "png", dev.args = list(type = "cairo-png"))
 library(ggplot2)
 library(sf)
 ```
@@ -828,7 +829,6 @@ ggplot(
 ) +
   geom_point() +
   geom_smooth() +
-  geom_density_2d() +
   geom_vline(xintercept = 200) +
   geom_text(
     data = label_df,
