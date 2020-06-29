@@ -52,11 +52,11 @@ Ben Matthews<sup>1</sup> and Eilidh Jack<sup>2</sup>
 
 # Welcome!
 
-- [Course outline](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/course_outline.md)
-
 - Who we are
-
+- [Course outline](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/course_outline.md)
 - [Code of conduct](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/code_of_conduct.md)
+- [Reference texts](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/course_outline.md#course-texts)
+- [`ggplot2` cheat sheet](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf) - this is __very__ important!
 
 ---
 # Learning outcomes
@@ -93,7 +93,6 @@ name: outline
 - We've structured the sessions with regular breaks, but __if you need to leave just leave__!
 - Materials will live online ([slides](https://benmatthewsed.github.io/ui-data-visualization-course/), [other materials](https://github.com/benmatthewsed/ui-data-visualization-course)) so you can access them any time
 - __"You're not working from home, you're at home during a crisis trying to work"__
-- We'll have a mix of presentations and practical exercises - please keep your camera __on__ and your mic __off__ during the presentations
 - We want this time to be as useful for you guys as possible, so __please let us know anything we can improve on__ between now and next week's session
 
 
@@ -118,7 +117,7 @@ name: outline
 - Sometimes it helps to __close your browser__ and rejoin the session
 - If it all goes wrong and you can't rejoin __it's okay!__
 - You can __access the materials any time__ (see links on previous page)
-- I think 'lectures' and live-coding is being recorded, but there's already an __excellent [series of videos on YouTube]("https://www.youtube.com/watch?v=t6IIJEoqPyk&list=PLRPB0ZzEYegPa4uvvAVJnr6loSKbN4wLb")__ covering how to use `ggplot2`
+- I think 'lectures' and live-coding is being recorded, but there's already an __excellent__ [series of videos on YouTube](https://youtu.be/t6IIJEoqPyk) covering how to use `ggplot2`
 
 
 ---
@@ -135,7 +134,8 @@ name: outline
 
 # Who you are
 
-- Why this course?
+- Your __research interests__
+- __Why__ this course?
 - What do you want to achieve?
 
 ---
@@ -149,6 +149,9 @@ class: center, middle, inverse
 ---
 # Why plot in the first place?
 
+- It's a key part of __any data analysis__
+- Relying on __summary statistics can be misleading__:
+
 ```{r datasaurus, echo = FALSE, fig.align = "center"}
 knitr::include_graphics("https://d2f99xq7vri1nk.cloudfront.net/DinoSequentialSmaller.gif")
 ```
@@ -161,7 +164,7 @@ The __datasaurus__ -- [Matejka and Fitzmaurice](https://www.autodeskresearch.com
 name: what-is-ggplot
 class: center, middle, inverse
 
-# What `*`is`*` `ggplot2`?
+# What is `ggplot2`?
 
 ---
 
@@ -169,9 +172,7 @@ class: center, middle, inverse
 # What is `ggplot2`?
 
 - It's an `R` package that draws graphs, developed by [Hadley Wickham](http://hadley.nz/)
-
 - From the [tidyverse website](https://ggplot2.tidyverse.org/): "`ggplot2` is a system for declaratively creating graphics, based on The Grammar of Graphics. You provide the __data__, tell `ggplot2` how to __map variables to aesthetics__, what __[visual marks to use__ to represent data points], and it takes care of the details."
-
 - ... and what's the Grammar of Graphics? Our `ggplot2` [cheat sheet](https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf) says this is "the idea that you can __build every graph from the same components__: a data set, a coordinate system, and `geom`s—visual marks that represent data points." 
 
 ---
@@ -216,6 +217,7 @@ class: center, middle, inverse
 - `ggplot2` is used by data journalists at major outlets [BBC](https://bbc.github.io/rcookbook/) and [Financial Times](https://johnburnmurdoch.github.io/slides/r-ggplot/#/)
 - As well as technical users who have [extended](https://exts.ggplot2.tidyverse.org/) `ggplot2`'s core functions for specific use cases
 - You can use the same tool to visualize data effectively for academic audiences as well as the general public (also just for ourselves), and because users often __post their code online__ you learn from these many users (for example, the online community around the [#TidyTuesday](https://github.com/rfordatascience/tidytuesday) weekly challenges)
+- Take advantage of [Ctrl + C & Ctrl + V](https://speakerdeck.com/hadley/should-all-statistics-students-be-programmers)
 
 ---
 class: center, middle, inverse
