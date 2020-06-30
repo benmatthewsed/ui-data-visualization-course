@@ -47,6 +47,8 @@ Ben Matthews<sup>1</sup> and Eilidh Jack<sup>2</sup>
 `r knitr::include_graphics("https://www.understanding-inequalities.ac.uk/sites/all/themes/theme935/logo.png")`
 
 
+(Jump to [Session Two](https://benmatthewsed.github.io/ui-data-visualization-course/#session-two))
+
 ---
 
 
@@ -1379,6 +1381,24 @@ class: center, middle, inverse
 - Please feel free to bring __your own data__!
 - Optional __homework__: try out this week's [#TidyTuesday](https://github.com/rfordatascience/tidytuesday) challenge
 
+
+
+---
+name: session-two
+class: center, middle, inverse
+
+# Introduction to data visualisation with `ggplot2`: Session Two
+
+Ben Matthews<sup>1</sup> and Eilidh Jack<sup>2</sup>
+
+2020-07-06  (Last updated `r Sys.Date()`)
+
+<sup>1</sup>University of Edinburgh
+
+<sup>2</sup>University of Glasgow
+
+
+`r knitr::include_graphics("https://www.understanding-inequalities.ac.uk/sites/all/themes/theme935/logo.png")`
 
 
 ---
