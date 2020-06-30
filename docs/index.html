@@ -1428,10 +1428,10 @@ class: center, middle, inverse
 - __Data types__ really matter for colour scales
 - Specifically, whether data are __continuous__ or __categorical__
 
-&lt;img src="https://ggplot2-book.org/diagrams/colour-wheel.png" width="80%" /&gt;
+&lt;img src="https://ggplot2-book.org/diagrams/colour-wheel.png" width="40%" /&gt;
 
-
-- You have to make sure `ggplot` is treating your data in the right way (continuous if you want a continuous scale, discrete if you want a discrete scale)
+---
+# `ggplot`'s default continuous scale
 
 
 .pull-left[
@@ -1711,7 +1711,7 @@ ggplot(
 
 
 ---
-# more than one colour
+# More than one colour
 
 
 - `scale_colour_manual()`
@@ -1739,6 +1739,8 @@ ggplot(
 &lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-31-1.png" width="504" /&gt;
 ]
 
+
+---
 
 
 
@@ -1789,20 +1791,83 @@ class: center, middle, inverse
 # Tweaking elements of the theme
 
 
+---
+# Changing the theme
+
+- You can change the `ggplot` theme just by adding a `theme_*` layer to the plot!
+- See the [full list of themes](https://ggplot2.tidyverse.org/reference/ggtheme.html#details)
+
+
+.pull-left[
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point()
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-32-1.png" width="504" /&gt;
+]
+
+---
+# Tweaking the theme
+
+- You can change the `ggplot` theme just by adding a `theme_*` layer to the plot!
+
+
+.pull-left[
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point() +
+  theme_bw()
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-33-1.png" width="504" /&gt;
+]
 
 ---
 
-# Themes
+---
+# Changing the theme
 
+- You can change the `ggplot` theme just by adding a `theme_*` layer to the plot!
+
+
+.pull-left[
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point() +
+  theme_minimal()
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-34-1.png" width="504" /&gt;
+]
+
+
+
+---
+
+# Tweaking themes
+- As well as specifying a new theme for a plot with `theme_*` you can tweak specific elements of your plot with `theme()`
 - `theme()` is a bit 😱
+- Importantly, if you want to change the theme with `theme_*` AND adjust properties settings with `theme()` the call to `theme_*` __must come first!__
 
-
-- changing the theme
-
-- scales
-
-- If you want to change the theme with `theme_{whatever}` AND adjust
-properties settings with `theme()` the call to `theme_{whatever}` __must come first!__
 
 
 ---
@@ -1811,12 +1876,160 @@ properties settings with `theme()` the call to `theme_{whatever}` __must come fi
 - There are [lots of theme components](https://ggplot2.tidyverse.org/reference/theme.html) that you can adjust
 
 - The ones I use the most are:
-- Moving legends
+- __Moving legends__
 - For example, moving the legend from the right of the plot to the bottom
 - `legend.position = "bottom"`
 
+---
+
+# Moving the legend
+
+
+.pull-left[
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point(
+    mapping = aes(colour = disp)
+  ) +
+  theme(
+    legend.position = "bottom"
+  )
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-35-1.png" width="504" /&gt;
+]
+
+---
+# Rotating axis labels
+
 - Rotating axis labels if you have overlapping `x`-labels
 - `axis.text.x = element_text(angle = 45, hjust = 1)`
+
+
+.pull-left[
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point(
+    mapping = aes(colour = disp)
+  ) +
+  theme(
+    legend.position = "bottom",
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-36-1.png" width="504" /&gt;
+]
+
+---
+
+# What about changing the theme now?
+
+
+.pull-left[
+
+🔥 🔥 🔥
+
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point(
+    mapping = aes(colour = disp)
+  ) +
+  theme(
+    legend.position = "bottom",
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  ) +
+  theme_minimal()
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-37-1.png" width="504" /&gt;
+]
+
+---
+
+# Order matters!
+
+.pull-left[
+
+- The call to `theme_minimal` overrides the adjustments made in `theme`
+- Need to call `theme_minimal` __first__
+
+.pull-left[
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point(
+    mapping = aes(colour = disp)
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-38-1.png" width="504" /&gt;
+]
+
+---
+# Can I adjust `theme_minimal` directly?
+
+- __NO__
+- `theme_*`s are [complete themes](https://ggplot2.tidyverse.org/reference/ggtheme.html) - you have to use `theme` to [modify theme components](https://ggplot2.tidyverse.org/reference/theme.html)
+- IDK why this is but I'm sure there are good reasons for it!
+
+
+.pull-left[
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point(
+    mapping = aes(colour = disp)
+  ) +
+  theme_minimal(
+    legend.position = "bottom",
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
+```
+
+```
+## Error in theme_minimal(legend.position = "bottom", axis.text.x = element_text(angle = 45, : unused arguments (legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1))
+```
+]
+
+.pull-right[
+
+```
+## Error in theme_minimal(legend.position = "bottom", axis.text.x = element_text(angle = 45, : unused arguments (legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1))
+```
+]
+
 
 ---
 
