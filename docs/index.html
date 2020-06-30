@@ -1425,26 +1425,260 @@ class: center, middle, inverse
 
 # `ggplot2` default colour scale
 
-- continuous
-- categorical
+- __Data types__ really matter for colour scales
+- Specifically, whether data are __continuous__ or __categorical__
 
 &lt;img src="https://ggplot2-book.org/diagrams/colour-wheel.png" width="80%" /&gt;
 
 
 - You have to make sure `ggplot` is treating your data in the right way (continuous if you want a continuous scale, discrete if you want a discrete scale)
 
+
+.pull-left[
+
+```r
+# continuous variable colour
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point(
+    mapping = aes(colour = qsec)
+  )
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-21-1.png" width="504" /&gt;
+]
+
+
 ---
 
-# Good defaults
 
-- scale viridis
-- scaleOkabeIto ({colorblindr})
+.pull-left[
+
+```r
+# discrete variable colour
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point(
+    mapping = aes(colour = factor(cyl))
+  )
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-22-1.png" width="504" /&gt;
+]
+
+---
+# Other options: viridis
+
+- From their [website](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html#introduction):
+   - __Colo[u]rful__, spanning as wide a palette as possible so as to make differences easy to see
+   - _Perceptually uniform__, meaning that values close to each other have similar-appearing colours and values far away from each other have more different-appearing colours, consistently across the range of values,
+   - __Robust to colourblindness__, so that the above properties hold true for people with common forms of colourblindness, as well as in grey scale printing
+- Has both __discrete__ and __continuous__ options: `scale_colour_viridis_d` and `scale_colour_viridis_c` respectively
+- See also the [`colorblindr` package](https://github.com/clauswilke/colorblindr) for more resources on making figures work better for people with different kinds of colourblindness
 
 
-# Other options
-- scale_colour_grey
-- scale_color_brewer()
+---
+# Continuous scale
 
+.pull-left[
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point(
+    mapping = aes(colour = qsec)
+  ) +
+  scale_colour_viridis_c()
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-23-1.png" width="504" /&gt;
+]
+
+---
+
+.pull-left[
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point(
+    mapping = aes(colour = factor(cyl))
+  ) +
+  scale_colour_viridis_d()
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-24-1.png" width="504" /&gt;
+]
+
+---
+# Different options
+
+
+
+.pull-left[
+
+- Four scales you can set with `option = `: `"plasma"`, `"magma"`, `"inferno"` and `"viridis"` (the default)
+
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point(
+    mapping = aes(colour = factor(cyl))
+  ) +
+  scale_colour_viridis_d(option = "plasma")
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-25-1.png" width="504" /&gt;
+]
+
+
+---
+
+# A common error
+
+
+
+.pull-left[
+
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point(
+    mapping = aes(colour = qsec)
+  ) +
+  scale_colour_viridis_d(option = "plasma")
+```
+
+```
+## Error: Continuous value supplied to discrete scale
+```
+]
+
+.pull-right[
+
+```
+## Error: Continuous value supplied to discrete scale
+```
+
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-26-1.png" width="504" /&gt;
+]
+
+
+---
+
+# Other common options: greyscale
+
+.pull-left[
+
+- Works well for __discrete__ variables...
+
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point(
+    mapping = aes(colour = factor(cyl))
+  ) +
+  scale_colour_grey()
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-27-1.png" width="504" /&gt;
+]
+
+
+
+---
+
+
+.pull-left[
+
+- ... but doesn't for __continuous__ variables 😭
+
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point(
+    mapping = aes(colour = cyl)
+  ) +
+  scale_colour_grey()
+```
+
+```
+## Error: Continuous value supplied to discrete scale
+```
+]
+
+.pull-right[
+
+```
+## Error: Continuous value supplied to discrete scale
+```
+
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-28-1.png" width="504" /&gt;
+]
+
+
+
+---
+
+
+
+.pull-left[
+
+- But we can make our own with `scale_colour_gradient`
+
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point(
+    mapping = aes(colour = cyl)
+  ) +
+  scale_colour_gradient(
+    low = "white", 
+    high = "black"
+  )
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-29-1.png" width="504" /&gt;
+]
 
 ---
 
@@ -1452,9 +1686,61 @@ class: center, middle, inverse
 
 - If only one colour you want you can set with `colour = "#123456"` using the colour [hex-code](https://www.color-hex.com/)
 
+.pull-left[
 
-- For discrete values
+- For example, the main colour in the  [Understanding Inequalities](https://www.understanding-inequalities.ac.uk/) logo is `#009dc6`, so I often make plots like
+
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point(
+    colour = "#009dc6"
+  ) +
+  geom_smooth(
+    colour = "#009dc6"
+  )
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-30-1.png" width="504" /&gt;
+]
+
+
+---
+# more than one colour
+
+
 - `scale_colour_manual()`
+- Other colours [complementary](https://www.sessions.edu/color-calculator-results/?colors=009dc6,c69e00,c6004f) to Understanding Inequalities blue
+- See more in the [`ggplot2` references](https://ggplot2.tidyverse.org/reference/scale_manual.html#examples)
+- If you want to be really fancy and come up with __your own colour scale__ see this [blog post](https://www.garrickadenbuie.com/blog/custom-discrete-color-scales-for-ggplot2/) about doing just that
+
+.pull-left[
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point(
+    mapping = aes(colour = factor(cyl))
+  ) +
+  scale_colour_manual(
+    values = c("#009dc6", "#c69e00", "#c6004f")
+  )
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-31-1.png" width="504" /&gt;
+]
+
+
+
 
 ---
 
