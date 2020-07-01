@@ -1778,6 +1778,115 @@ class: center, middle, inverse
 - Can also rename your axes here
 - As well as any other `aes`thetic mappings like colour, fill, shape, size...
 
+
+.pull-left[
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point() +
+  labs(
+    title = "An informative title"
+  )
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-32-1.png" width="504" /&gt;
+]
+
+---
+
+# Adding titles with `labs()`
+
+- `title`, `subtitle` and `captions`
+- Can also rename your axes here
+- As well as any other `aes`thetic mappings like colour, fill, shape, size...
+
+
+.pull-left[
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point() +
+  labs(
+    title = "An informative title",
+    subtitle = "With even more information here"
+  )
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-33-1.png" width="504" /&gt;
+]
+
+---
+---
+
+# Adding titles with `labs()`
+
+- `title`, `subtitle` and `captions`
+- Can also rename your axes here
+- As well as any other `aes`thetic mappings like colour, fill, shape, size...
+
+
+.pull-left[
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point() +
+  labs(
+    title = "An informative title",
+    subtitle = "With even more information here",
+    caption = "With some extra information here"
+  )
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-34-1.png" width="504" /&gt;
+]
+
+---
+
+
+- `title`, `subtitle` and `captions`
+- Can also rename your axes here
+- As well as any other `aes`thetic mappings like colour, fill, shape, size...
+
+
+.pull-left[
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point(
+    mapping = aes(colour = cyl)
+  ) +
+  labs(
+    x = "Engine displacement",
+    y = "Rear axle ratio",
+    colour = "Number\nof cylinders"
+  )
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-35-1.png" width="504" /&gt;
+]
+
+
+
 ---
 
 name: publication-plots
@@ -1810,7 +1919,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-32-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-36-1.png" width="504" /&gt;
 ]
 
 ---
@@ -1832,7 +1941,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-33-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-37-1.png" width="504" /&gt;
 ]
 
 ---
@@ -1856,7 +1965,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-34-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-38-1.png" width="504" /&gt;
 ]
 
 
@@ -1902,7 +2011,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-35-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-39-1.png" width="504" /&gt;
 ]
 
 ---
@@ -1930,7 +2039,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-36-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-40-1.png" width="504" /&gt;
 ]
 
 ---
@@ -1960,7 +2069,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-37-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-41-1.png" width="504" /&gt;
 ]
 
 ---
@@ -1991,7 +2100,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-38-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-42-1.png" width="504" /&gt;
 ]
 
 ---
@@ -2051,7 +2160,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-40-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-44-1.png" width="504" /&gt;
 ]
 
 
@@ -2073,7 +2182,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-41-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-45-1.png" width="504" /&gt;
 ]
 
 
@@ -2101,7 +2210,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-42-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-46-1.png" width="504" /&gt;
 ]
 
 ---
@@ -2128,7 +2237,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-43-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-47-1.png" width="504" /&gt;
 ]
 
 
@@ -2157,7 +2266,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-44-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-48-1.png" width="504" /&gt;
 ]
 
 
@@ -2218,7 +2327,7 @@ ggsave(
                        "disp_drat_plot_big.png"),
   plot = disp_drat_plot,
   type = "cairo-png",
-  height = 8,
+  height = 2,
   width = 9
 )
 ```
@@ -2293,7 +2402,7 @@ __Plot__
 
 .pull-right[
 
-&lt;img src="https://cms.qz.com/wp-content/uploads/2017/06/hadleywickhamchart.jpg" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://cms.qz.com/wp-content/uploads/2017/06/hadleywickhamchart.jpg" height="90%" style="display: block; margin: auto;" /&gt;
 (Picture by Garrett Grolemund and David Kahle)
 
 ]
@@ -2304,7 +2413,13 @@ __Plot__
 name: title
 class: center, middle, inverse
 
+.pull-left[
+
 # Thank you!
+
+]
+
+.pull-right[
 
 Ben Matthews&lt;sup&gt;1&lt;/sup&gt; and Eilidh Jack&lt;sup&gt;2&lt;/sup&gt;
 
@@ -2316,6 +2431,8 @@ Ben Matthews&lt;sup&gt;1&lt;/sup&gt; and Eilidh Jack&lt;sup&gt;2&lt;/sup&gt;
 
 
 Course [GitHub repository](https://github.com/benmatthewsed/ui-data-visualization-course)
+
+]
 
 ![](https://www.understanding-inequalities.ac.uk/sites/all/themes/theme935/logo.png)&lt;!-- --&gt;
     </textarea>
