@@ -2434,7 +2434,13 @@ knitr::include_graphics("https://cms.qz.com/wp-content/uploads/2017/06/hadleywic
 name: title
 class: center, middle, inverse
 
+.pull-left[
+
 # Thank you!
+
+]
+
+.pull-right[
 
 Ben Matthews<sup>1</sup> and Eilidh Jack<sup>2</sup>
 
@@ -2446,5 +2452,7 @@ Ben Matthews<sup>1</sup> and Eilidh Jack<sup>2</sup>
 
 
 Course [GitHub repository](https://github.com/benmatthewsed/ui-data-visualization-course)
+
+]
 
 `r knitr::include_graphics("https://www.understanding-inequalities.ac.uk/sites/all/themes/theme935/logo.png")`
