@@ -2126,7 +2126,150 @@ ggplot(
 
 # Scales
 
+- Adding a log scale
+
+
+
+.pull-left[
+```{r scales, fig.show = 'hide'}
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point()
+  
+  
+
+```
+]
+
+.pull-right[
+```{r ref.label = 'scales', echo = FALSE, fig.retina = 1.25}
+```
+]
+
+
+---
+
+# Scales log
+
+
+.pull-left[
+```{r scales_ln, fig.show = 'hide'}
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point() +
+  scale_x_log10()
+  
+  
+
+```
+]
+
+.pull-right[
+```{r ref.label = 'scales_ln', echo = FALSE, fig.retina = 1.25}
+```
+]
+
+
+---
+
+# Formatting the scales
+
+- You can use the `labels = ` option to format how the axis labels are displayed...
+- My most common uses are with __dates and times__
+- ... and the `breaks =` argument to set how many axis marks you want
 - See https://scales.r-lib.org/
+
+.pull-left[
+```{r scales_ln_sci, fig.show = 'hide'}
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point() +
+  scale_x_log10(
+    labels = scales::label_scientific()
+    )
+  
+  
+
+```
+]
+
+.pull-right[
+```{r ref.label = 'scales_ln_sci', echo = FALSE, fig.retina = 1.25}
+```
+]
+
+---
+
+
+# Formatting the scales
+
+- ... and the `breaks =` argument to set how many axis marks you want...
+
+
+.pull-left[
+```{r scales_ln_breaks, fig.show = 'hide'}
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point() +
+  scale_x_log10(
+    labels = scales::label_scientific(),
+    breaks = c(100, 200, 300, 400, 500)
+    )
+  
+  
+
+```
+]
+
+.pull-right[
+```{r ref.label = 'scales_ln_breaks', echo = FALSE, fig.retina = 1.25}
+```
+]
+
+
+---
+
+
+# Formatting the scales
+
+- ... and the `limits =` argument to control the range of the axes
+
+
+.pull-left[
+```{r scales_ln_lim, fig.show = 'hide'}
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point() +
+  scale_x_log10(
+    labels = scales::label_scientific(),
+    breaks = c(100, 200, 300, 400, 500),
+    limits = c(10, 1000)
+    )
+  
+  
+
+```
+]
+
+.pull-right[
+```{r ref.label = 'scales_ln_lim', echo = FALSE, fig.retina = 1.25}
+```
+]
 
 
 ---
@@ -2137,10 +2280,76 @@ ggplot(
 - Not so convenient if you want to show someone else your work!
 - For [technical reasons I don't understand](https://www.jumpingrivers.com/blog/r-graphics-cairo-png-pdf-saving/) it's best to using the option `type = "cairo-png"` when saving your plot to make it look nice
 
+---
 
-- `ggsave()`
-- `filename = `
-- `plot = `
-- `type = "cairo-png"`
-- `height =`
-- `width =`
+# Saving the plot
+
+.pull-left[
+- First we should save the plot object by __assigning__ it to a name with `<-`
+
+```{r save_plot, fig.show = 'hide'}
+
+disp_drat_plot <- 
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point()
+  
+ggsave(
+  filename = file.path("figures", 
+                       "disp_drat_plot.png"),
+  plot = disp_drat_plot,
+  type = "cairo-png"
+)
+
+```
+]
+
+.pull-right[
+```{r cho = FALSE, fig.retina = 1.25}
+
+knitr::include_graphics(
+  file.path("figures", "disp_drat_plot.png")
+)
+
+```
+]
+
+
+
+---
+- We can change the size of the output file with `height = ` and `width = `
+
+.pull-left[
+```{r save_plot_big, fig.show = 'hide'}
+
+disp_drat_plot <- 
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+) +
+  geom_point()
+  
+ggsave(
+  filename = file.path("figures", 
+                       "disp_drat_plot_big.png"),
+  plot = disp_drat_plot,
+  type = "cairo-png",
+  height = 8,
+  width = 9
+)
+
+```
+]
+
+
+.pull-right[
+```{r echo = FALSE, fig.retina = 1.25}
+
+knitr::include_graphics(
+  file.path("figures", "disp_drat_plot_big.png")
+)
+
+```
+]
