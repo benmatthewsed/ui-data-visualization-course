@@ -2307,10 +2307,10 @@ ggsave(
 ]
 
 .pull-right[
-```{r cho = FALSE, fig.retina = 1.25}
+```{r echo = FALSE, fig.retina = 1.25}
 
 knitr::include_graphics(
-  file.path("figures", "disp_drat_plot.png")
+  "https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/disp_drat_plot.png"
 )
 
 ```
@@ -2348,8 +2348,103 @@ ggsave(
 ```{r echo = FALSE, fig.retina = 1.25}
 
 knitr::include_graphics(
-  file.path("figures", "disp_drat_plot_big.png")
+  "https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/disp_drat_plot_big.png"
 )
 
 ```
 ]
+
+
+---
+
+# Going further with `ggplot2`
+.pull-left[
+- A more complex model of ggplot2
+
+__Dataset__ + 
+__mapping__ variables in the dataset to `aes`thetics + 
+__Layers__ of `geom`s (symbols to represent data) = 
+__Plot__
+
+]
+.pull-right[
+- From the [`ggplot` book](https://ggplot2-book.org/mastery.html#components)
+
+- A default __dataset__ and set of __mappings__ from variables to aesthetics.
+- One or more __layers__, each composed of a __geometric__ object, a __statistical transformation__, a __position adjustment__, and optionally, a dataset and aesthetic mappings.
+- One __scale__ for each aesthetic mapping.
+- A __[coordinate](https://ggplot2-book.org/mastery.html#coordinate-systems) system__.
+- The __facetting__ specification
+- (Also [a __theme__](https://github.com/thomasp85/ggplot2_workshop/blob/master/presentation.pdf))
+
+]
+
+
+
+
+---
+
+# Animations 
+
+.pull-left[
+- [`gganimate`](https://github.com/thomasp85/gganimate) lets you add __animations__ to `ggplot`s. It's amazing.
+- One of `gganimate`'s stock examples:
+]
+
+.pull-right[
+```{r gganimate, echo = FALSE, fig.align = "center"}
+knitr::include_graphics("https://github.com/thomasp85/gganimate/raw/master/man/figures/README-unnamed-chunk-4-1.gif")
+```
+]
+---
+
+# Bespoke plots
+
+- __Relational__ (and therefore not-tidy) data - [`ggraph`](https://github.com/thomasp85/ggraph)
+- __'Spatial'__ facets - [`geofacet`]( https://hafen.github.io/geofacet/articles/geofacet.html)
+- Turning __spatial__ polygons into other shapes shapes - [`geogrid`]( https://github.com/jbaileyh/geogrid)
+- __Combining__ multiple `ggplots` - [`patchwork`](https://patchwork.data-imaginist.com/) and [`cowplot`](https://wilkelab.org/cowplot/articles/introduction.html)
+- __Super-annotations__ - [`ggforce`](https://github.com/thomasp85/ggforce) and [`ggrepel`](https://github.com/slowkow/ggrepel)
+
+
+---
+
+# In review
+
+
+.pull-left[
+- Hopefully we've convinced you that `ggplot2` is __powerful__ and __flexible__
+- It might be confusing at first, but the best way to get comfortable with it is just to play around!
+- Go forth and plot
+]
+
+.pull-right[
+
+```{r hadley_plot, echo = FALSE, fig.align = "center"}
+knitr::include_graphics("https://cms.qz.com/wp-content/uploads/2017/06/hadleywickhamchart.jpg")
+
+```
+(Picture by Garrett Grolemund and David Kahle)
+
+]
+
+---
+
+
+name: title
+class: center, middle, inverse
+
+# Thank you!
+
+Ben Matthews<sup>1</sup> and Eilidh Jack<sup>2</sup>
+
+2020-06-29  (Last updated `r Sys.Date()`)
+
+<sup>1</sup>University of Edinburgh
+
+<sup>2</sup>University of Glasgow
+
+
+Course [GitHub repository](https://github.com/benmatthewsed/ui-data-visualization-course)
+
+`r knitr::include_graphics("https://www.understanding-inequalities.ac.uk/sites/all/themes/theme935/logo.png")`

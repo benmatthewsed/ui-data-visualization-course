@@ -2195,13 +2195,6 @@ ggsave(
 ]
 
 .pull-right[
-
-```r
-knitr::include_graphics(
-  file.path("figures", "disp_drat_plot.png")
-)
-```
-
 ![](figures/disp_drat_plot.png)&lt;!-- --&gt;
 ]
 
@@ -2235,6 +2228,93 @@ ggsave(
 .pull-right[
 ![](figures/disp_drat_plot_big.png)&lt;!-- --&gt;
 ]
+
+
+---
+
+# Going further with `ggplot2`
+.pull-left[
+- A more complex model of ggplot2
+
+__Dataset__ + 
+__mapping__ variables in the dataset to `aes`thetics + 
+__Layers__ of `geom`s (symbols to represent data) = 
+__Plot__
+
+]
+.pull-right[
+- From the [`ggplot` book](https://ggplot2-book.org/mastery.html#components)
+
+- A default __dataset__ and set of __mappings__ from variables to aesthetics.
+- One or more __layers__, each composed of a __geometric__ object, a __statistical transformation__, a __position adjustment__, and optionally, a dataset and aesthetic mappings.
+- One __scale__ for each aesthetic mapping.
+- A __[coordinate](https://ggplot2-book.org/mastery.html#coordinate-systems) system__.
+- The __facetting__ specification
+- (Also [a __theme__](https://github.com/thomasp85/ggplot2_workshop/blob/master/presentation.pdf))
+
+]
+
+
+
+
+---
+
+# Animations 
+
+- [`gganimate`](https://github.com/thomasp85/gganimate) lets you add __animations__ to `ggplot`s. It's amazing.
+- One of `gganimate`'s stock examples:
+
+&lt;img src="https://github.com/thomasp85/gganimate/raw/master/man/figures/README-unnamed-chunk-4-1.gif" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Bespoke plots
+
+- __Relational__ (and therefore not-tidy) data - [`ggraph`](https://github.com/thomasp85/ggraph)
+- __'Spatial'__ facets - [`geofacet`]( https://hafen.github.io/geofacet/articles/geofacet.html)
+- Turning __spatial__ polygons into other shapes shapes - [`geogrid`]( https://github.com/jbaileyh/geogrid)
+- __Combining__ multiple `ggplots` - [`patchwork`](https://patchwork.data-imaginist.com/) and [`cowplot`](https://wilkelab.org/cowplot/articles/introduction.html)
+- __Super-annotations__ - [`ggforce`](https://github.com/thomasp85/ggforce) and [`ggrepel`](https://github.com/slowkow/ggrepel)
+
+
+---
+
+# In review
+
+
+.pull-left[
+- Hopefully we've convinced you that `ggplot2` is __powerful__ and __flexible__
+- It might be confusing at first, but the best way to get comfortable with it is just to play around!
+- Go forth and plot
+]
+
+.pull-right[
+
+&lt;img src="https://cms.qz.com/wp-content/uploads/2017/06/hadleywickhamchart.jpg" style="display: block; margin: auto;" /&gt;
+(Picture by Garrett Grolemund and David Kahle)
+
+]
+
+---
+
+
+name: title
+class: center, middle, inverse
+
+# Thank you!
+
+Ben Matthews&lt;sup&gt;1&lt;/sup&gt; and Eilidh Jack&lt;sup&gt;2&lt;/sup&gt;
+
+2020-06-29  (Last updated 2020-07-01)
+
+&lt;sup&gt;1&lt;/sup&gt;University of Edinburgh
+
+&lt;sup&gt;2&lt;/sup&gt;University of Glasgow
+
+
+Course [GitHub repository](https://github.com/benmatthewsed/ui-data-visualization-course)
+
+![](https://www.understanding-inequalities.ac.uk/sites/all/themes/theme935/logo.png)&lt;!-- --&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
