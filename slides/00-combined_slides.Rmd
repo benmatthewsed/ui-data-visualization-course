@@ -85,7 +85,7 @@ name: outline
 - [gg-gotchas](https://benmatthewsed.github.io/ui-data-visualization-course/#gggotchas)
 - [Mapping with `ggplot2`](https://benmatthewsed.github.io/ui-data-visualization-course/#ggplot-maps)
 - [`ggplot2` colour scales](https://benmatthewsed.github.io/ui-data-visualization-course/#ggplot-colour-scales)
-- [`Titles](https://benmatthewsed.github.io/ui-data-visualization-course/#titles)
+- [Titles](https://benmatthewsed.github.io/ui-data-visualization-course/#titles)
 - [Publication-ready plots](https://benmatthewsed.github.io/ui-data-visualization-course/#publication-plots)
 
 ---
