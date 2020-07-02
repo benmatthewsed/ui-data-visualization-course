@@ -1176,42 +1176,46 @@ ggplot(
 
 # colour palettes ---------------------------------------------------------
 
-# we've seen ggplot2's defualt colour scales already
+# we've seen ggplot2's default colour scales already
 
-ggplot(
-  data = simd,
+# rearrange the code below to draw a plot with a discrete colour scale
+# where the call to map colour to region is within the call
+# to geom_point
+
+mapping = aes(colour = region)
+data = simd,
+ggplot() +
   mapping = aes(x = overall, y = crime)
-) +
-  geom_point(
-    mapping = aes(colour = region)
-  )
+  geom_point()
 
-# In general I use viridis palettes in my plots
+# In general I use viridis palettes
 
 # here region is discrete so I need scale_colour_viridis_d
+# add a call to cale_colour_viridis_d() to your rearranged plot
+# above
+
+
+
+
+# how about a continuous measure? in the below map
+# colour to year and add a call to scale_colour_viridis_c()
 
 ggplot(
   data = simd,
   mapping = aes(x = overall, y = crime)
 ) +
   geom_point(
-    mapping = aes(colour = region)
+    mapping = aes()
   ) +
-  scale_colour_viridis_d()
 
-
-# how about a continuous measure?
-
-ggplot(
-  data = simd,
-  mapping = aes(x = overall, y = crime)
-) +
-  geom_point(
-    mapping = aes(colour = year)
-  ) +
-  scale_colour_viridis_c()
 
 # what happens if you use *_viridis_c with a discrete measure?
+# change the code for your plot above to map colour to simd
+# and keep the call to scale_colour_viridis_c()
+
+
+# add make the colour of simd in the below greyscale with
+# a call to scale_colour_grey
 
 ggplot(
   data = simd,
@@ -1219,20 +1223,7 @@ ggplot(
 ) +
   geom_point(
     mapping = aes(colour = simd)
-  ) +
-  scale_colour_viridis_c()
-
-
-# try with scale_colour_grey
-
-ggplot(
-  data = simd,
-  mapping = aes(x = overall, y = crime)
-) +
-  geom_point(
-    mapping = aes(colour = simd)
-  ) +
-  scale_colour_grey()
+  )
 
 # ADVANCED
 # reproduce the plot with x = overall and y = crime
@@ -1249,9 +1240,9 @@ ggplot(
   mapping = aes(x = overall, y = crime)
 ) +
   geom_point(
-    mapping = aes(colour = simd)
+    mapping = aes(colour = region)
   ) +
-  scale_colour_manual(values = c("red", "green", "pink", "white"))
+  scale_colour_manual(values = c())
 
 # ADVANCED
 # make your own greyscale continous plot using scale_colour_gradient
@@ -1262,17 +1253,26 @@ ggplot(
   mapping = aes(x = overall, y = crime)
 ) +
   geom_point(
-    mapping = aes(colour = access)
+    mapping = aes()
   ) +
   scale_colour_gradient(
-    low = "white",
-    high = "black"
   )
 
 # one of the tricky things is knowing whether a geom wants
 # colour or fill (or both) - we saw this with one of our maps
 
 # we can remove the borders on the map by adding colour = overall
+# add this to the plot below
+
+ggplot(
+  data = simd_2020_shp,
+  mapping = aes(geometry = geometry)
+) +
+  geom_sf(
+    mapping = aes(fill = overall)
+  )
+
+# now change the colour mapping to viridis
 
 ggplot(
   data = simd_2020_shp,
@@ -1283,32 +1283,18 @@ ggplot(
                   colour = overall)
   )
 
-# how change colour to viridis
 
-ggplot(
+# oh no! we also need to change fill to viridis
+# rearrange the below and then 
+# add scale_colour_viridis_c and scale_fill_viridis_c to the below
+
+mapping = aes(geometry = geometry)
+ggplot() +
   data = simd_2020_shp,
-  mapping = aes(geometry = geometry)
-) +
   geom_sf(
     mapping = aes(fill = overall,
                   colour = overall)
-  ) +
-  scale_colour_viridis_c()
-
-
-# we also need to change fill to viridis
-
-
-ggplot(
-  data = simd_2020_shp,
-  mapping = aes(geometry = geometry)
-) +
-  geom_sf(
-    mapping = aes(fill = overall,
-                  colour = overall)
-  ) +
-  scale_colour_viridis_c() +
-  scale_fill_viridis_c()
+  )
 
 
 # annotations and titles --------------------------------------------------
@@ -1321,16 +1307,18 @@ ggplot(
 
 
 # we saw reference lines previously
+# add a vertical intercept to the plot below with an
+# x intercept of 3000
+
 
 ggplot(
   data = simd,
   mapping = aes(x = overall, y = crime)
 ) +
-  geom_point() +
-  geom_vline(
-    xintercept = 3000
-  )
+  geom_point()
 
+
+# ADVANCED
 
 # why doesn't this work?
 
@@ -1361,21 +1349,14 @@ ggplot(
     slope = 1, intercept = 0
   )
 
-# annotations on the plot
-
-labels <- 
-  tribble(
-    ~overall, ~crime, ~label,
-    2000, 2500, "High overall-High crime",
-    2000, 5000, "High overall-Low crime",
-    5000, 2500, "Low overall-High crime",
-    5000, 5000, "Low overall-Low crime"
-  )
-
-
 
 # adding titles -----------------------------------------------------------
 
+# using the labs() function and the  a title, subtitle and caption
+# options add the following extra information to the plot below:
+# title = "Great title"
+# subtitle = "Better subtitle"
+# caption = "Best caption"
 
 ggplot(
   data = simd,
@@ -1384,18 +1365,19 @@ ggplot(
   geom_text(
     mapping = aes(label = council_area),
     alpha = 0.3
-  ) +
-  labs(
-    title = "Great title",
-    subtitle = "Better subtitle",
-    caption = "Best caption",
-    x = "Median Overall SIMD Rank",
-    y = "Median Crime SIMD Rank"
   )
+
+# Now change the labels for the x axis to read "Median Overall SIMD Rank"
+# and for the y axis to read "Median Crime SIMD Rank"
 
 
 
 # publication-ready plots -------------------------------------------------
+
+
+# themes -----------------------------------------------------------------
+
+
 
 # just stick a call to theme_ at the end
 
@@ -1472,7 +1454,7 @@ plot_to_save <-
   theme_dark() +
   theme(
     legend.position = "top",
-    axis.text.x = element_text(angle = 160, hjust = 1)
+    axis.text.x = element_text(angle = 45, hjust = 1)
   )
 
 # save the plot
