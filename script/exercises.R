@@ -1176,19 +1176,151 @@ ggplot(
 
 # colour palettes ---------------------------------------------------------
 
+# we've seen ggplot2's defualt colour scales already
+
+ggplot(
+  data = simd,
+  mapping = aes(x = overall, y = crime)
+) +
+  geom_point(
+    mapping = aes(colour = region)
+  )
+
+# In general I use viridis palettes in my plots
+
+# here region is discrete so I need scale_colour_viridis_d
+
+ggplot(
+  data = simd,
+  mapping = aes(x = overall, y = crime)
+) +
+  geom_point(
+    mapping = aes(colour = region)
+  ) +
+  scale_colour_viridis_d()
 
 
-# themes ------------------------------------------------------------------
+# how about a continuous measure?
 
+ggplot(
+  data = simd,
+  mapping = aes(x = overall, y = crime)
+) +
+  geom_point(
+    mapping = aes(colour = year)
+  ) +
+  scale_colour_viridis_c()
+
+# what happens if you use *_viridis_c with a discrete measure?
+
+ggplot(
+  data = simd,
+  mapping = aes(x = overall, y = crime)
+) +
+  geom_point(
+    mapping = aes(colour = simd)
+  ) +
+  scale_colour_viridis_c()
+
+
+# try with scale_colour_grey
+
+ggplot(
+  data = simd,
+  mapping = aes(x = overall, y = crime)
+) +
+  geom_point(
+    mapping = aes(colour = simd)
+  ) +
+  scale_colour_grey()
+
+# ADVANCED
+# reproduce the plot with x = overall and y = crime
+# and colour = region
+# create a custom colour scale for the plot using
+# scale_colour_manual
+
+# If you're not familiar with the c() function
+# take a look here - https://stackoverflow.com/a/11488864/10791377
+
+
+ggplot(
+  data = simd,
+  mapping = aes(x = overall, y = crime)
+) +
+  geom_point(
+    mapping = aes(colour = simd)
+  ) +
+  scale_colour_manual(values = c("red", "green", "pink", "white"))
+
+# ADVANCED
+# make your own greyscale continous plot using scale_colour_gradient
+# mapping colour to access
+
+ggplot(
+  data = simd,
+  mapping = aes(x = overall, y = crime)
+) +
+  geom_point(
+    mapping = aes(colour = access)
+  ) +
+  scale_colour_gradient(
+    low = "white",
+    high = "black"
+  )
+
+# one of the tricky things is knowing whether a geom wants
+# colour or fill (or both) - we saw this with one of our maps
+
+# we can remove the borders on the map by adding colour = overall
+
+ggplot(
+  data = simd_2020_shp,
+  mapping = aes(geometry = geometry)
+) +
+  geom_sf(
+    mapping = aes(fill = overall,
+                  colour = overall)
+  )
+
+# how change colour to viridis
+
+ggplot(
+  data = simd_2020_shp,
+  mapping = aes(geometry = geometry)
+) +
+  geom_sf(
+    mapping = aes(fill = overall,
+                  colour = overall)
+  ) +
+  scale_colour_viridis_c()
+
+
+# we also need to change fill to viridis
+
+
+ggplot(
+  data = simd_2020_shp,
+  mapping = aes(geometry = geometry)
+) +
+  geom_sf(
+    mapping = aes(fill = overall,
+                  colour = overall)
+  ) +
+  scale_colour_viridis_c() +
+  scale_fill_viridis_c()
 
 
 # annotations and titles --------------------------------------------------
 
-# adding reference lines
 
-# geom_vline for vertical lines
-# geom_hline for horizontal lines
-# geom_abline for diagonal lines
+# why doesn't this need a call to `aes()`
+
+
+# 14. ADVANCED why doesn't this work?
+
+
+# we saw reference lines previously
 
 ggplot(
   data = simd,
@@ -1199,10 +1331,8 @@ ggplot(
     xintercept = 3000
   )
 
-# why doesn't this need a call to `aes()`
 
-
-# 14. ADVANCED why doesn't this work?
+# why doesn't this work?
 
 ggplot(
   data = simd,
@@ -1244,38 +1374,6 @@ labels <-
 
 
 
-
-# 12. adding text!
-
-ggplot(
-  data = simd,
-  mapping = aes(x = overall, y = crime)
-) +
-  geom_text(
-    mapping = aes(label = council_area),
-    alpha = 0.3
-  )
-
-
-ggplot(
-  data = simd,
-  mapping = aes(x = overall, y = crime)
-) +
-  geom_point() +
-  geom_vline(
-    xintercept = mean(simd$overall)
-  ) +
-  geom_hline(
-    yintercept = mean(simd$overall)
-  ) +
-  coord_fixed() +
-  geom_text(
-    data = labels, # we're passing a new dataframe to ggplot
-    mapping = aes(label = label)
-  )
-
-
-
 # adding titles -----------------------------------------------------------
 
 
@@ -1290,7 +1388,9 @@ ggplot(
   labs(
     title = "Great title",
     subtitle = "Better subtitle",
-    caption = "Best caption"
+    caption = "Best caption",
+    x = "Median Overall SIMD Rank",
+    y = "Median Crime SIMD Rank"
   )
 
 
@@ -1324,7 +1424,6 @@ ggplot(
   geom_point() +
   theme_dark()
 
-# Or you can make your own theme
 
 # adjusting the legend position
 
@@ -1360,4 +1459,45 @@ ggplot(
   )
 
 
-# to change how the guide looks see https://ggplot2.tidyverse.org/reference/guide_legend.html
+
+# saving your plots -------------------------------------------------------
+
+
+plot_to_save <- 
+  ggplot(
+    data = simd,
+    mapping = aes(x = overall, y = crime)
+  ) +
+  geom_point(aes(colour = access)) +
+  theme_dark() +
+  theme(
+    legend.position = "top",
+    axis.text.x = element_text(angle = 160, hjust = 1)
+  )
+
+# save the plot
+
+ggsave(
+  filename = file.path("figures", "simd_plot.png"),
+  plot = plot_to_save
+)
+
+# now try type = "cairo=png"
+
+ggsave(
+  filename = file.path("figures", "simd_plot_cairo.png"),
+  plot = plot_to_save,
+  type = "cairo-png"
+)
+
+# can't we make the plot bigger?
+# by default height and width are the output size in inches
+
+ggsave(
+  filename = file.path("figures", "simd_plot_cairo_big.png"),
+  plot = plot_to_save,
+  type = "cairo-png",
+  height = 8, 
+  width = 6
+)
+
