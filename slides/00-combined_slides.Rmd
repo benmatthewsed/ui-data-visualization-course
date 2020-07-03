@@ -1432,7 +1432,7 @@ class: center, middle, inverse
 - If you're on this course we assume that you are:
     - Analysing data about __people__
     - These people are __on Earth__, and may well be in the UK
-- So you'll [probably have __vector__ data](https://geocompr.robinlovelace.net/spatial-class.html#vector-data) - i.e. __points in space__ (and not raster data, which breaks up space into evenly sized grids, like in ecology or something)
+- So you'll [probably have __vector__ data](https://geocompr.robinlovelace.net/spatial-class.html#vector-data) - i.e. __points in space__ (and not [raster data](https://geocompr.robinlovelace.net/spatial-class.html#raster-data), which breaks up space into evenly sized grids, like in ecology or something)
 - And mostly you'll be plotting __areal__ data - which relates to some shape bounded in space (like a Local Authority, as in our dataset or neighbourhood), and data about these areal entities will likely be __aggregates__ describing the population within that area - e.g. votes, or recorded crimes, or percent unemployed... etc.
 
 ---
@@ -1459,13 +1459,12 @@ class: center, middle, inverse
 - We use the [`sf` package](https://r-spatial.github.io/sf/articles/sf1.html)
 - Using `sf`, the geographical information in your dataset lives in a special `geometry` column in your data frame
 - This is __works nicely with tidy data__ and `ggplot2`!
-- `ggplot2` figures out how to draw the map based on the CRS, so this changes some of how we would usually ask `ggplot2` to draw the map
+- `ggplot2` figures out how to draw the map based on the CRS, so this changes some of how we would usually ask `ggplot2` to draw the map. We'll walk through an example of this in the exercises.
 
 
 ---
 
-# Maps can be misleading: 
-
+# Maps can be misleading: Area or people?
 
 - __Chloropleth__ maps - coloured in maps - are a good idea when you have high spatial resolution, but can be [misleading when you have low spatial resolution](https://serialmentor.com/dataviz/geospatial-data.html#choropleth-mapping)
 - This is because these maps can be [dominated by geographic units with __large areas__](https://serialmentor.com/dataviz/geospatial-data.html#choropleth-mapping) if the areas of your geographies are very different (this is very much the case for Scottish Local Authorities!)
@@ -1496,12 +1495,15 @@ class: center, middle, inverse
 
 - We're going to focus on the simple case: __polygons__ that represent Local Authority boundaries
 - But you might want to change the shapes to adjust for e.g. population size as in a __cartogram__
-- Or maybe you want to arrange facets (as in facet_wrap) in the shape of your spatial data as in a [__geofacet__](https://hafen.github.io/geofacet/) (see also Kieran Healy's thoughts on ['Is your data really spatial?'](https://socviz.co/maps.html#is-your-data-really-spatial))
+- Or maybe you want to arrange facets (as in __facet_wrap__) in the shape of your spatial data as in a [__geofacet__](https://hafen.github.io/geofacet/) (see also Kieran Healy's thoughts on ['Is your data really spatial?'](https://socviz.co/maps.html#is-your-data-really-spatial))
 
 ---
 
-# Maps can be misleading!
-# Use with caution!
+class: center, middle, inverse
+
+# Maps are awesome...
+# but they can be misleading!
+
 
 
 ---
@@ -1627,11 +1629,11 @@ ggplot(
 ]
 
 ---
-# Different options
+# Different viridis palettes
 
 .pull-left[
 
-- Four scales you can set with `option = `: `"plasma"`, `"magma"`, `"inferno"` and `"viridis"` (the default)
+- There are __four__ scales in viridis you can set with `option = `: `"plasma"`, `"magma"`, `"inferno"` and `"viridis"` (the default)
 
 ```{r plasma_d, fig.show = 'hide'}
 
@@ -1661,6 +1663,8 @@ ggplot(
 
 .pull-left[
 
+- If you use `scale_colour_viridis_d` with a continuous variable mapped to colour you'll get an error!
+
 ```{r plasma_d_error, fig.show = 'hide'}
 
 ggplot(
@@ -1683,10 +1687,11 @@ ggplot(
 
 ---
 
-# Other common options: greyscale
+# Other options: greyscale
 
 .pull-left[
 
+- Might be sensible if you want to print in __greyscale__ (although `viridis` palettes also have [good perceptual properties in greyscale](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html#introduction))
 - Works well for __discrete__ variables...
 
 ```{r grey_d, fig.show = 'hide'}
@@ -1711,7 +1716,7 @@ ggplot(
 
 
 ---
-
+# Other options: greyscale
 
 .pull-left[
 
@@ -1739,12 +1744,12 @@ ggplot(
 
 
 ---
-
+# Other options: greyscale
 
 
 .pull-left[
 
-- But we can make our own with `scale_colour_gradient`
+- But we can __make our own__ with `scale_colour_gradient` if we really want to map use greyscale with a continuous variable
 
 ```{r grey_manual, fig.show = 'hide'}
 
@@ -1770,12 +1775,10 @@ ggplot(
 
 ---
 
-# Advanced - making your own
+# Advanced - custom colours
 
-- If only one colour you want you can set with `colour = "#123456"` using the colour [hex-code](https://www.color-hex.com/)
-
+- If you want to set colourto a single value, you can use `colour = "#123456"` using the colour [hex-code](https://www.color-hex.com/) or the [name of one of the colours `R` recognises](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
 .pull-left[
-
 - For example, the main colour in the  [Understanding Inequalities](https://www.understanding-inequalities.ac.uk/) logo is `#009dc6`, so I often make plots like
 
 ```{r colour_ui, fig.show = 'hide'}
@@ -1801,18 +1804,16 @@ ggplot(
 
 
 ---
-# More than one colour
+# Advanced - custom colours
 
-
-- `scale_colour_manual()`
-- Other colours [complementary](https://www.sessions.edu/color-calculator-results/?colors=009dc6,c69e00,c6004f) to Understanding Inequalities blue
-- See more in the [`ggplot2` references](https://ggplot2.tidyverse.org/reference/scale_manual.html#examples)
+- You can __[make your own__ discrete colour scale]((https://ggplot2.tidyverse.org/reference/scale_manual.html#examples)) with `scale_colour_manual()`
 - If you want to be really fancy and come up with __your own colour scale__ see this [blog post](https://www.garrickadenbuie.com/blog/custom-discrete-color-scales-for-ggplot2/) about doing just that
 
 .pull-left[
+- To use some other colours [complementary](https://www.sessions.edu/color-calculator-results/?colors=009dc6,c69e00,c6004f) to Understanding Inequalities blue
 ```{r colour_ui_2, fig.show = 'hide'}
 
-# hex codes have to b in a call to c()
+# hex codes have to be in a call to c()
 
 ggplot(
   data = mtcars,
@@ -1835,10 +1836,6 @@ ggplot(
 
 ---
 
-
-
----
-
 name: titles
 class: center, middle, inverse
 
@@ -1848,9 +1845,8 @@ class: center, middle, inverse
 
 # Adding titles with `labs()`
 
-- `title`, `subtitle` and `captions`
-- Can also rename your axes here
-- As well as any other `aes`thetic mappings like colour, fill, shape, size...
+- You can adjust __plot labels__, including titles, with `labs()`, using the `title`, `subtitle` and `captions` arguments
+
 
 
 .pull-left[
@@ -1877,9 +1873,7 @@ ggplot(
 
 # Adding titles with `labs()`
 
-- `title`, `subtitle` and `captions`
-- Can also rename your axes here
-- As well as any other `aes`thetic mappings like colour, fill, shape, size...
+- You can adjust __plot labels__, including titles, with `labs()`, using the `title`, `subtitle` and `captions` arguments
 
 
 .pull-left[
@@ -1907,9 +1901,7 @@ ggplot(
 
 # Adding titles with `labs()`
 
-- `title`, `subtitle` and `captions`
-- Can also rename your axes here
-- As well as any other `aes`thetic mappings like colour, fill, shape, size...
+- You can adjust __plot labels__, including titles, with `labs()`, using the `title`, `subtitle` and `captions` arguments
 
 
 .pull-left[
@@ -1936,8 +1928,8 @@ ggplot(
 
 ---
 
+# Adding changing plot labels with `labs()`
 
-- `title`, `subtitle` and `captions`
 - Can also rename your axes here
 - As well as any other `aes`thetic mappings like colour, fill, shape, size...
 
@@ -1977,6 +1969,8 @@ class: center, middle, inverse
 
 ---
 
+class: center, middle, inverse
+
 # Changing the theme
 # Tweaking elements of the theme
 
@@ -2005,10 +1999,10 @@ ggplot(
 ]
 
 ---
-# Tweaking the theme
+# Changing the theme
 
 - You can change the `ggplot` theme just by adding a `theme_*` layer to the plot!
-
+- See the [full list of themes](https://ggplot2.tidyverse.org/reference/ggtheme.html#details)
 
 .pull-left[
 ```{r theme_bw, fig.show = 'hide'}
@@ -2029,12 +2023,10 @@ ggplot(
 ]
 
 ---
-
----
 # Changing the theme
 
 - You can change the `ggplot` theme just by adding a `theme_*` layer to the plot!
-
+- See the [full list of themes](https://ggplot2.tidyverse.org/reference/ggtheme.html#details)
 
 .pull-left[
 ```{r theme_minimal, fig.show = 'hide'}
@@ -2060,7 +2052,6 @@ ggplot(
 
 # Tweaking themes
 - As well as specifying a new theme for a plot with `theme_*` you can tweak specific elements of your plot with `theme()`
-- I often mess up with `theme()`
 - Importantly, if you want to change the theme with `theme_*` __AND__ adjust properties settings with `theme()` the call to `theme_*` __must come first!__
 
 
@@ -2069,13 +2060,13 @@ ggplot(
 # `theme()`
 
 - There are [lots of theme components](https://ggplot2.tidyverse.org/reference/theme.html) that you can adjust
+- I forget what the settings are all the time! So don't worry if this is confusing `r emo::ji('thumbsup')`
 - There are __some important ones__ we won't talk about today, like changing __text size__
-- The ones I use the __most__ are:
+- The ones I use the __most__ are...
 
 ---
 
 # Moving the legend
-
 
 .pull-left[
 
@@ -2107,9 +2098,6 @@ ggplot(
 
 ---
 # Rotating axis labels
-
-
-
 
 .pull-left[
 - Rotating axis labels if you have overlapping `x`-labels with `axis.text.x = element_text(angle = 45, hjust = 1)`
@@ -2173,11 +2161,8 @@ ggplot(
 # Order matters!
 
 .pull-left[
-
-- The call to `theme_minimal` overrides the adjustments made in `theme`
+- The call to `theme_minimal` overrides the adjustments made in `theme`!
 - Need to call `theme_minimal` __first__
-
-.pull-left[
 ```{r rotate_text_bw, fig.show = 'hide'}
 
 ggplot(
@@ -2207,7 +2192,6 @@ ggplot(
 
 - __NO__
 - `theme_*`s are [complete themes](https://ggplot2.tidyverse.org/reference/ggtheme.html) - you have to use `theme` to [modify theme components](https://ggplot2.tidyverse.org/reference/theme.html)
-- IDK why this is but I'm sure there are good reasons for it!
 
 
 .pull-left[
@@ -2239,9 +2223,7 @@ ggplot(
 
 # Scales
 
-- Adding a log scale
-
-
+- Adding a __log__ scale
 
 .pull-left[
 ```{r scales, fig.show = 'hide'}
@@ -2251,7 +2233,6 @@ ggplot(
   mapping = aes(x = disp, y = drat)
 ) +
   geom_point()
-  
   
 
 ```
@@ -2467,29 +2448,36 @@ knitr::include_graphics(
 ```
 ]
 
-
 ---
+
+name: going-further
+class: center, middle, inverse
 
 # Going further with `ggplot2`
 
-.pull-left[
-- A more complex model of ggplot2
 
-__Dataset__ + 
-__mapping__ variables in the dataset to `aes`thetics + 
-__Layers__ of `geom`s (symbols to represent data) = 
-__Plot__
+---
+
+# A more complex model of ggplot2
+
+.pull-left[
+- As we described it
+
+    - __Dataset__ + 
+    - __mapping__ variables in the dataset to `aes`thetics + 
+    - __Layers__ of `geom`s (symbols to represent data) = 
+    - __Plot__
 
 ]
 .pull-right[
 - From the [`ggplot` book](https://ggplot2-book.org/mastery.html#components)
 
-- A default __dataset__ and set of __mappings__ from variables to aesthetics.
-- One or more __layers__, each composed of a __geometric__ object, a __statistical transformation__, a __position adjustment__, and optionally, a dataset and aesthetic mappings.
-- One __scale__ for each aesthetic mapping.
-- A __[coordinate](https://ggplot2-book.org/mastery.html#coordinate-systems) system__.
-- The __facetting__ specification
-- (Also [a __theme__](https://github.com/thomasp85/ggplot2_workshop/blob/master/presentation.pdf))
+    - A default __dataset__ and set of __mappings__ from variables to aesthetics.
+    - One or more __layers__, each composed of a __geometric__ object, a __statistical transformation__, a __position adjustment__, and optionally, a dataset and aesthetic mappings.
+    - One __scale__ for each aesthetic mapping.
+    - A __[coordinate](https://ggplot2-book.org/mastery.html#coordinate-systems) system__.
+    - The __facetting__ specification
+    - (Also [a __theme__](https://github.com/thomasp85/ggplot2_workshop/blob/master/presentation.pdf))
 
 ]
 
@@ -2502,7 +2490,7 @@ __Plot__
 
 .pull-left[
 - [`gganimate`](https://github.com/thomasp85/gganimate) lets you add __animations__ to `ggplot`s. It's amazing.
-- One of `gganimate`'s stock examples:
+- One of `gganimate`'s examples from the [package website](https://github.com/thomasp85/gganimate):
 ]
 
 .pull-right[
@@ -2510,6 +2498,7 @@ __Plot__
 knitr::include_graphics("https://github.com/thomasp85/gganimate/raw/master/man/figures/README-unnamed-chunk-4-1.gif")
 ```
 ]
+
 ---
 
 # Bespoke plots
@@ -2524,23 +2513,25 @@ knitr::include_graphics("https://github.com/thomasp85/gganimate/raw/master/man/f
 
 # Resources
 
-- Thomas Lin Pedersen's [`ggplot2` workshop materials]( https://github.com/thomasp85/ggplot2_workshop)
+- See our list of [course texts](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/course_outline.md#course-texts)
+- Thomas Lin Pedersen's [`ggplot2` workshop materials]( https://github.com/thomasp85/ggplot2_workshop) go into __more depth__ than we have here about how the Grammar of Graphics is implemented in `ggplot2`
+- Keiran Healy's [Data Visualization: A practical introduction](https://socviz.co/) goes into more detail about visualization in the context of the __kinds of analysis we do as social scientists__, such as working with results from statistical models
 
 
 ---
 
 # In review
 
-
 .pull-left[
-- Hopefully we've convinced you that `ggplot2` is __powerful__ and __flexible__
-- It might be confusing at first, but the best way to get comfortable with it is just to play around!
-- Go forth and plot
+- We've covered the __basics__ of data visualization with `ggplot2`, including drawing some excellent maps
+- Hopefully we've convinced you that `ggplot2` is both __powerful__ and __flexible__
+- And that while it might be confusing at first, errors are all part of the learning process. As Keiran Healy says, you have to be ["patient with `R`, and with yourself"](https://socviz.co/gettingstarted.html#be-patient-with-r-and-with-yourself)
+- __Go forth and plot!__
 ]
 
 .pull-right[
 
-```{r hadley_plot, out.height = '90%', echo = FALSE, fig.align = "center"}
+```{r hadley_plot, out.height = '80%', echo = FALSE, fig.align = "center"}
 knitr::include_graphics("https://cms.qz.com/wp-content/uploads/2017/06/hadleywickhamchart.jpg")
 
 ```
