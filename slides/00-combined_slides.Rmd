@@ -1731,6 +1731,14 @@ ggplot(
 
 
 ---
+class: center, middle, inverse
+
+# `Your turn!`
+# Lines __XXX__ in the [exercises](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises.R)
+# Lines __XXX__ in the [answers](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises-with-answers.R)
+
+
+---
 name: ggplot-colour-scales
 class: center, middle, inverse
 
@@ -2056,6 +2064,15 @@ ggplot(
 ```{r ref.label = 'colour_ui_2', echo = FALSE, fig.retina = 1.25}
 ```
 ]
+
+
+---
+class: center, middle, inverse
+
+# `Your turn!`
+# Lines __XXX__ in the [exercises](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises.R)
+# Lines __XXX__ in the [answers](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises-with-answers.R)
+
 
 
 ---
@@ -2676,6 +2693,18 @@ knitr::include_graphics(
 
 ```
 ]
+
+---
+class: center, middle, inverse
+
+# `Your turn!`
+# Lines __XXX__ in the [exercises](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises.R)
+# Lines __XXX__ in the [answers](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises-with-answers.R)
+
+---
+class: center, middle, inverse
+
+# Bad plot challenge
 
 ---
 

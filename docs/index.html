@@ -1642,6 +1642,14 @@ ggplot(
 
 
 ---
+class: center, middle, inverse
+
+# `Your turn!`
+# Lines __XXX__ in the [exercises](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises.R)
+# Lines __XXX__ in the [answers](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises-with-answers.R)
+
+
+---
 name: ggplot-colour-scales
 class: center, middle, inverse
 
@@ -1964,6 +1972,15 @@ ggplot(
 .pull-right[
 &lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-39-1.png" width="504" /&gt;
 ]
+
+
+---
+class: center, middle, inverse
+
+# `Your turn!`
+# Lines __XXX__ in the [exercises](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises.R)
+# Lines __XXX__ in the [answers](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises-with-answers.R)
+
 
 
 ---
@@ -2335,9 +2352,11 @@ ggplot(
 
 # Scales
 
-- Adding a __log__ scale
-
 .pull-left[
+- Sometimes you want to transform one (or both) of your axes if you have __skewed data__
+- We can do this with `scale_*` functions
+- For example, changing the `x` axis to a __log__ scale
+
 
 ```r
 ggplot(
@@ -2346,19 +2365,34 @@ ggplot(
 ) +
   geom_point()
 ```
+
+```r
+ggplot2::scale_x
+```
+
+```
+## Error: 'scale_x' is not an exported object from 'namespace:ggplot2'
+```
 ]
 
 .pull-right[
 &lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-52-1.png" width="504" /&gt;
+
+```
+## Error: 'scale_x' is not an exported object from 'namespace:ggplot2'
+```
 ]
 
 
 ---
 
-# Scales log
+# Scales
 
 
 .pull-left[
+- Sometimes you want to transform one (or both) of your axes if you have __skewed data__
+- We can do this with `scale_*` functions
+- For example, changing the `x` axis to a __log__ scale
 
 ```r
 ggplot(
@@ -2526,6 +2560,18 @@ ggsave(
 .pull-right[
 ![](https://raw.githubusercontent.com/benmatthewsed/ui-data-visualization-course/master/figures/disp_drat_plot_big.png)&lt;!-- --&gt;
 ]
+
+---
+class: center, middle, inverse
+
+# `Your turn!`
+# Lines __XXX__ in the [exercises](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises.R)
+# Lines __XXX__ in the [answers](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/script/exercises-with-answers.R)
+
+---
+class: center, middle, inverse
+
+# Bad plot challenge
 
 ---
 
