@@ -21,6 +21,7 @@ knitr::opts_chunk$set(warning = FALSE,
                       dev.args = list(png = list(type = "cairo")))
 library(ggplot2)
 library(sf)
+library(ozmaps)
 ```
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
@@ -1504,6 +1505,239 @@ class: center, middle, inverse
 # Maps are awesome...
 # but they can be misleading!
 
+---
+
+
+class: center, middle, inverse
+
+# Intro to `sf` and what's in my spatial dataframe?
+
+---
+
+# Mapping with simple features data
+- __Simple features__ can be thought of as "things" or objects that have a __spatial__ location or extent
+- The `{sf}` package in `R` allows us to implement simple features
+- We will introduce some of it's functionality by producing maps
+- "It’s a truly wonderful package, and it’s nicely documented too… it’s just that everything about geospatial data turns out to be more complicated than it looks so even though `{sf}` is really, really good, it’s still a huge pain to work with." [Danielle Navarro](https://djnavarro.net/post/maps/)
+---
+
+# What's in my spatial dataframe?
+- To illustrate some simple mapping we will use the [ozmaps package](https://github.com/mdsumner/ozmaps/) which provides maps for Australian state boundaries etc.
+- The nice thing about working with `sf` data is that each row of data corresponds to a distinct geographical unit
+- The most important column is the __geometry__ variable
+- It contains spatial information on the __boundaries__ for each Australian state
+- Or for our data, the boundaries for each Local Authority in Scotland
+
+```{r, echo=TRUE}
+options(width=70)
+#Import data set for Australian states   
+oz_states <- ozmaps::ozmap_states
+glimpse(oz_states)
+```
+---
+
+name: geom-types
+class: center, middle, inverse
+
+# Maps and coordinate systems
+
+---
+# Drawing a simple map
+
+- Given data in this format we can add layers to a `ggplot2` object to draw a map
+- To do this we use `geom_sf()`
+
+
+.pull-left[
+    
+
+```{r simple_map, fig.show = 'hide', echo=TRUE}
+
+
+ggplot(
+  data = oz_states
+) +
+  geom_sf() 
+
+```
+]
+
+.pull-right[
+```{r ref.label = 'simple_map', echo = FALSE, fig.retina = 1.25}
+```
+]
+
+---
+# Drawing a simple map
+- Notice we didn't have to map our variables to any aesthetics (like we did last week)
+- This is unusual and specific to mapping with `ggplot2`
+- When we don't specify anything in `geom_sf()` it tries to map to a column called __`geometry`__
+- The column we have which specifies our polygon information is called __`geometry`__ and so our map was created
+- However you can specify the mapping manually in the usual way
+
+.pull-left[
+    
+
+```{r simple_map2, fig.show = 'hide', echo=TRUE}
+
+
+ggplot(
+  data = oz_states,
+  mapping = aes(geometry = geometry)
+) +
+  geom_sf() 
+
+```
+]
+
+.pull-right[
+```{r ref.label = 'simple_map2', echo = FALSE, fig.retina = 1.25}
+```
+]
+
+---
+# Cloropleth maps
+- We can colour our map in using the fill aesthetic
+- Not very useful here!
+
+.pull-left[
+    
+
+```{r simple_map3, fig.show = 'hide', echo=TRUE}
+
+
+ggplot(
+  data = oz_states
+) +
+  geom_sf(mapping=aes(fill=NAME)) 
+
+```
+]
+
+.pull-right[
+```{r ref.label = 'simple_map3', echo = FALSE, fig.retina = 1.25}
+```
+]
+
+
+
+---
+#Layered maps
+- Just like we discussed last week we can add multiple `geom_sf()` layers to a plot
+- You will have the opportunity to add different types of layers to your maps when you work through the exercises (Some are more useful that others!)
+
+
+.pull-left[
+```{r simple_map4, fig.show = 'hide', echo=TRUE}
+oz_votes <- ozmaps::abs_ced
+
+ggplot() + 
+  geom_sf(
+    data = oz_states, 
+    mapping = aes(fill = NAME)
+  ) +
+  geom_sf(data = oz_votes, fill = NA) + 
+  coord_sf() 
+
+```
+]
+
+.pull-right[
+```{r ref.label = 'simple_map4', echo = FALSE, fig.retina = 1.25}
+```
+]
+
+---
+#Coordinate systems
+- Setting coordinate systems is one of the most complicated aspects of `ggplot2`
+- The Cartesian coordinate system is the most common type of coordinate system (and the default in `ggplot2`)
+- Setting limits on the coordinate system will zoom in on the plot, rather than change the underlying data like setting limits on a scale
+- There is a nice blog post about coordinate systems [here](https://www.r-bloggers.com/coordinate-systems-in-ggplot2-easily-overlooked-and-rather-underrated/)
+
+---
+name: geom-types
+class: center, middle, inverse
+
+# Setting coordinate limits
+
+---
+
+#Setting coordinate limits with `{sf}`
+- We will use the `{sf}` package to set coordinate limits
+- Specifying `xlim` and `ylim` in `coord_sf()` will __zoom__ in on the specified region our plot
+
+
+.pull-left[
+```{r zoom_map, fig.show = 'hide', echo=TRUE}
+
+
+ggplot(
+  data = oz_votes
+) +
+  geom_sf() +
+  coord_sf(xlim = c(150.97, 151.3), 
+           ylim = c(-33.98, -33.79))
+
+```
+]
+
+.pull-right[
+```{r ref.label = 'zoom_map', echo = FALSE, fig.retina = 1.25}
+```
+]
+
+---
+#Setting coordinate limits with `{sf}` 
+- We can set coordinate limits for normal dataframes (not `sf` objects) using `coord_cartesian()`
+
+
+.pull-left[
+
+```{r plot-last2, fig.show = 'hide', echo=TRUE}
+
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+  )+
+  geom_point()
+
+```
+]
+
+.pull-right[
+```{r ref.label = 'plot-last2', echo = FALSE, fig.retina = 1.25}
+```
+]
+
+---
+#Setting coordinate limits in general
+
+.pull-left[
+
+```{r plot-last3, fig.show = 'hide', echo=TRUE}
+
+
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+  )+
+  geom_point()+
+  coord_cartesian(xlim = c(300, 500), 
+           ylim = c(3, 4))
+
+```
+]
+
+.pull-right[
+```{r ref.label = 'plot-last3', echo = FALSE, fig.retina = 1.25}
+```
+]
+
+---
+#Some other useful options to customise coordinate systems
+- `coord_fixed()` to specify a 1:1 mapping of x and y
+- `coord_flip()` swaps the x and y axis
 
 
 ---
@@ -2506,6 +2740,9 @@ knitr::include_graphics("https://github.com/thomasp85/gganimate/raw/master/man/f
 - __Relational__ (and therefore not-tidy) data - [`ggraph`](https://github.com/thomasp85/ggraph)
 - __'Spatial'__ facets - [`geofacet`]( https://hafen.github.io/geofacet/articles/geofacet.html)
 - Turning __spatial__ polygons into other shapes shapes - [`geogrid`]( https://github.com/jbaileyh/geogrid)
+- The [`{leaflet}` package](https://cran.r-project.org/web/packages/leaflet/leaflet.pdf) in `R` allows you to create and customize interactive maps
+    - Look [here](https://rstudio.github.io/leaflet/) for a nice introduction
+- We have only given you a very brief introduction to mapping with `ggplot2` and `sf`, have a look at the [3-part tutorial by Moreno and Basille](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html) for much more
 - __Combining__ multiple `ggplots` - [`patchwork`](https://patchwork.data-imaginist.com/) and [`cowplot`](https://wilkelab.org/cowplot/articles/introduction.html)
 - __Super-annotations__ - [`ggforce`](https://github.com/thomasp85/ggforce) and [`ggrepel`](https://github.com/slowkow/ggrepel); [arrows with `geom_curve`](https://bbc.github.io/rcookbook/#add_annotations)
 

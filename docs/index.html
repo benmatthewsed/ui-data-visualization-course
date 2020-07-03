@@ -1428,6 +1428,225 @@ class: center, middle, inverse
 # Maps are awesome...
 # but they can be misleading!
 
+---
+
+
+class: center, middle, inverse
+
+# Intro to `sf` and what's in my spatial dataframe?
+
+---
+
+# Mapping with simple features data
+- __Simple features__ can be thought of as "things" or objects that have a __spatial__ location or extent
+- The `{sf}` package in `R` allows us to implement simple features
+- We will introduce some of it's functionality by producing maps
+- "It’s a truly wonderful package, and it’s nicely documented too… it’s just that everything about geospatial data turns out to be more complicated than it looks so even though `{sf}` is really, really good, it’s still a huge pain to work with." [Danielle Navarro](https://djnavarro.net/post/maps/)
+---
+
+# What's in my spatial dataframe?
+- To illustrate some simple mapping we will use the [ozmaps package](https://github.com/mdsumner/ozmaps/) which provides maps for Australian state boundaries etc.
+- The nice thing about working with `sf` data is that each row of data corresponds to a distinct geographical unit
+- The most important column is the __geometry__ variable
+- It contains spatial information on the __boundaries__ for each Australian state
+- Or for our data, the boundaries for each Local Authority in Scotland
+
+
+```r
+options(width=70)
+#Import data set for Australian states   
+oz_states &lt;- ozmaps::ozmap_states
+glimpse(oz_states)
+```
+
+```
+## Error in glimpse(oz_states): could not find function "glimpse"
+```
+---
+
+name: geom-types
+class: center, middle, inverse
+
+# Maps and coordinate systems
+
+---
+# Drawing a simple map
+
+- Given data in this format we can add layers to a `ggplot2` object to draw a map
+- To do this we use `geom_sf()`
+
+
+.pull-left[
+    
+
+
+```r
+ggplot(
+  data = oz_states
+) +
+  geom_sf() 
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-22-1.png" width="504" /&gt;
+]
+
+---
+# Drawing a simple map
+- Notice we didn't have to map our variables to any aesthetics (like we did last week)
+- This is unusual and specific to mapping with `ggplot2`
+- When we don't specify anything in `geom_sf()` it tries to map to a column called __`geometry`__
+- The column we have which specifies our polygon information is called __`geometry`__ and so our map was created
+- However you can specify the mapping manually in the usual way
+
+.pull-left[
+    
+
+
+```r
+ggplot(
+  data = oz_states,
+  mapping = aes(geometry = geometry)
+) +
+  geom_sf() 
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-23-1.png" width="504" /&gt;
+]
+
+---
+# Cloropleth maps
+- We can colour our map in using the fill aesthetic
+- Not very useful here!
+
+.pull-left[
+    
+
+
+```r
+ggplot(
+  data = oz_states
+) +
+  geom_sf(mapping=aes(fill=NAME)) 
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-24-1.png" width="504" /&gt;
+]
+
+
+
+---
+#Layered maps
+- Just like we discussed last week we can add multiple `geom_sf()` layers to a plot
+- You will have the opportunity to add different types of layers to your maps when you work through the exercises (Some are more useful that others!)
+
+
+.pull-left[
+
+```r
+oz_votes &lt;- ozmaps::abs_ced
+
+ggplot() + 
+  geom_sf(
+    data = oz_states, 
+    mapping = aes(fill = NAME)
+  ) +
+  geom_sf(data = oz_votes, fill = NA) + 
+  coord_sf() 
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-25-1.png" width="504" /&gt;
+]
+
+---
+#Coordinate systems
+- Setting coordinate systems is one of the most complicated aspects of `ggplot2`
+- The Cartesian coordinate system is the most common type of coordinate system (and the default in `ggplot2`)
+- Setting limits on the coordinate system will zoom in on the plot, rather than change the underlying data like setting limits on a scale
+- There is a nice blog post about coordinate systems [here](https://www.r-bloggers.com/coordinate-systems-in-ggplot2-easily-overlooked-and-rather-underrated/)
+
+---
+name: geom-types
+class: center, middle, inverse
+
+# Setting coordinate limits
+
+---
+
+#Setting coordinate limits with `{sf}`
+- We will use the `{sf}` package to set coordinate limits
+- Specifying `xlim` and `ylim` in `coord_sf()` will __zoom__ in on the specified region our plot
+
+
+.pull-left[
+
+```r
+ggplot(
+  data = oz_votes
+) +
+  geom_sf() +
+  coord_sf(xlim = c(150.97, 151.3), 
+           ylim = c(-33.98, -33.79))
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-26-1.png" width="504" /&gt;
+]
+
+---
+#Setting coordinate limits with `{sf}` 
+- We can set coordinate limits for normal dataframes (not `sf` objects) using `coord_cartesian()`
+
+
+.pull-left[
+
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+  )+
+  geom_point()
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-27-1.png" width="504" /&gt;
+]
+
+---
+#Setting coordinate limits in general
+
+.pull-left[
+
+
+```r
+ggplot(
+  data = mtcars,
+  mapping = aes(x = disp, y = drat)
+  )+
+  geom_point()+
+  coord_cartesian(xlim = c(300, 500), 
+           ylim = c(3, 4))
+```
+]
+
+.pull-right[
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-28-1.png" width="504" /&gt;
+]
+
+---
+#Some other useful options to customise coordinate systems
+- `coord_fixed()` to specify a 1:1 mapping of x and y
+- `coord_flip()` swaps the x and y axis
 
 
 ---
@@ -1463,7 +1682,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-21-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-29-1.png" width="504" /&gt;
 ]
 
 
@@ -1487,7 +1706,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-22-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-30-1.png" width="504" /&gt;
 ]
 
 ---
@@ -1519,7 +1738,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-23-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-31-1.png" width="504" /&gt;
 ]
 
 ---
@@ -1541,7 +1760,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-24-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-32-1.png" width="504" /&gt;
 ]
 
 ---
@@ -1565,7 +1784,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-25-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-33-1.png" width="504" /&gt;
 ]
 
 
@@ -1602,7 +1821,7 @@ ggplot(
 ## Error: Continuous value supplied to discrete scale
 ```
 
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-26-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-34-1.png" width="504" /&gt;
 ]
 
 
@@ -1629,7 +1848,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-27-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-35-1.png" width="504" /&gt;
 ]
 
 
@@ -1664,7 +1883,7 @@ ggplot(
 ## Error: Continuous value supplied to discrete scale
 ```
 
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-28-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-36-1.png" width="504" /&gt;
 ]
 
 
@@ -1694,7 +1913,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-29-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-37-1.png" width="504" /&gt;
 ]
 
 ---
@@ -1721,7 +1940,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-30-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-38-1.png" width="504" /&gt;
 ]
 
 
@@ -1751,7 +1970,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-31-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-39-1.png" width="504" /&gt;
 ]
 
 
@@ -1785,7 +2004,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-32-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-40-1.png" width="504" /&gt;
 ]
 
 ---
@@ -1811,7 +2030,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-33-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-41-1.png" width="504" /&gt;
 ]
 
 ---
@@ -1838,7 +2057,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-34-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-42-1.png" width="504" /&gt;
 ]
 
 ---
@@ -1868,7 +2087,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-35-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-43-1.png" width="504" /&gt;
 ]
 
 
@@ -1907,7 +2126,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-36-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-44-1.png" width="504" /&gt;
 ]
 
 ---
@@ -1929,7 +2148,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-37-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-45-1.png" width="504" /&gt;
 ]
 
 ---
@@ -1951,7 +2170,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-38-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-46-1.png" width="504" /&gt;
 ]
 
 
@@ -1997,7 +2216,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-39-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-47-1.png" width="504" /&gt;
 ]
 
 ---
@@ -2023,7 +2242,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-40-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-48-1.png" width="504" /&gt;
 ]
 
 ---
@@ -2053,7 +2272,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-41-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-49-1.png" width="504" /&gt;
 ]
 
 ---
@@ -2081,7 +2300,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-42-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-50-1.png" width="504" /&gt;
 ]
 
 ---
@@ -2138,7 +2357,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-44-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-52-1.png" width="504" /&gt;
 ]
 
 
@@ -2160,7 +2379,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-45-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-53-1.png" width="504" /&gt;
 ]
 
 
@@ -2188,7 +2407,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-46-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-54-1.png" width="504" /&gt;
 ]
 
 ---
@@ -2215,7 +2434,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-47-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-55-1.png" width="504" /&gt;
 ]
 
 
@@ -2244,7 +2463,7 @@ ggplot(
 ]
 
 .pull-right[
-&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-48-1.png" width="504" /&gt;
+&lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-56-1.png" width="504" /&gt;
 ]
 
 
@@ -2372,6 +2591,9 @@ class: center, middle, inverse
 - __Relational__ (and therefore not-tidy) data - [`ggraph`](https://github.com/thomasp85/ggraph)
 - __'Spatial'__ facets - [`geofacet`]( https://hafen.github.io/geofacet/articles/geofacet.html)
 - Turning __spatial__ polygons into other shapes shapes - [`geogrid`]( https://github.com/jbaileyh/geogrid)
+- The [`{leaflet}` package](https://cran.r-project.org/web/packages/leaflet/leaflet.pdf) in `R` allows you to create and customize interactive maps
+    - Look [here](https://rstudio.github.io/leaflet/) for a nice introduction
+- We have only given you a very brief introduction to mapping with `ggplot2` and `sf`, have a look at the [3-part tutorial by Moreno and Basille](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html) for much more
 - __Combining__ multiple `ggplots` - [`patchwork`](https://patchwork.data-imaginist.com/) and [`cowplot`](https://wilkelab.org/cowplot/articles/introduction.html)
 - __Super-annotations__ - [`ggforce`](https://github.com/thomasp85/ggforce) and [`ggrepel`](https://github.com/slowkow/ggrepel); [arrows with `geom_curve`](https://bbc.github.io/rcookbook/#add_annotations)
 
