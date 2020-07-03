@@ -1208,7 +1208,10 @@ ggplot(
     mapping = aes()
   ) +
 
-
+# Now try one of the other viridis palettes by setting
+# option = "plasma" in the call to scale_colour_viridis_c()
+  
+  
 # what happens if you use *_viridis_c with a discrete measure?
 # change the code for your plot above to map colour to simd
 # and keep the call to scale_colour_viridis_c()

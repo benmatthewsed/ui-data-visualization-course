@@ -1084,6 +1084,20 @@ ggplot(
   ) +
   scale_colour_viridis_c()
 
+# Now try one of the other viridis palettes by setting
+# option = "plasma" in the call to scale_colour_viridis_c()
+
+ggplot(
+  data = simd,
+  mapping = aes(x = overall, y = crime)
+) +
+  geom_point(
+    mapping = aes(colour = year)
+  ) +
+  scale_colour_viridis_c(
+    option = "plasma"
+  )
+
 # what happens if you use *_viridis_c with a discrete measure?
 
 ggplot(
