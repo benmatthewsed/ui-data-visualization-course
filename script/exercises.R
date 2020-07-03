@@ -1381,67 +1381,75 @@ ggplot(
 # themes -----------------------------------------------------------------
 
 
+# rearrange the code below to a valid ggplot call
+# and then add a call to theme_minimal() to change the theme
 
-# just stick a call to theme_ at the end
-
-ggplot(
-  data = simd,
-  mapping = aes(x = overall, y = crime)
-) +
-  geom_point() +
-  theme_minimal()
-
-# how about another one
-
-ggplot(
-  data = simd,
-  mapping = aes(x = overall, y = crime)
-) +
-  geom_point() +
-  theme_bw()
-
-# and a third
-
-ggplot(
-  data = simd,
-  mapping = aes(x = overall, y = crime)
-) +
-  geom_point() +
-  theme_dark()
+aes(x = overall, y = crime)
+simd,
+data = 
+  ggplot(
+    mapping = 
+      geom_point() +
+  ) +
+  
+  
+  # how about another one: change the theme for the plot above
+  # to theme_bw()
+  
+  
+  
+  # and a third: now change the theme call to theme_dark()
+  
+  # adjusting the legend position
+  # write a call to produce a scatterplot mapping
+# x to overall SIMD, y to crime SIMD and colour to access SIMD
+# change the theme to theme_dark
+# adjust the call below to set the legend position to "bottom"
 
 
-# adjusting the legend position
+theme(
+  legend.position = 
+)
 
-ggplot(
-  data = simd,
-  mapping = aes(x = overall, y = crime)
-) +
-  geom_point(aes(colour = access)) +
-  theme_dark() +
-  theme(
-    legend.position = "bottom"
-  )
+# on second thoughts, maybe the legend is better at the top :-)
+# adjust the call so the legend is at the top of the plot
+
+# adjust the below to produce a valid ggplot2 call mapping
+# x to overall SIMD, y to crime SIMD and colour to access SIMD,
+# with a dark them, the legend at t he top of the plot and
+# and the x axis rotated to a 45 degree angle
 
 ggplot(
-  data = simd,
-  mapping = aes(x = overall, y = crime)
+  data = ,
+  mapping = aes(x = overall, y = )
 ) +
   geom_point(aes(colour = access)) +
   theme_dark() +
   theme(
-    legend.position = "top"
+    legend.position = " ",
+    axis.text.x = element_text(angle = , hjust = 1)
   )
 
-ggplot(
-  data = simd,
-  mapping = aes(x = overall, y = crime)
-) +
-  geom_point(aes(colour = access)) +
-  theme_dark() +
-  theme(
-    legend.position = "top",
-    axis.text.x = element_text(angle = 45, hjust = 1)
-  )
+
+# scales ------------------------------------------------------------------
+
+# write code to produce a plot with overall SIMD mapped to x,
+# y mapped to crime and colour mapped to access
+# then add a call to scale_y_log10() to transform the y
+# axis to a log scale
+
+
+# change the format of the y axes to have commas
+# separating thousands by adding the line below
+# to scale_y_log10()
+
+    labels = scales::label_comma()
+  
+
+# now change the labels breaks for the y axis by
+# also adding the call below to scale_y_log10
+
+    breaks = c(2000, 3000, 4000, 5000, 6000)
 
 
 
