@@ -1375,9 +1375,6 @@ ggplot(
 
 
 
-# publication-ready plots -------------------------------------------------
-
-
 # themes -----------------------------------------------------------------
 
 
@@ -1445,6 +1442,7 @@ ggplot(
 
     labels = scales::label_comma()
   
+# hmmm okay it doesn't actually look that different
 
 # now change the labels breaks for the y axis by
 # also adding the call below to scale_y_log10

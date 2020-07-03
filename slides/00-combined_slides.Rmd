@@ -2659,6 +2659,8 @@ knitr::include_graphics(
 
 
 ---
+# Saving the plot
+
 - We can change the size of the output file with `height = ` and `width = `
 
 .pull-left[
@@ -2707,6 +2709,17 @@ class: center, middle, inverse
 # Bad plot challenge
 
 ---
+# Bad plot challenge
+1. Make the 'worst' plot you can based on the SIMD data (you can decide what makes the plot bad) 
+2. Email their finished plots to me (Ben)
+3. I'll put them on the video feed with the screen sharing thing 
+4. When your plot is on the screen put a text description of how you made your bad plot/what you think makes your plot a bad plot in the group chat
+
+__OR__
+5. Make an actual sensible plot of your own data
+
+---
+
 
 name: going-further
 class: center, middle, inverse
