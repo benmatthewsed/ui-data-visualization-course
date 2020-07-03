@@ -23,7 +23,7 @@ class: center, middle, inverse
 
 Ben Matthews&lt;sup&gt;1&lt;/sup&gt; and Eilidh Jack&lt;sup&gt;2&lt;/sup&gt;
 
-2020-06-29  (Last updated 2020-07-02)
+2020-06-29  (Last updated 2020-07-03)
 
 &lt;sup&gt;1&lt;/sup&gt;University of Edinburgh
 
@@ -1315,7 +1315,7 @@ class: center, middle, inverse
 
 Ben Matthews&lt;sup&gt;1&lt;/sup&gt; and Eilidh Jack&lt;sup&gt;2&lt;/sup&gt;
 
-2020-07-06  (Last updated 2020-07-02)
+2020-07-06  (Last updated 2020-07-03)
 
 &lt;sup&gt;1&lt;/sup&gt;University of Edinburgh
 
@@ -1333,45 +1333,56 @@ class: center, middle, inverse
 
 ---
 
+# Maps
 
 1. Maps are great (we take this as axiomatic!)
 4. In `R`, maps are "different, and weird" -- [Danielle Navarro](https://djnavarro.net/post/maps/)
-3. Maps can be misleading
-5. Use with caution!
+3. Maps can be misleading: use __with caution__!
 
 ---
 
+# Maps are great 💯
+
+- People love maps
+- "Maps are amongst the most compelling graphics, because the space they map is the space we live in, and maps may __show things we cannot see otherwise__" -- [Bivand, Pebesma and Gómez-Rubio, 2013, p.59](https://www.springer.com/gp/book/9781461476177)
+- "Maps are awesome." -- [Danielle Navarro](https://djnavarro.net/post/maps/)
+- But mapping raises lots of __tricky questions__...
+
+
+---
 
 # What are we mapping ?
 
 - If you're on this course we assume that you are:
-    - Analysing data about people
-    - These people are on Earth, and may well be in the UK
+    - Analysing data about __people__
+    - These people are __on Earth__, and may well be in the UK
 - So you'll [probably have __vector__ data](https://geocompr.robinlovelace.net/spatial-class.html#vector-data) - i.e. __points in space__ (and not raster data, which breaks up space into evenly sized grids, like in ecology or something)
-- And mostly you'll be plotting __areal__ data - which relates to some shape bounded in space (like a Local Authority or neighbourhood), and data about these areal entities will likely be __aggregates__ describing the population within that area - e.g. votes, or recorded crimes, or percent unemployed... etc.
+- And mostly you'll be plotting __areal__ data - which relates to some shape bounded in space (like a Local Authority, as in our dataset or neighbourhood), and data about these areal entities will likely be __aggregates__ describing the population within that area - e.g. votes, or recorded crimes, or percent unemployed... etc.
 
 ---
 
-# Okay, but what "space"?
+# Okay, but points in what "space"?
 
-- Turns out that this is a really complicated question!
-- We turn representations of the 3d surface of the Earth into a 2d map using a [coordinate reference system (CRS)](https://geocompr.robinlovelace.net/spatial-class.html#crs-intro)
+- Turns out that this is a really [__complicated__ question!](https://xkcd.com/977/)
+- We turn representations of the __3d surface__ of the Earth into a __2d map__ using a [coordinate reference system (CRS)](https://geocompr.robinlovelace.net/spatial-class.html#crs-intro)
 - This won't come up here 🤞 because we've set the CRS for you in our example dataset, but `ggplot2` needs to know the CRS of your data in order to draw the plot
-- If your map looks funny it may well be that you have the wrong CRS
+- If your map looks funny it may well be that you have the __wrong CRS__
 
 
 ---
 
-# Maps in `R` are "different and weird"
+class: center, middle, inverse
+
+# Maps in `R` are ["different and weird"](https://djnavarro.net/post/maps/)
 
 ---
 
 # Maps in `R`: simple features
 
-- Working with spatial data in `R` is a whole sub-field in itself (see [here](https://geocompr.robinlovelace.net/ from a GIS/geoscience perspective) for a GIS introduction, and [here](https://socviz.co/maps.html#maps) for a social sciences introduction)
-- We use the [`{sf}` package](https://r-spatial.github.io/sf/articles/sf1.html)
-- The geographical information in your dataset gets a special `geometry` column with our geographical information in
-- This is works nicely with tidy data and `ggplot2`
+- Working with __spatial data__ in `R` is a whole sub-field in itself (see [here](https://geocompr.robinlovelace.net/ from a GIS/geoscience perspective) for a GIS introduction, and [here](https://socviz.co/maps.html#maps) for a social sciences introduction)
+- We use the [`sf` package](https://r-spatial.github.io/sf/articles/sf1.html)
+- Using `sf`, the geographical information in your dataset lives in a special `geometry` column in your data frame
+- This is __works nicely with tidy data__ and `ggplot2`!
 - `ggplot2` figures out how to draw the map based on the CRS, so this changes some of how we would usually ask `ggplot2` to draw the map
 
 
@@ -1381,15 +1392,17 @@ class: center, middle, inverse
 
 
 - __Chloropleth__ maps - coloured in maps - are a good idea when you have high spatial resolution, but can be [misleading when you have low spatial resolution](https://serialmentor.com/dataviz/geospatial-data.html#choropleth-mapping)
-- This is because these maps can be [dominated by geographic units with large areas](https://serialmentor.com/dataviz/geospatial-data.html#choropleth-mapping) if the areas of your geographies are very different (this is very much the case for Scottish Local Authorities!)
+- This is because these maps can be [dominated by geographic units with __large areas__](https://serialmentor.com/dataviz/geospatial-data.html#choropleth-mapping) if the areas of your geographies are very different (this is very much the case for Scottish Local Authorities!)
 - ... and such areas often have low populations
-- This is not so bad when you're mapping [densities](https://serialmentor.com/dataviz/geospatial-data.html#choropleth-mapping) - where the denominator is the area of the spatial unit
+- This is not so bad when you're [mapping __densities__](https://serialmentor.com/dataviz/geospatial-data.html#choropleth-mapping) - where the denominator is the area of the spatial unit
 
 ---
 
 # Maps can be misleading: parameter estimates
 
-"[P]lotting observed rates can have __serious drawbacks when sample sizes vary by area__, since very high (and low) observed rates are found disproportionately in poorly-sampled areas. Unfortunately, adjusting the observed rates to account for the effects of small-sample noise can introduce an opposite effect, in which the highest adjusted rates tend to be found disproportionately in well-sampled areas. __In either case, the maps can be difficult to interpret__ because the display of spatial variation in the underlying parameters of interest is confounded with spatial variation in sample sizes" [Gelman and Rice](http://www.stat.columbia.edu/~gelman/research/published/allmaps.pdf) 😱
+- This is a bit involved, but something to bear in mind if you're mapping spatial data with variable sample sizes in different regions:
+- "[P]lotting observed rates can have __serious drawbacks when sample sizes vary by area__, since very high (and low) observed rates are found disproportionately in poorly-sampled areas. Unfortunately, adjusting the observed rates to account for the effects of small-sample noise can introduce an opposite effect, in which the highest adjusted rates tend to be found disproportionately in well-sampled areas. __In either case, the maps can be difficult to interpret__ because the display of spatial variation in the underlying parameters of interest is confounded with spatial variation in sample sizes" -- [Gelman and Rice](http://www.stat.columbia.edu/~gelman/research/published/allmaps.pdf)
+- 😱
 
 
 ---
@@ -1411,7 +1424,7 @@ class: center, middle, inverse
 
 ---
 
-# Maps can be misleading
+# Maps can be misleading!
 # Use with caution!
 
 
@@ -1423,12 +1436,10 @@ class: center, middle, inverse
 
 ---
 
-# `ggplot2` default colour scale
+# `ggplot2` default colour scales
 
 - __Data types__ really matter for colour scales
 - Specifically, whether data are __continuous__ or __categorical__
-
-&lt;img src="https://ggplot2-book.org/diagrams/colour-wheel.png" width="40%" /&gt;
 
 ---
 # `ggplot`'s default continuous scale
@@ -1456,6 +1467,7 @@ ggplot(
 
 ---
 
+# `ggplot`'s default discrete scale
 
 .pull-left[
 
@@ -1477,11 +1489,11 @@ ggplot(
 ]
 
 ---
-# Other options: viridis
+# Other colour options: viridis
 
 - From their [website](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html#introduction):
    - __Colo[u]rful__, spanning as wide a palette as possible so as to make differences easy to see
-   - _Perceptually uniform__, meaning that values close to each other have similar-appearing colours and values far away from each other have more different-appearing colours, consistently across the range of values,
+   - __Perceptually uniform__, meaning that values close to each other have similar-appearing colours and values far away from each other have more different-appearing colours, consistently across the range of values,
    - __Robust to colourblindness__, so that the above properties hold true for people with common forms of colourblindness, as well as in grey scale printing
 - Has both __discrete__ and __continuous__ options: `scale_colour_viridis_d` and `scale_colour_viridis_c` respectively
 - See also the [`colorblindr` package](https://github.com/clauswilke/colorblindr) for more resources on making figures work better for people with different kinds of colourblindness
@@ -1510,6 +1522,8 @@ ggplot(
 
 ---
 
+# Discrete scale
+
 .pull-left[
 
 ```r
@@ -1530,8 +1544,6 @@ ggplot(
 
 ---
 # Different options
-
-
 
 .pull-left[
 
@@ -2326,6 +2338,7 @@ ggsave(
 ---
 
 # Going further with `ggplot2`
+
 .pull-left[
 - A more complex model of ggplot2
 
@@ -2372,6 +2385,12 @@ __Plot__
 - __Combining__ multiple `ggplots` - [`patchwork`](https://patchwork.data-imaginist.com/) and [`cowplot`](https://wilkelab.org/cowplot/articles/introduction.html)
 - __Super-annotations__ - [`ggforce`](https://github.com/thomasp85/ggforce) and [`ggrepel`](https://github.com/slowkow/ggrepel); [arrows with `geom_curve`](https://bbc.github.io/rcookbook/#add_annotations)
 
+---
+
+# Resources
+
+- Thomas Lin Pedersen's [`ggplot2` workshop materials]( https://github.com/thomasp85/ggplot2_workshop)
+
 
 ---
 
@@ -2407,7 +2426,7 @@ class: center, middle, inverse
 
 Ben Matthews&lt;sup&gt;1&lt;/sup&gt; and Eilidh Jack&lt;sup&gt;2&lt;/sup&gt;
 
-2020-06-29  (Last updated 2020-07-02)
+2020-06-29  (Last updated 2020-07-03)
 
 &lt;sup&gt;1&lt;/sup&gt;University of Edinburgh
 
