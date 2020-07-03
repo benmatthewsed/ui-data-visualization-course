@@ -1341,7 +1341,7 @@ class: center, middle, inverse
 
 ---
 
-# Maps are great 💯
+# Maps are 💯
 
 - People love maps
 - "Maps are amongst the most compelling graphics, because the space they map is the space we live in, and maps may __show things we cannot see otherwise__" -- [Bivand, Pebesma and Gómez-Rubio, 2013, p.59](https://www.springer.com/gp/book/9781461476177)
@@ -1351,7 +1351,7 @@ class: center, middle, inverse
 
 ---
 
-# What are we mapping ?
+# What are we mapping?
 
 - If you're on this course we assume that you are:
     - Analysing data about __people__
@@ -1368,49 +1368,35 @@ class: center, middle, inverse
 - This won't come up here 🤞 because we've set the CRS for you in our example dataset, but `ggplot2` needs to know the CRS of your data in order to draw the plot
 - If your map looks funny it may well be that you have the __wrong CRS__
 
-
 ---
-
 class: center, middle, inverse
 
-# Maps in `R` are ["different and weird"](https://djnavarro.net/post/maps/)
-
----
-
-# Maps in `R`: simple features
-
-- Working with __spatial data__ in `R` is a whole sub-field in itself (see [here](https://geocompr.robinlovelace.net/ from a GIS/geoscience perspective) for a GIS introduction, and [here](https://socviz.co/maps.html#maps) for a social sciences introduction)
-- We use the [`sf` package](https://r-spatial.github.io/sf/articles/sf1.html)
-- Using `sf`, the geographical information in your dataset lives in a special `geometry` column in your data frame
-- This is __works nicely with tidy data__ and `ggplot2`!
-- `ggplot2` figures out how to draw the map based on the CRS, so this changes some of how we would usually ask `ggplot2` to draw the map. We'll walk through an example of this in the exercises.
-
+# Before we begin, some potential pitfalls...
 
 ---
 
 # Maps can be misleading: Area or people?
 
-- __Chloropleth__ maps - coloured in maps - are a good idea when you have high spatial resolution, but can be [misleading when you have low spatial resolution](https://serialmentor.com/dataviz/geospatial-data.html#choropleth-mapping)
+- __Choropleth__ maps - coloured in maps - are a good idea when you have high spatial resolution, but can be [misleading when you have low spatial resolution](https://serialmentor.com/dataviz/geospatial-data.html#choropleth-mapping)
 - This is because these maps can be [dominated by geographic units with __large areas__](https://serialmentor.com/dataviz/geospatial-data.html#choropleth-mapping) if the areas of your geographies are very different (this is very much the case for Scottish Local Authorities!)
 - ... and such areas often have low populations
 - This is not so bad when you're [mapping __densities__](https://serialmentor.com/dataviz/geospatial-data.html#choropleth-mapping) - where the denominator is the area of the spatial unit
 
 ---
 
-# Maps can be misleading: parameter estimates
+# Maps can be misleading: Who is at risk?
 
-- This is a bit involved, but something to bear in mind if you're mapping spatial data with variable sample sizes in different regions:
-- "[P]lotting observed rates can have __serious drawbacks when sample sizes vary by area__, since very high (and low) observed rates are found disproportionately in poorly-sampled areas. Unfortunately, adjusting the observed rates to account for the effects of small-sample noise can introduce an opposite effect, in which the highest adjusted rates tend to be found disproportionately in well-sampled areas. __In either case, the maps can be difficult to interpret__ because the display of spatial variation in the underlying parameters of interest is confounded with spatial variation in sample sizes" -- [Gelman and Rice](http://www.stat.columbia.edu/~gelman/research/published/allmaps.pdf)
-- 😱
+- Mapping counts of things can be confounded by areas with the [highest population](https://socviz.co/maps.html#maps)
+- And also the by [Modifiable Areal Unit Problem](https://en.wikipedia.org/wiki/Modifiable_areal_unit_problem) - "totals, rates, proportions, densities are influenced by both the __shape__ and scale of the __aggregation unit__"
 
 
 ---
 
-# Maps can be misleading: Who is at risk?
+# Maps can be misleading: parameter estimates
 
-- Mapping counts of things can be confounded by areas with the [highest population](https://socviz.co/maps.html#maps)
-- Mapping rates are affected by the sample size issues on the previous slide...
-- ... and also the [Modifiable Areal Unit Problem](https://en.wikipedia.org/wiki/Modifiable_areal_unit_problem)
+- This is __a bit involved__, but something to bear in mind if you're mapping spatial data with variable sample sizes in different regions:
+- "[P]lotting observed rates can have __serious drawbacks when sample sizes vary by area__, since very high (and low) observed rates are found disproportionately in poorly-sampled areas. Unfortunately, adjusting the observed rates to account for the effects of small-sample noise can introduce an opposite effect, in which the highest adjusted rates tend to be found disproportionately in well-sampled areas. __In either case, the maps can be difficult to interpret__ because the display of spatial variation in the underlying parameters of interest is confounded with spatial variation in sample sizes" -- [Gelman and Rice](http://www.stat.columbia.edu/~gelman/research/published/allmaps.pdf)
+- 😱
 
 
 ---
@@ -1433,20 +1419,23 @@ class: center, middle, inverse
 
 class: center, middle, inverse
 
-# Intro to `sf` and what's in my spatial dataframe?
+# Intro to `sf` and what's in my __spatial__ dataframe?
 
 ---
 
-# Mapping with simple features data
+# Maps in `R`: simple features
+
+- Working with __spatial data__ in `R` is a whole sub-field in itself (see [here](https://geocompr.robinlovelace.net/ from a GIS/geoscience perspective) for a GIS introduction, and [here](https://socviz.co/maps.html#maps) for a social sciences introduction)
+- We use the [`sf` package](https://r-spatial.github.io/sf/articles/sf1.html) which implements __simple features__
 - __Simple features__ can be thought of as "things" or objects that have a __spatial__ location or extent
-- The `{sf}` package in `R` allows us to implement simple features
 - We will introduce some of it's functionality by producing maps
 - "It’s a truly wonderful package, and it’s nicely documented too… it’s just that everything about geospatial data turns out to be more complicated than it looks so even though `{sf}` is really, really good, it’s still a huge pain to work with." [Danielle Navarro](https://djnavarro.net/post/maps/)
+
 ---
 
 # What's in my spatial dataframe?
 - To illustrate some simple mapping we will use the [ozmaps package](https://github.com/mdsumner/ozmaps/) which provides maps for Australian state boundaries etc.
-- The nice thing about working with `sf` data is that each row of data corresponds to a distinct geographical unit
+- The nice thing about working with `sf` data is that __each row__ of data corresponds to a __distinct geographical unit__
 - The most important column is the __geometry__ variable
 - It contains spatial information on the __boundaries__ for each Australian state
 - Or for our data, the boundaries for each Local Authority in Scotland
@@ -1460,7 +1449,10 @@ glimpse(oz_states)
 ```
 
 ```
-## Error in glimpse(oz_states): could not find function "glimpse"
+## Observations: 9
+## Variables: 2
+## $ NAME     &lt;chr&gt; "New South Wales", "Victoria", "Queensland", "So...
+## $ geometry &lt;MULTIPOLYGON [°]&gt; MULTIPOLYGON (((150.7016 -3..., MUL...
 ```
 ---
 
@@ -1518,7 +1510,7 @@ ggplot(
 ]
 
 ---
-# Cloropleth maps
+# Choropleth maps
 - We can colour our map in using the fill aesthetic
 - Not very useful here!
 
@@ -1657,7 +1649,7 @@ class: center, middle, inverse
 
 ---
 
-# `ggplot2` default colour scales
+# `ggplot`'s default colour scales
 
 - __Data types__ really matter for colour scales
 - Specifically, whether data are __continuous__ or __categorical__
