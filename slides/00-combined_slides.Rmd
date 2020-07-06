@@ -2616,6 +2616,8 @@ ggplot(
 
 - Throughout the session we've just let plots __print__ out in the plots pane
 - Not so convenient if you want to __show someone else your work__!
+- We can use `ggsave()` to save a plot to disk
+- This needs the arguments `filepath`, to know __where__ to save your figure, and `plot` to know __what__ to save
 
 
 ---
@@ -2775,14 +2777,15 @@ knitr::include_graphics("https://github.com/thomasp85/gganimate/raw/master/man/f
 
 # Bespoke plots
 
-- __Relational__ (and therefore not-tidy) data - [`ggraph`](https://github.com/thomasp85/ggraph)
-- __'Spatial'__ facets - [`geofacet`]( https://hafen.github.io/geofacet/articles/geofacet.html)
-- Turning __spatial__ polygons into other shapes shapes - [`geogrid`]( https://github.com/jbaileyh/geogrid)
-- The [`{leaflet}` package](https://cran.r-project.org/web/packages/leaflet/leaflet.pdf) in `R` allows you to create and customize interactive maps
-    - Look [here](https://rstudio.github.io/leaflet/) for a nice introduction
-- We have only given you a very brief introduction to mapping with `ggplot2` and `sf`, have a look at the [3-part tutorial by Moreno and Basille](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html) for much more
+- __Relational__ (and therefore not-tidy) data like networks and things - [`ggraph`](https://github.com/thomasp85/ggraph)
 - __Combining__ multiple `ggplots` - [`patchwork`](https://patchwork.data-imaginist.com/) and [`cowplot`](https://wilkelab.org/cowplot/articles/introduction.html)
 - __Super-annotations__ - [`ggforce`](https://github.com/thomasp85/ggforce) and [`ggrepel`](https://github.com/slowkow/ggrepel); [arrows with `geom_curve`](https://bbc.github.io/rcookbook/#add_annotations)
+
+- __'Spatial'__ facets - [`geofacet`]( https://hafen.github.io/geofacet/articles/geofacet.html)
+- Turning __spatial__ polygons into other shapes shapes - [`geogrid`]( https://github.com/jbaileyh/geogrid)
+- The [`{leaflet}` package](https://cran.r-project.org/web/packages/leaflet/leaflet.pdf) in `R` allows you to create and customize __interactive maps__
+    - Look [here](https://rstudio.github.io/leaflet/) for a nice introduction
+- We have only given you a very brief introduction to mapping with `ggplot2` and `sf`, have a look at the [3-part tutorial by Moreno and Basille](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html) for much more
 
 ---
 
@@ -2791,6 +2794,7 @@ knitr::include_graphics("https://github.com/thomasp85/gganimate/raw/master/man/f
 - See our list of [course texts](https://github.com/benmatthewsed/ui-data-visualization-course/blob/master/course_outline.md#course-texts)
 - Thomas Lin Pedersen's [`ggplot2` workshop materials]( https://github.com/thomasp85/ggplot2_workshop) go into __more depth__ than we have here about how the Grammar of Graphics is implemented in `ggplot2`
 - Keiran Healy's [Data Visualization: A practical introduction](https://socviz.co/) goes into more detail about visualization in the context of the __kinds of analysis we do as social scientists__, such as working with results from statistical models
+- For general resources on working with `R` see [this list](https://github.com/benmatthewsed/working-with-admin-data/blob/master/references-reading-list-html.md) from the [SCADR](https://www.scadr.ac.uk/) Working With Administrative Data course
 
 
 ---
@@ -2800,13 +2804,13 @@ knitr::include_graphics("https://github.com/thomasp85/gganimate/raw/master/man/f
 .pull-left[
 - We've covered the __basics__ of data visualization with `ggplot2`, including drawing some excellent maps
 - Hopefully we've convinced you that `ggplot2` is both __powerful__ and __flexible__
-- And that while it might be confusing at first, errors are all part of the learning process. As Keiran Healy says, you have to be ["patient with `R`, and with yourself"](https://socviz.co/gettingstarted.html#be-patient-with-r-and-with-yourself)
+- And that while it might be confusing at first, __errors are all part of the learning process__. As Keiran Healy says, you have to be ["patient with `R`, and with yourself"](https://socviz.co/gettingstarted.html#be-patient-with-r-and-with-yourself)
 - __Go forth and plot!__
 ]
 
 .pull-right[
 
-```{r hadley_plot, out.height = '80%', echo = FALSE, fig.align = "center"}
+```{r hadley_plot, out.width = '80%', echo = FALSE, fig.align = "center"}
 knitr::include_graphics("https://cms.qz.com/wp-content/uploads/2017/06/hadleywickhamchart.jpg")
 
 ```
