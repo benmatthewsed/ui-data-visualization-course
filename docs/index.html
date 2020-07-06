@@ -1920,8 +1920,8 @@ ggplot(
 
 # Advanced - custom colours
 
-- If you want to set colourto a single value, you can use `colour = "#123456"` using the colour [hex-code](https://www.color-hex.com/) or the [name of one of the colours `R` recognises](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
 .pull-left[
+- If you want to set colour to a single value, you can use `colour = "#123456"` using the colour [hex-code](https://www.color-hex.com/) or the [name of one of the colours `R` recognises](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
 - For example, the main colour in the  [Understanding Inequalities](https://www.understanding-inequalities.ac.uk/) logo is `#009dc6`, so I often make plots like
 
 
@@ -1947,7 +1947,7 @@ ggplot(
 ---
 # Advanced - custom colours
 
-- You can __[make your own__ discrete colour scale]((https://ggplot2.tidyverse.org/reference/scale_manual.html#examples)) with `scale_colour_manual()`
+- You can __[make your own__ discrete colour scale](https://ggplot2.tidyverse.org/reference/scale_manual.html#examples) with `scale_colour_manual()`
 - If you want to be really fancy and come up with __your own colour scale__ see this [blog post](https://www.garrickadenbuie.com/blog/custom-discrete-color-scales-for-ggplot2/) about doing just that
 
 .pull-left[
@@ -2073,8 +2073,8 @@ ggplot(
 
 # Adding changing plot labels with `labs()`
 
-- Can also rename your axes here
-- As well as any other `aes`thetic mappings like colour, fill, shape, size...
+- Can also rename your __axes__ here
+- As well as any __other `aes`thetic mappings__ like colour, fill, shape, size...
 
 
 .pull-left[
@@ -2091,6 +2091,7 @@ ggplot(
     x = "Engine displacement",
     y = "Rear axle ratio",
     colour = "Number\nof cylinders"
+    # \n means 'new line'
   )
 ```
 ]
@@ -2197,7 +2198,7 @@ ggplot(
 
 - There are [lots of theme components](https://ggplot2.tidyverse.org/reference/theme.html) that you can adjust
 - I forget what the settings are all the time! So don't worry if this is confusing 👍
-- There are __some important ones__ we won't talk about today, like changing __text size__
+- There are __some important ones__ we __won't__ talk about today, [like changing __text size__](https://ggplot2.tidyverse.org/reference/theme.html)
 - The ones I use the __most__ are...
 
 ---
@@ -2365,22 +2366,10 @@ ggplot(
 ) +
   geom_point()
 ```
-
-```r
-ggplot2::scale_x
-```
-
-```
-## Error: 'scale_x' is not an exported object from 'namespace:ggplot2'
-```
 ]
 
 .pull-right[
 &lt;img src="00-combined_slides_files/figure-html/unnamed-chunk-52-1.png" width="504" /&gt;
-
-```
-## Error: 'scale_x' is not an exported object from 'namespace:ggplot2'
-```
 ]
 
 
@@ -2413,12 +2402,10 @@ ggplot(
 
 # Formatting the scales
 
-- You can use the `labels = ` option to format how the axis labels are displayed...
-- My most common uses are with __dates and times__
-- ... and the `breaks =` argument to set how many axis marks you want
-- See https://scales.r-lib.org/
-
 .pull-left[
+- You can use the `labels = ` option to format how the axis labels are displayed...
+- My most common uses are with __dates and times__, but there are [lots of different options](https://scales.r-lib.org/reference/index.html)
+- (NB we use `scales::label_scientific()` because it's the [recommended](https://github.com/r-lib/scales/) way to call a function from the `{scales}` package)
 
 ```r
 ggplot(
@@ -2497,9 +2484,9 @@ ggplot(
 
 # Saving the plot
 
-- Throughout the session we've just let plots print out in the plots pane
-- Not so convenient if you want to show someone else your work!
-- For [technical reasons I don't understand](https://www.jumpingrivers.com/blog/r-graphics-cairo-png-pdf-saving/) it's best to using the option `type = "cairo-png"` when saving your plot to make it look nice
+- Throughout the session we've just let plots __print__ out in the plots pane
+- Not so convenient if you want to __show someone else your work__!
+
 
 ---
 
@@ -2507,6 +2494,8 @@ ggplot(
 
 .pull-left[
 - First we should save the plot object by __assigning__ it to a name with `&lt;-`
+- Then call `ggsave()`
+- For [technical reasons I don't understand](https://www.jumpingrivers.com/blog/r-graphics-cairo-png-pdf-saving/) it's best to using the option `type = "cairo-png"` when saving your plot to make it look nice
 
 
 ```r
