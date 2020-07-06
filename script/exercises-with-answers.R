@@ -1441,3 +1441,18 @@ ggsave(
   width = 
 )
 
+
+# going further -----------------------------------------------------------
+
+# If you've made it to the end of the exercises, well done!
+# You can use the rest of the time to visualize your own dataset
+
+# OR you can take part in our 'bad plot challenge':
+
+# Using the SIMD dataset we've been working on, and using the skills
+# we've covered in the course, make the *worst* data visualization you can.
+# Think about: inappropriate geoms, hard-to-make comparisons, confusing
+# colour scales, perplexing scale transformations,
+# ugly themes, misleading labelling and uninformative titles.
+# Dig into the ggplot reference manual for extra settings to make your
+# plots even worse data visualizations
