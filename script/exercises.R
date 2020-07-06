@@ -1500,7 +1500,7 @@ ggsave(
 # If you've made it to the end of the exercises, well done!
 # You can use the rest of the time to visualize your own dataset
 
-# OR you can take part in our 'bad plot challenge':
+# OR you can take part in our 'bad plot challenge'*:
 
 # Using the SIMD dataset we've been working on, and using the skills
 # we've covered in the course, make the *worst* data visualization you can.
@@ -1509,3 +1509,5 @@ ggsave(
 # ugly themes, misleading labelling and uninformative titles.
 # Dig into the ggplot reference manual for extra settings to make your
 # plots even worse data visualizations
+
+# * I stole this idea from someone on the internet, but I forget who :S

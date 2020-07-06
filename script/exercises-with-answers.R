@@ -1456,3 +1456,5 @@ ggsave(
 # ugly themes, misleading labelling and uninformative titles.
 # Dig into the ggplot reference manual for extra settings to make your
 # plots even worse data visualizations
+
+# * I stole this idea from someone on the internet, but I forget who :S
