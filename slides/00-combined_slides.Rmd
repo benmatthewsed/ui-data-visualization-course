@@ -2810,11 +2810,11 @@ knitr::include_graphics("https://github.com/thomasp85/gganimate/raw/master/man/f
 
 .pull-right[
 
-```{r hadley_plot, out.width = '80%', echo = FALSE, fig.align = "center"}
+```{r hadley_plot, out.height = '60%', echo = FALSE, fig.align = "center"}
 knitr::include_graphics("https://cms.qz.com/wp-content/uploads/2017/06/hadleywickhamchart.jpg")
 
 ```
-(Picture by Garrett Grolemund and David Kahle)
+<sup>(Picture by Garrett Grolemund and David Kahle)</sup>
 
 ]
 
@@ -2844,5 +2844,7 @@ Ben Matthews<sup>1</sup> and Eilidh Jack<sup>2</sup>
 Course [GitHub repository](https://github.com/benmatthewsed/ui-data-visualization-course)
 
 ]
+
+
 
 `r knitr::include_graphics("https://www.understanding-inequalities.ac.uk/sites/all/themes/theme935/logo.png")`
