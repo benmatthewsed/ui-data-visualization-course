@@ -1442,7 +1442,7 @@ ggsave(
 )
 
 
-# going further -----------------------------------------------------------
+# bad plot challenge -----------------------------------------------------------
 
 # If you've made it to the end of the exercises, well done!
 # You can use the rest of the time to visualize your own dataset
