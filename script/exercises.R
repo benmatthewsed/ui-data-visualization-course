@@ -1453,43 +1453,59 @@ ggplot(
 
 # saving your plots -------------------------------------------------------
 
+# save your ggplot above by assigning it to the plot_to_save using
+# the <- assignment operator
+
 
 plot_to_save <- 
-  ggplot(
-    data = simd,
-    mapping = aes(x = overall, y = crime)
-  ) +
-  geom_point(aes(colour = access)) +
-  theme_dark() +
-  theme(
-    legend.position = "top",
-    axis.text.x = element_text(angle = 45, hjust = 1)
-  )
 
-# save the plot
+
+# save the plot using ggsave()
+# where you save it will depend on the structure of your working
+# directory. If you're not familiar with the term 'working directory'
+# read this chapter for R4DS 
+# https://r4ds.had.co.nz/workflow-projects.html#where-does-your-analysis-live
+
+# use file.path() in the below to save your plot as a png file
+# for extra points, 
+# add extra arguments as necessary to save your plot
+# in a sub-directory called "figures" (you might
+# have to create this yourself)
+# For how to create a sub-directory in R
+# see here - http://theautomatic.net/2018/07/11/manipulate-files-r/
+# ... or for tidyverse file manipulation see here - https://fs.r-lib.org/
+
+
 
 ggsave(
-  filename = file.path("figures", "simd_plot.png"),
+  filename = file.path(" .png"),
   plot = plot_to_save
 )
 
-# now try type = "cairo=png"
+# save the same plot but with a new filename and set
+# type = "cairo-png"
+# does this look different? (The answer may be no!)
+
 
 ggsave(
-  filename = file.path("figures", "simd_plot_cairo.png"),
+  filename = file.path(" .png"),
   plot = plot_to_save,
-  type = "cairo-png"
+  type = 
 )
+
 
 # can't we make the plot bigger?
 # by default height and width are the output size in inches
+# set the output height to be 8 inches and width to be 6 inches
+# again, save this plot with a different name
+
 
 ggsave(
-  filename = file.path("figures", "simd_plot_cairo_big.png"),
-  plot = plot_to_save,
+ 
+  plot = ,
   type = "cairo-png",
-  height = 8, 
-  width = 6
+  height = , 
+  width = 
 )
 
 
